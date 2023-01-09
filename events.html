@@ -1,0 +1,174 @@
+<!DOCTYPE html> 
+<html lang="pl-PL">
+    <head>
+        <meta charset="utf-8">
+        <title>Your organiser - Keep everything under control</title>
+        
+        <meta name="author" content="Kamil Sajdera">
+        <meta http-equiv="X-UA-Compatible" content="IE=wersja">
+        <meta name="viewport" content="width=device-width, inital-scale=1">
+
+        <link rel="shortcut icon" href="img/icon.ico"/>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="responsive.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+
+            <section class="container">
+
+                    <section class="sidebar">
+                            <ul class="sidebar_list">
+
+                                <li class="sidebar_item"> 
+                                    <a href="index.html"> 
+                                    <i class="fa fa-home" aria-hidden="true"></i><span> Dashboard</span></a>
+                                </li>
+
+                                <li class="sidebar_item">
+                                    <a href="toDoList.html">
+                                    <i class="fa fa-tasks" aria-hidden="true"></i><span>  To do list </span></a>
+                                </li>
+
+                                <li class="sidebar_item" style="border-left: 2px solid #31a8b4;
+                                    box-shadow: inset 0px -19px 22px -23px rgb(49 168 180);">
+                                    <a href="events.html">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    <span>Calendar of Events</span></a><span>
+                                </li>
+
+                                <li class="sidebar_item">
+                                    <a href="budget.html">
+                                    <i class="fa fa-dollar"></i>
+                                    <span>Your budget</span></a>
+                                </li>
+                            </ul>
+                    </section>
+
+
+
+
+                    <section class="main_wrapper">
+                            <h1>Your events</h1>
+                            
+                            <section class="calendar_options">
+                                    <div id="previous_month" onclick="previousMonth()">
+                                           <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                                    </div>
+                                    
+
+                                    <div class="current_date">
+                                            <span class="current_d"></span>
+                                    </div>
+
+
+                                    <div id="next_month" onclick="nextMonth()">
+                                            <i class="fa fa-arrow-right" aria-hidden="true"></i> 
+                                    </div>
+                            </section>
+                            
+
+                            <div class="calendar_container">
+
+                                    <section class="days_header">
+                                                <div class="day_header">Mo</div>
+                                                <div class="day_header">Tu</div>
+                                                <div class="day_header">We</div>
+                                                <div class="day_header">Th</div>
+                                                <div class="day_header">Fr</div>
+                                                <div class="day_header">Sa</div>
+                                                <div class="day_header">Su</div>
+                                    </section>
+
+
+                                    <section class="days_items">
+                                                
+                                    </section>
+
+                           </div>
+
+                    </section>
+
+
+
+
+                    <section class="add_task">
+                
+                        <button id="close_task_wrapper" onclick="closeWrapperAddEvent()">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </button>
+
+                        <div class="add_event_wrapper">
+
+                            <h1 id="event_date">Add event</h1>
+                            
+                            <div class="input-group">
+                                <input type="text" id="set_task_title" required class="my_input" maxlength="70">
+                                <label for="set_task_title" class="input_label">Title</label>
+                            </div>
+
+
+                            <div class="input-group">
+                                <textarea id="set_task_desc" required class="my_input" maxlength="150"></textarea>
+                                <label for="set_task_desc" class="input_label">Description</label>
+                            </div>
+
+
+                            <div class="hours">
+                                <div class="from"><b>From:</b> <input type="time" id="hour_from"></div>
+                                <div class="to"><b>To:</b> <input type="time" id="hour_to"></div>
+                            </div>
+
+                            <div class="all_day">
+                                <label class="form-switch">
+                                    <input type="checkbox" id="all_day_input" onclick="eventAllDay()">
+                                    <i></i>
+                                    All Day
+                                </label>
+                            </div>
+
+
+                            <div class="set_event">
+                                <input type="submit" id="set_user_event" style="background: linear-gradient(#8da5a6, #34cbda);" value="Set">
+                            </div>
+
+
+                        </div>
+
+                    </section>
+
+
+                    <section class="details_event">
+                        <button id="close_task_wrapper" onclick="closeWrapperDetailsEvent()">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </button>
+                            <div class="event_details_container">
+                                <div class="d_event_date"></div>
+                                <div class="d_event_title"></div>
+                                <div class="d_event_desc">
+                                </div>
+
+                                <div class="d_event_time">
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                    <span></span>
+                                </div>
+
+                                <div class="remove_event">Remove</div>
+                            </div>
+
+
+                    </section>
+
+
+            </section>
+        
+
+            
+
+    <script src="calendar.js"></script>
+    </body>
+</html>
