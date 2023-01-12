@@ -7,6 +7,16 @@
     .kropeczka {
         right: 35%;
     }
+
+    .add_task_wrapper {
+        width: 75%;
+    }
+
+    .target_details {
+        width: 80%;
+        top: 20px;
+        left: 10%;
+    }
 }
 
 
@@ -62,7 +72,7 @@
     .add_task_wrapper h2 { margin-bottom: 30px; }
     .add_new_task { position: absolute; left: 6%; }
     #close_task_wrapper { right: 20px;  }
-    .det_task_wrapper { width: 40%; }
+    .det_task_wrapper { width: 60%!important; }
 
 
     .add_event_wrapper {
@@ -114,6 +124,7 @@
     {
         width: 46%;
         height: 310px;
+        margin-top: 0;
     }
 
     .budget_container 
@@ -131,6 +142,17 @@
         left: 47.5%;
     }
 
+    .present_day 
+    {
+        padding: 5px 12px;
+        border-bottom: 3px solid #31a8b4;
+    }
+
+    .target_details {
+        width: 60%;
+        top: 20px;
+        left: 20%;
+    }
 
 }
 
@@ -210,7 +232,7 @@
     {
         font-size: 3em;
         letter-spacing: 4px;
-        font-weight: 100;
+        font-weight: 700;
     }
 
     .user_tasks
@@ -246,6 +268,10 @@
         top: 105px;
     }
 
+    .add_task_wrapper
+    {
+        width: 65%;
+    }
 
     .add_event_wrapper
     {
@@ -292,6 +318,7 @@
     {
         width: 48%;
     }
+
 }
 
 @media only screen and (min-width: 1023px)
@@ -332,6 +359,15 @@
     .event_content
     {
         padding-top: 50px;
+    }
+
+    .det_task_wrapper { width: 40%!important; }
+
+
+    .target_details {
+        width: 40%;
+        top: 30px;
+        left: 30%;
     }
 
 }

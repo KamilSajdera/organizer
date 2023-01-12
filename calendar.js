@@ -1,6 +1,10 @@
 const wrapperDays = document.querySelector(".days_items")
 const detailsWrapper = document.querySelector(".details_event");
 
+let title = document.querySelector("#set_task_title"),
+    description = document.querySelector("#set_task_desc"),
+    hFrom = document.querySelector("#hour_from"),
+    hTo = document.querySelector("#hour_to");
 
 document.querySelector("#set_user_event").addEventListener('click', setEvent)
 document.querySelector(".remove_event").addEventListener('click', removeEvent)
@@ -299,6 +303,15 @@ function closeWrapperAddEvent()
 {
     document.querySelector(".add_task").style.display = "none";
     document.querySelector(".add_task").style.opacity = "0";
+
+    title.value = "";
+    description.value = "";
+    hFrom.value = "";
+    hTo.value = "";
+    document.querySelector("#all_day_input").checked = false;
+    document.querySelector(".from input").disabled = false;
+    document.querySelector(".to input").disabled = false;
+    document.querySelector(".hours").style.opacity = "1";
 }
 
 function closeWrapperDetailsEvent()
@@ -338,12 +351,6 @@ function addTaskWrapperOpen()
 
 function setEvent()
 {
-    
-    
-    let title = document.querySelector("#set_task_title").value;
-    let description = document.querySelector("#set_task_desc").value;
-    let hFrom = document.querySelector("#hour_from").value;
-    let hTo = document.querySelector("#hour_to").value;
 
     let allDay;
     if(document.querySelector("#all_day_input").checked)
@@ -353,13 +360,13 @@ function setEvent()
 
         
 
-    tabUserEvents[userEvents] = new userEvent(userEvents, title, description, hFrom, hTo, allDay, userDay, date.getMonth(), date.getFullYear());
+    tabUserEvents[userEvents] = new userEvent(userEvents, title.value, description.value, hFrom.value, hTo.value, allDay, userDay, date.getMonth(), date.getFullYear());
     let datee = new Date().getFullYear() + 4;
     
-    document.cookie = 'userEvent'+userEvents+ '=' + userEvents + ', eventTitle=' + title + ', eventDesc='+ description + ', eventFrom='+ hFrom + ', eventTo='+ hTo + ', eventAll='+ allDay + ', eventDay=' + userDay + ', eventMonth=' + date.getMonth() + ', eventYear=' + date.getFullYear() + '; expires=Thu, 18 Dec '+ datee +' 12:00:00 UTC';
+    document.cookie = 'userEvent'+userEvents+ '=' + userEvents + ', eventTitle=' + title.value + ', eventDesc='+ description.value + ', eventFrom='+ hFrom.value + ', eventTo='+ hTo.value + ', eventAll='+ allDay + ', eventDay=' + userDay + ', eventMonth=' + date.getMonth() + ', eventYear=' + date.getFullYear() + '; expires=Thu, 18 Dec '+ datee +' 12:00:00 UTC';
    
     userEvents++;
-    title = "";
+
     setDays();
     closeWrapperAddEvent();
 

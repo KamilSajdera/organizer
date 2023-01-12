@@ -64,7 +64,9 @@ function userTarget(targetName, currentDeposit, amount, complete)
 
 
 window.addEventListener('load', (event) => {  
+
     showEffects();
+
     loadTasks();
     loadEvents();
     loadTargets();

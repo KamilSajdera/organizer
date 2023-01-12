@@ -119,7 +119,7 @@ function addNewTarget()
     let inputTargetAmount = document.getElementById("inputTargetAmount");
 
 
-    /*if(inputTargetName.value.length < 6)
+    if(inputTargetName.value.length < 6)
     {
         alert("At least 6 characters in title!");
         return;
@@ -135,7 +135,7 @@ function addNewTarget()
     {
         alert("Your amount can't be greater than the cost!");
         return;
-    }*/
+    }
 
     closeNewTarget();
 
