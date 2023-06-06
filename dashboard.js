@@ -76,10 +76,6 @@ const loadData = () => {
 
         userTargets.push(myTarget);
     }
-
-    console.log(userTasks)
-    console.log(tabUserEvents)
-    console.log(userTargets)
 }
 
 const showEffects = () => {
@@ -150,6 +146,15 @@ const dashboard = () => {
         return 0; 
     })
 
+    if(targets == 0)
+        document.querySelector('.budget_graph').innerHTML = '<h4>No goals yet. </h4>';
+    
+    if(events == 0)
+        document.querySelector('.event_content').innerHTML = '<h4 style="color: #000; "> You have no events. </h4>';
+
+    if(tasks == 0)
+        document.querySelector('.tasks_wrapper').innerHTML = '<h4 style="padding: 10px 0;">No tasks yet. </h4>';
+
 
     tabUserEvents.sort((a, b) => {
         const dateA = new Date(a.eventYear, a.eventMonth, a.eventDay);
@@ -176,7 +181,7 @@ const dashboard = () => {
 
     z = 0;
     i = 0;
-    while(z < 5 && z < events-1) {
+    while(z < 5 && z < events) {
         if(tabUserEvents[i].display) {
             let li = document.createElement('li');
             wrapperEvents.appendChild(li);
@@ -198,7 +203,7 @@ const dashboard = () => {
     i = 0;
     let budgetPercent;
 
-    while(z < 4 && z < targets-1) {  
+    while(z < 4 && z < targets) {  
         if(userTargets[i].complete == 0) {
                 budgetPercent = userTargets[i].currentDeposit/userTargets[i].amount * 100;
                 let li = document.createElement('li');
