@@ -17,27 +17,29 @@ let opc = 1;
 let opacity = 1;
 
 let userDay;
-let userEvents = occurrences(document.cookie, "userEvent")
+let userEvents = 0;
 
-var date = new Date();
-let actualDay = 0;
+let date = new Date(); 
+let actualDay;
 
-const tabUserEvents = new Array();
+const tabUserEvents = [] 
 
-function userEvent(id, eventTitle, eventDesc, eventFrom, eventTo, allDay, eventDay, eventMonth, eventYear)
-{
-    this.id = id;
-    this.eventTitle = eventTitle;
-    this.eventDesc = eventDesc;
-    this.eventFrom = eventFrom;
-    this.eventTo = eventTo;
-    this.allDay = allDay;
-    this.eventDay = eventDay;
-    this.eventMonth = eventMonth;
-    this.eventYear = eventYear;
+class userEvent {
+    constructor(id, eventTitle, eventDesc, eventFrom, eventTo, allDay, eventDay, eventMonth, eventYear, display) {
+        this.id = id;
+        this.eventTitle = eventTitle;
+        this.eventDesc = eventDesc;
+        this.eventFrom = eventFrom;
+        this.eventTo = eventTo;
+        this.allDay = allDay;
+        this.eventDay = eventDay;
+        this.eventMonth = eventMonth;
+        this.eventYear = eventYear;
+        this.display = display
+    }
 }
 
-let allMonths = [
+const allMonths = [ 
     "January",
     "February",
     "March",
@@ -54,86 +56,33 @@ let allMonths = [
 
 
 window.addEventListener('load', (event) => {  
+
+    const localStorageData = Object.keys(localStorage).map(key => ({ key, value: localStorage.getItem(key) }));
+
+    for(let i = 0; i<localStorageData.length; i++) {
+        if(localStorageData[i].key.includes('userEvent'))
+            userEvents++;
+    }
+
     loadEvents();
     document.querySelector(".current_d").innerHTML = allMonths[date.getMonth()] + " " + date.getFullYear();
 });
 
 
-function loadEvents()
-{
-    let cookieTitle,
-        cookieDescription,
-        cookieHFrom,
-        cookieHTo,
-        cookieAllDay,
-        cookieUserDay,
-        cookieMonth,
-        cookieYear;
+const loadEvents = () => {
+    for(let i = 0; i<userEvents; i++) {
+        const jsonString = localStorage.getItem(`userEvent${i}`);
+        const myEvent = JSON.parse(jsonString);
 
-    for(var i=0; i < userEvents ; i++)
-    {
-        cookie = getCookie("userEvent"+i);
-        
-        cookieTitle = setWorld("eventTitle", "eventDesc" , 1)
-        cookieDescription = setWorld("eventDesc", "eventFrom" , 2)
-        cookieHFrom = setWorld("eventFrom", "eventTo" , 2)
-        cookieHTo = setWorld("eventTo", "eventAll" , 5)
-        cookieAllDay = setWorld("eventAll", "eventDay" , 3)
-        cookieUserDay = setWorld("eventDay", "eventMonth" , 3)
-        cookieMonth= setWorld("eventMonth", "eventYear" , 1)
-        cookieYear = setWorld("eventYear", ";" , 4)
-
-        tabUserEvents[i] = new userEvent(i, cookieTitle, cookieDescription, cookieHFrom, cookieHTo, cookieAllDay, cookieUserDay, cookieMonth, cookieYear);
+        tabUserEvents.push(myEvent)
     }
 
     writeDays(); 
 }
 
-function setWorld(x, y, z)
-{
-    let index1, index2;
-    let world;
-   
-    index1 = cookie.indexOf(x);
-    index2 = cookie.indexOf(y);
+const writeDays = () => {
 
-    switch(z)
-    {
-        case 1: 
-        {
-            world = cookie.substring(index1+11, index2-2);
-            break;
-        }
-        case 2:
-        {
-            world = cookie.substring(index1+10, index2-2);
-            break;
-        }
-        case 3:
-        {
-            world = cookie.substring(index1+9, index2-2);
-            break;
-        }
-        case 4:
-        {
-            world= cookie.substr(index1+10)
-            break;
-        }
-
-        case 5:
-        {
-            world = cookie.substring(index1+8, index2-2);
-            break;
-        }
-
-    }
-
-    return world;
-}
-
-function writeDays()
-{
-    for(var i=0; i<42; i++)
+    for(let i=0; i<42; i++) 
     {
         let div = document.createElement("div");
         wrapperDays.appendChild(div);
@@ -143,9 +92,8 @@ function writeDays()
     setDays();
 }
 
+const previousMonth = () => {
 
-
-function previousMonth () {
     date = new Date(date.getFullYear(), date.getMonth() - 1, 1);
     document.querySelector("#previous_month").setAttribute("onclick",";");
 
@@ -154,34 +102,11 @@ function previousMonth () {
       }, "0500")
 
 
-      intervalHideDays = setInterval(() => {
-          opacity -= 0.1;
-          if(opacity <= 0)
-              clearInterval(intervalHideDays);
-        
-              document.querySelector(".days_items").style.opacity = opacity;
-  
-        }, 1000/120);
-  
-        setTimeout(() => {
-                  setDays();
-                  intervalShowDays = setInterval(() => {
-                      opacity += 0.1;
-                  
-                      if(opacity >= 1)
-                          clearInterval(intervalShowDays);
-              
-                    document.querySelector(".days_items").style.opacity = opacity;
-              
-                  }, 1000/120);
-          
-        }, "0150")
-        
+    updateCalendarAnimation();        
 }
 
+const nextMonth = () => {
 
-    
-function nextMonth () {
     date = new Date(date.getFullYear(), date.getMonth() + 1, 1);
     document.querySelector("#next_month").setAttribute("onclick",";");
     
@@ -189,38 +114,36 @@ function nextMonth () {
         document.querySelector("#next_month").setAttribute("onclick","nextMonth()");
       }, "0500")
 
-    
-
-      intervalHideDays = setInterval(() => {
-            opacity -= 0.1;
-            if(opacity <= 0)
-              clearInterval(intervalHideDays);
-  
-            document.querySelector(".days_items").style.opacity = opacity;
-  
-        }, 1000/120);
-  
-  
-        setTimeout(() => {
-                  setDays();
-                  intervalShowDays = setInterval(() => {
-                    opacity += 0.1;
-
-                    if(opacity >= 1)
-                        clearInterval(intervalShowDays);
-                    
-                    document.querySelector(".days_items").style.opacity = opacity;
-              
-                  }, 1000/120);
-          
-        }, "0150")
-        
-      
-
+    updateCalendarAnimation()
 }
 
+const updateCalendarAnimation = () => {
 
-function setDays() {
+    intervalHideDays = setInterval(() => {
+        opacity -= 0.1;
+        if(opacity <= 0)
+            clearInterval(intervalHideDays);
+      
+            document.querySelector(".days_items").style.opacity = opacity;
+
+      }, 1000/120);
+
+      setTimeout(() => {
+                setDays();
+                intervalShowDays = setInterval(() => {
+                    opacity += 0.1;
+                
+                    if(opacity >= 1)
+                        clearInterval(intervalShowDays);
+            
+                  document.querySelector(".days_items").style.opacity = opacity;
+            
+                }, 1000/120);
+        
+      }, "0150")
+}
+
+const setDays = () => {
    
     const   myDay       = document.querySelectorAll('.day_item');
     const   firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -264,8 +187,8 @@ function setDays() {
     intervalHideCurrentDate = setInterval(fadeOut, 1000/120) 
 }
 
-function fadeOut()
-{
+const fadeOut = () => {
+
     opc-=0.1;
     if(opc<=0)
     {
@@ -278,14 +201,13 @@ function fadeOut()
     document.querySelector(".current_d").style.opacity = opc;
 }
 
-function changeCurrentDate()
-{
+const changeCurrentDate = () => {
     document.querySelector(".current_d").innerHTML = allMonths[date.getMonth()] + " " + date.getFullYear();
     intervalShowCurrentDate = setInterval(fadeIn, 1000/120)
 }
 
-function fadeIn()
-{
+const fadeIn = () => {
+
     opc+=0.1;
     if(opc>=1)
     {
@@ -298,9 +220,8 @@ function fadeIn()
     
 }
 
+const closeWrapperAddEvent = () => {
 
-function closeWrapperAddEvent()
-{
     document.querySelector(".add_task").style.display = "none";
     document.querySelector(".add_task").style.opacity = "0";
 
@@ -314,14 +235,13 @@ function closeWrapperAddEvent()
     document.querySelector(".hours").style.opacity = "1";
 }
 
-function closeWrapperDetailsEvent()
-{
+const closeWrapperDetailsEvent = () => {
     document.querySelector(".details_event").style.display = "none";
     document.querySelector(".details_event").style.opacity = "0";
 }
 
-function eventAllDay()
-{
+const eventAllDay = () => {
+
     if(document.querySelector("#all_day_input").checked)
     {
         document.querySelector(".hours").style.opacity = "0.5";
@@ -336,8 +256,7 @@ function eventAllDay()
     }
 }
 
-function addTaskWrapperOpen()
-{
+function addTaskWrapperOpen() {
     document.querySelector(".add_task").style.display = "block";
     document.querySelector(".add_task").style.opacity = "1";
     
@@ -348,32 +267,31 @@ function addTaskWrapperOpen()
     document.querySelector("#event_date").innerHTML = syntax;
 }
 
-
-function setEvent()
-{
+function setEvent() {
 
     let allDay;
     if(document.querySelector("#all_day_input").checked)
-        allDay = 1;
+        allDay = true;
     else 
-        allDay = 0;
+        allDay = false;
 
-        
-
-    tabUserEvents[userEvents] = new userEvent(userEvents, title.value, description.value, hFrom.value, hTo.value, allDay, userDay, date.getMonth(), date.getFullYear());
-    let datee = new Date().getFullYear() + 4;
+    tabUserEvents[userEvents] = new userEvent(userEvents, title.value, description.value, hFrom.value, hTo.value, allDay, userDay, date.getMonth(), date.getFullYear(), true);
     
-    document.cookie = 'userEvent'+userEvents+ '=' + userEvents + ', eventTitle=' + title.value + ', eventDesc='+ description.value + ', eventFrom='+ hFrom.value + ', eventTo='+ hTo.value + ', eventAll='+ allDay + ', eventDay=' + userDay + ', eventMonth=' + date.getMonth() + ', eventYear=' + date.getFullYear() + '; expires=Thu, 18 Dec '+ datee +' 12:00:00 UTC';
-   
+    const eventToSave = {
+       ...tabUserEvents[userEvents]
+    };
+
+    let jsonString = JSON.stringify(eventToSave)
+    localStorage.setItem(`userEvent${userEvents}`, jsonString)
+
     userEvents++;
 
     setDays();
     closeWrapperAddEvent();
-
 }
 
-function showDetails()
-{
+function showDetails() {
+    
     let i = isEventThen(this.innerText, date.getMonth(), date.getFullYear(), 1)
 
     let dDate = document.querySelector(".d_event_date");
@@ -388,91 +306,47 @@ function showDetails()
     dTitle.innerHTML = tabUserEvents[i].eventTitle;
     dDesc.innerHTML = tabUserEvents[i].eventDesc;
 
-    if(tabUserEvents[i].allDay == 1)
-        dTime.innerText = "All day";
-    else 
-    dTime.innerText = tabUserEvents[i].eventFrom + " - " + tabUserEvents[i].eventTo;
+    dTime.innerText = tabUserEvents[i].allDay ? 'All day' : tabUserEvents[i].eventFrom + " - " + tabUserEvents[i].eventTo;
 
-    actualDay = this.innerText;
-    
+    actualDay = this.innerText; 
 }
 
+function removeEvent() {
 
-function removeEvent()
-{
-    let datee = new Date().getFullYear() + 4;
     let i = isEventThen(actualDay, date.getMonth(), date.getFullYear(), 1)
-    document.cookie = 'userEvent'+i+ '=' + i + '; expires=Thu, 18 Dec '+ datee +' 12:00:00 UTC';
-    location.reload();
-    
+
+    const eventToRemove = {
+        ...tabUserEvents[i],
+        display: false
+     };
+
+    const jsonString = JSON.stringify(eventToRemove)
+    localStorage.setItem(`userEvent${i}`, jsonString)
+
+    location.reload();   
 }
 
-function isEventThen(dayy, monthh, yearr, option)
-{
+function isEventThen(dayy, monthh, yearr, option) {
 
     if(tabUserEvents.length <=0)
         return;
 
-    var i = 0;
+    let i = 0;
 
-    do
-    {
-        
-        if(tabUserEvents[i].eventDay == dayy && tabUserEvents[i].eventMonth == monthh && tabUserEvents[i].eventYear == yearr)
+    do {
+        if(tabUserEvents[i].eventDay == dayy && tabUserEvents[i].eventMonth == monthh && tabUserEvents[i].eventYear == yearr && tabUserEvents[i].display)
         {
-            switch(option)
-            {
-                case 0:
-                {
+            switch(option) {
+                case 0: {
                     return true;
                 }
-                case 1:
-                {
+                case 1: {
                     return i
                 }
-
-            }
-           
+            }    
         }
         i++
         
     } while(i < tabUserEvents.length)
 
 }  
-
-
-function getCookie(cname) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return "none";
-}
-
-function occurrences(string, subString, allowOverlapping) {
-
-    string += "";
-    subString += "";
-    if (subString.length <= 0) return (string.length + 1);
-
-    var n = 0,
-        pos = 0,
-        step = allowOverlapping ? 1 : subString.length;
-
-    while (true) {
-        pos = string.indexOf(subString, pos);
-        if (pos >= 0) {
-            ++n;
-            pos += step;
-        } else break;
-    }
-    return n;
-}
