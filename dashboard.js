@@ -1,8 +1,8 @@
 const pageTitle = document.querySelector(".title_dashboard");
 const pageDescription = document.querySelector(".p_dashboard");
 const myEvent = document.querySelector(".closest_event");
-const myBudget = document.querySelector(".budget_container");
 const myTasks = document.querySelector(".closest_tasks");
+const dashboardItems = document.querySelectorAll('.dashboard-item')
 
 
 let taskId = 0,
@@ -32,6 +32,21 @@ let opc = 0,
 const userTasks = [];
 const tabUserEvents = [];
 const userTargets = [];
+
+const allMonths = [ 
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+];
 
 window.addEventListener('load', (event) => {  
 
@@ -64,10 +79,24 @@ const loadData = () => {
     }
 
     for(let i = 0; i<events; i++) {
+        const currentDate = new Date();
+       
         const jsonString = localStorage.getItem(`userEvent${i}`);
         const myEvent = JSON.parse(jsonString);
 
-        tabUserEvents.push(myEvent)
+        const eventDate = new Date(myEvent.eventYear, myEvent.eventMonth, myEvent.eventDay)
+
+        if(eventDate >= currentDate || isSameDay(eventDate, currentDate))
+            tabUserEvents.push(myEvent)
+        else {
+            const modifiedEvent = {
+                ...myEvent,
+                display: false
+            }
+            tabUserEvents.push(modifiedEvent)
+        }
+
+        
     }
 
     for(let i = 0; i<targets; i++) {
@@ -76,6 +105,14 @@ const loadData = () => {
 
         userTargets.push(myTarget);
     }
+}
+
+function isSameDay(date1, date2) {
+    return (
+        date1.getDate() === date2.getDate() &&
+        date1.getMonth() === date2.getMonth() &&
+        date1.getFullYear() === date2.getFullYear()
+    );
 }
 
 const showEffects = () => {
@@ -90,52 +127,58 @@ const showEffects = () => {
                 pageDescription.style.opacity = opc;
 
         }, 1);
-    }, 0150);
+    }, 150);
 
-
+    
     setTimeout(() => {
         interval2 = setInterval(() => {
-                if(trans2-- == 0)
+                if(opc2 >= 1)
                         clearInterval(interval2)  
                 
-                opc2+= 0.0099;
-                myEvent.style.transform = "translateX(" + trans2 + "px)";        
-                myEvent.style.opacity = opc2;
+                opc2+= 0.0099;      
+                dashboardItems[0].style.opacity = opc2;
         }, 1);
-    }, 0850);
-
+    }, 750);
 
     setTimeout(() => {
-        interval3 = setInterval(() => {
-                if(trans3++ == 0)
+       interval3 = setInterval(() => {
+                if(opc3 >= 1)
                         clearInterval(interval3)  
                 
-                opc3+= 0.0099;
-                myBudget.style.transform = "translateX(" + trans3 + "px)";        
-                myBudget.style.opacity = opc3;
+                opc3+= 0.0099;      
+                dashboardItems[1].style.opacity = opc3;
         }, 1);
-    }, 0450);
-
+    }, 1000);
 
     setTimeout(() => {
         interval4 = setInterval(() => {
-                opc4+= 0.01;
-                if(opc4 >= 1)
-                        clearInterval(interval4)  
-        
-                myTasks.style.opacity = opc4;
-        }, 1);
-    }, 1100);
+                 if(opc4 >= 1)
+                         clearInterval(interval4)  
+                 
+                 opc4+= 0.0099;      
+                 dashboardItems[2].style.opacity = opc4;
+         }, 1);
+     }, 1250);
 
 }
 
 const dashboard = () => {
-    const wrapperTasks = document.querySelector(".print_tasks"),
-        wrapperEvents = document.querySelector(".print_events"),
-        wrapperTargets = document.querySelector(".budget_graph ul");
 
     let i = 0,
         z = 0;
+
+    let budgetPercent = 0;
+
+
+    if(events == 0)
+        document.querySelectorAll('.dashboard-item')[0].innerHTML = '<h2>You have no events.  </h2>';
+    
+    if(targets == 0)
+        document.querySelectorAll('.dashboard-item')[1].innerHTML = '<h2>No goals yet.</h2>';
+
+    if(tasks == 0)
+        document.querySelectorAll('.dashboard-item')[2].innerHTML = '<h2>No tasks yet. </h2>';
+
 
     userTasks.sort((a, b) => {
         const dateA = new Date(a.taskDate);
@@ -145,16 +188,6 @@ const dashboard = () => {
         if (dateA > dateB) return 1;
         return 0; 
     })
-
-    if(targets == 0)
-        document.querySelector('.budget_graph').innerHTML = '<h4>No goals yet. </h4>';
-    
-    if(events == 0)
-        document.querySelector('.event_content').innerHTML = '<h4 style="color: #000; "> You have no events. </h4>';
-
-    if(tasks == 0)
-        document.querySelector('.tasks_wrapper').innerHTML = '<h4 style="padding: 10px 0;">No tasks yet. </h4>';
-
 
     tabUserEvents.sort((a, b) => {
         const dateA = new Date(a.eventYear, a.eventMonth, a.eventDay);
@@ -166,12 +199,23 @@ const dashboard = () => {
         
     })
 
-    while(z < 3 && z < tasks) {    
+    dashboardItems[2].appendChild(document.createElement('ul'))
+    while(z < 5 && z < tasks) {    
+        const wrapperTasks = document.querySelector('.dashboard-item ul')
         if(userTasks[i].taskActive == 1) {
             let li = document.createElement('li');
             wrapperTasks.appendChild(li);
 
-            li.innerHTML = `<div class="wrapper_t_title"> ${userTasks[i].taskTitle} </div> <div class="wrapper_t_date"> ${userTasks[i].taskDate}  </div>`;
+            li.innerHTML = `<p>${userTasks[i].taskTitle}</p>
+                            <h5>${userTasks[i].taskDate}</h5>`
+
+            if(userTasks[i].taskPriority == "High")
+                wrapperTasks.lastChild.classList.add('shadow-red')
+            else if(userTasks[i].taskPriority == "Mid")
+                wrapperTasks.lastChild.classList.add('shadow-orange')
+            else 
+                wrapperTasks.lastChild.classList.add('shadow-green')
+
             z++;
         }
         
@@ -181,41 +225,43 @@ const dashboard = () => {
 
     z = 0;
     i = 0;
-    while(z < 5 && z < events) {
-        if(tabUserEvents[i].display) {
-            let li = document.createElement('li');
-            wrapperEvents.appendChild(li);
 
-            let liSyntax = `${tabUserEvents[i].eventTitle} - <span style="color: rgb(54, 52, 52);"> 
-                            ${tabUserEvents[i].eventDay < 10 ? '0' : ''}${tabUserEvents[i].eventDay}
-                            / ${tabUserEvents[i].eventMonth+1 < 10 ? '0' : ''}${tabUserEvents[i].eventMonth+1}
-                            / ${tabUserEvents[i].eventYear} 
-                            </span>`
-            li.innerHTML = liSyntax;
-            z++; 
+   
+
+    while(z < 4 && z < events) {
+        
+        if(tabUserEvents[i].display) {
+                let div = document.createElement('div');
+                dashboardItems[0].appendChild(div);
+                dashboardItems[0].lastChild.classList.add("event-item")
+
+                let liSyntax = `<p>${tabUserEvents[i].eventTitle}</p>
+                                <h1>${tabUserEvents[i].eventDay}</h1>
+                                <h3>${allMonths[tabUserEvents[i].eventMonth]}</h3>`
+                div.innerHTML = liSyntax;
+                z++; 
         }
 
         i++;
     }
 
-
     z = 0;
     i = 0;
-    let budgetPercent;
 
-    while(z < 4 && z < targets) {  
+    while(z < 3 && z < targets) {  
+
         if(userTargets[i].complete == 0) {
                 budgetPercent = userTargets[i].currentDeposit/userTargets[i].amount * 100;
-                let li = document.createElement('li');
-                wrapperTargets.appendChild(li);
+                let div = document.createElement('div');
+                dashboardItems[1].appendChild(div);
+                dashboardItems[1].lastChild.classList.add("budget-item")
     
-                let liSyntax = `<div class="graph_title">
-                                    ${userTargets[i].targetName} - ${Math.floor(budgetPercent)}% 
-                                </div>
-                                <div class="graph_width">
-                                    <div class="graph_progress" style="width: ${Math.floor(budgetPercent)}%;"></div>
-                                </div>`;
-                li.innerHTML = liSyntax;
+                let liSyntax = `<h3 class="budget_title">${userTargets[i].targetName}</h3>
+                <div class="graph_width">
+                    <div class="graph_progress" style="width: ${Math.round(budgetPercent)}%;"></div>
+                </div>
+                <div class="graph_percent">${Math.round(budgetPercent)}%</div>`;
+                div.innerHTML = liSyntax;
                 z++;
         }
         i++                               

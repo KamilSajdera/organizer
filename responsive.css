@@ -4,10 +4,6 @@
         width: 80%;
     }
 
-    .kropeczka {
-        right: 35%;
-    }
-
     .add_task_wrapper {
         width: 75%;
     }
@@ -55,7 +51,7 @@
     }
 
     .item_desc p {
-        color: #989292;
+        color: #a4a4a4;
         padding-top: 5px;
         font-size: 14px;
     }
@@ -99,22 +95,6 @@
         width: 90%;
     }
 
-    .day_item {
-        padding-bottom: 10%;
-        aspect-ratio: 1;
-    }
-
-    .kropeczka 
-    {
-        top: 15px;
-        right: 6px;
-    }
-
-    .sidebar_item a span
-    {
-        display: inline;
-    }
-
     .main_dashboard 
     {
         flex-direction: row;
@@ -142,16 +122,23 @@
         left: 47.5%;
     }
 
-    .present_day 
-    {
-        padding: 5px 12px;
-        border-bottom: 3px solid #31a8b4;
-    }
-
     .target_details {
         width: 60%;
         top: 20px;
         left: 20%;
+    }
+
+    .budget-item {
+        width: 65%;
+    }
+
+    .event-item {
+        width: 35%;
+        margin: 13px 7.5%;
+    }
+
+    .dashboard-item ul li h5 {
+        bottom: 23px;
     }
 
 }
@@ -183,7 +170,7 @@
     {
         font-weight: 700;
         padding: 35px 0;
-        border-bottom: 1px solid #179f9b21;
+        border-bottom: 1px solid #1c2838;
         transition: .5s cubic-bezier(0.445, 0.05, 0.55, 0.95);
         border-left: 4px solid transparent;
 
@@ -202,7 +189,7 @@
     {
         display: block;
         content: '';
-        border-bottom: solid 3px #019fb6;
+        border-bottom: solid 2px #5d6f90;
         transition: transform 250ms ease-in-out;
         text-align: center;
         transform: scale(0);
@@ -219,6 +206,10 @@
         border-bottom: none;
     }
 
+    .sidebar_item a span
+    {
+        display: inline;
+    }
 
 
     .main_wrapper 
@@ -288,7 +279,7 @@
     }
 
     .calendar_options {
-        width: 90%;
+        width: 60%;
     }
 
     #previous_month,
@@ -336,10 +327,6 @@
         width: 35%;
     }
 
-    .kropeczka 
-    {
-        right: 12px;
-    }
 
     .sidebar_item a b
     {
@@ -370,14 +357,26 @@
         left: 30%;
     }
 
+    .dashboard-item  {
+        border-left: 3px solid #465170;
+        border-bottom: none;
+        justify-content: flex-start;
+        padding-bottom: 0px;
+    }
+
+    .budget-item {
+        width: 27%;
+    }
+    .event-item {
+        width: 20%;
+        height: 280px;
+        margin: 0 2.5%;
+    }
+
 }
 
 @media only screen and (min-width: 1250px)
 {
-    .kropeczka {
-        top: 15px;
-    }
-
     .closest_event
     {
         width: 30%;
@@ -391,5 +390,14 @@
     .budget_item
     {
         width: 32%;
+    }
+
+    .add_task_wrapper {
+        width: 50%;
+    }
+
+    .event-item {
+        width: 18%;
+        margin-inline: 3.5%;
     }
 }

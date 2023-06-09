@@ -151,12 +151,14 @@ const setDays = () => {
     const   day      = firstDay.getDay() ? firstDay.getDay()-1 : 6;
     let dzien = 1;
 
+    let dayOfPreviousMonth = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+    let dayOfNextMonth = 1;
 
     for (let i = 0; i < myDay.length; i++) {
 
             myDay[i].removeEventListener('click', addTaskWrapperOpen)
             myDay[i].removeEventListener('click', showDetails)
-            myDay[i].classList.remove("ready")
+            myDay[i].classList.remove("ready", "noneDays")
 
             if(i>=day && dzien<=lastDay.getDate())
             {
@@ -168,7 +170,7 @@ const setDays = () => {
 
                 if(isEventThen(myDay[i].innerText, date.getMonth(), date.getFullYear(), 0) == true)
                 {
-                    myDay[i].innerHTML += '<div class="kropeczka"></div>';
+                    myDay[i].innerHTML += '<div class="eventInDay"></div>';
                     myDay[i].removeEventListener('click', addTaskWrapperOpen)
                     myDay[i].addEventListener('click', showDetails)
                 }
@@ -176,14 +178,25 @@ const setDays = () => {
                 dzien++
                 
             }
-            else
-                myDay[i].innerHTML = ""
+            else if(i<day) {
+                dayOfPreviousMonth++ 
+                myDay[i].innerHTML = dayOfPreviousMonth - day;
+                myDay[i].classList.add("noneDays") 
+                 
+            }
+            else {
+                myDay[i].innerHTML = dayOfNextMonth++;
+                myDay[i].classList.add("noneDays")
+            }
+                
+                
 
             if (i>=35) 
                 myDay[i].style.display =  (day+dzien-1<36) ?  'none' : '';      
                 
         }
  
+        console.log(day)
     intervalHideCurrentDate = setInterval(fadeOut, 1000/120) 
 }
 

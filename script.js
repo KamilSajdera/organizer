@@ -62,8 +62,8 @@ const toDoList = item => {
     userTasksWrapper.appendChild(li);
 
     let liSyntax = `<div class="item_icon"> <i class="fa fa-superpowers" aria-hidden="true"></i></div>
-                    <div class="item_desc"><h3> ${userTasks[item].taskTitle} </h3><p>Priority: <b> ${userTasks[item].taskPriority} </b> | Until when: <span class="pokemon"> ${userTasks[item].taskDate} </span></p></div>
-                    <div class="item_settings"> <i class="fa fa-question-circle" aria-hidden="true" id="show_details" onclick="showDetails(${item})"><span class="tooltiptext" style="background-color: #22c6bf;">Show details</span></i><i class="fa fa-trash" aria-hidden="true" id="remove_task" onclick="removeTask(this,${item})"><span class="tooltiptext" style="background-color: #d11e1e;">Remove task</span></i></div>`
+                    <div class="item_desc"><h3> ${userTasks[item].taskTitle} </h3><p>Priority: <b class="${userTasks[item].taskPriority.toLowerCase()}"> ${userTasks[item].taskPriority} </b> | Until when: <span class="pokemon"> ${userTasks[item].taskDate} </span></p></div>
+                    <div class="item_settings"> <i class="fa fa-info-circle" aria-hidden="true" id="show_details" onclick="showDetails(${item})"><span class="tooltiptext" style="background-color: #22c6bf;">Show details</span></i><i class="fa fa-trash" aria-hidden="true" id="remove_task" onclick="removeTask(this,${item})"><span class="tooltiptext" style="background-color: #d11e1e;">Remove task</span></i></div>`
     
     li.innerHTML = liSyntax;
     userTasksWrapper.lastChild.classList.add('item_task', `border_${userTasks[item].taskPriority.toLowerCase()}`);
