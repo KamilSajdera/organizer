@@ -258,9 +258,9 @@ const dashboard = () => {
     
                 let liSyntax = `<h3 class="budget_title">${userTargets[i].targetName}</h3>
                 <div class="graph_width">
-                    <div class="graph_progress" style="width: ${Math.round(budgetPercent)}%;"></div>
+                    <div class="graph_progress" style="width: ${Math.floor(budgetPercent)}%;"></div>
                 </div>
-                <div class="graph_percent">${Math.round(budgetPercent)}%</div>`;
+                <div class="graph_percent">${Math.floor(budgetPercent)}%</div>`;
                 div.innerHTML = liSyntax;
                 z++;
         }
