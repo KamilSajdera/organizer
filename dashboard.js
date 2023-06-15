@@ -4,14 +4,9 @@ const myEvent = document.querySelector(".closest_event");
 const myTasks = document.querySelector(".closest_tasks");
 const dashboardItems = document.querySelectorAll('.dashboard-item')
 
-
-let taskId = 0,
-    userEvents = 0,
-    targetId = 0
-
-let events = 0;
-let tasks = 0;
-let targets = 0;
+let eventsStorage = 0,
+    tasksStorage = 0,
+    targetsStorage = 0;
 
 let interval,
     interval2,
@@ -26,8 +21,6 @@ let opc = 0,
     opc2 = 0,
     opc3 = 0,
     opc4 = 0;
-
-
 
 const userTasks = [];
 const tabUserEvents = [];
@@ -53,32 +46,32 @@ window.addEventListener('load', (event) => {
     const localStorageData = Object.keys(localStorage).map(key => ({ key, value: localStorage.getItem(key) }));
 
     for(let i = 0; i<localStorageData.length; i++) {
-        if(localStorageData[i].key.includes('taskId'))
-            tasks++;
-
-        if(localStorageData[i].key.includes('userTarget'))
-            targets++;
-
-        if(localStorageData[i].key.includes('userEvent'))
-            events++;  
+        if(localStorageData[i].key.includes('taskId')) 
+            tasksStorage++;
+            
+        if(localStorageData[i].key.includes('userTarget')) 
+            targetsStorage++;
+            
+        if(localStorageData[i].key.includes('userEvent')) 
+            eventsStorage++;          
     }
 
     showEffects();
-
     loadData();
     dashboard();
 });
 
 const loadData = () => {
 
-    for(let i = 0; i<tasks; i++) {
+    for(let i = 0; i<tasksStorage; i++) {
         const jsonString = localStorage.getItem(`taskId${i}`);
         const myObject = JSON.parse(jsonString);
 
-        userTasks.push(myObject)
+        if(myObject.taskActive)
+            userTasks.push(myObject)
     }
 
-    for(let i = 0; i<events; i++) {
+    for(let i = 0; i<eventsStorage; i++) {
         const currentDate = new Date();
        
         const jsonString = localStorage.getItem(`userEvent${i}`);
@@ -86,33 +79,17 @@ const loadData = () => {
 
         const eventDate = new Date(myEvent.eventYear, myEvent.eventMonth, myEvent.eventDay)
 
-        if(eventDate >= currentDate || isSameDay(eventDate, currentDate))
-            tabUserEvents.push(myEvent)
-        else {
-            const modifiedEvent = {
-                ...myEvent,
-                display: false
-            }
-            tabUserEvents.push(modifiedEvent)
-        }
-
-        
+        if(myEvent.display && eventDate >= currentDate || isSameDay(eventDate, currentDate))
+            tabUserEvents.push(myEvent)   
     }
 
-    for(let i = 0; i<targets; i++) {
+    for(let i = 0; i<targetsStorage; i++) {
         const jsonString = localStorage.getItem(`userTarget${i}`)
         const myTarget = JSON.parse(jsonString);
 
-        userTargets.push(myTarget);
+        if(myTarget.complete == 0)
+            userTargets.push(myTarget);
     }
-}
-
-function isSameDay(date1, date2) {
-    return (
-        date1.getDate() === date2.getDate() &&
-        date1.getMonth() === date2.getMonth() &&
-        date1.getFullYear() === date2.getFullYear()
-    );
 }
 
 const showEffects = () => {
@@ -164,19 +141,16 @@ const showEffects = () => {
 
 const dashboard = () => {
 
-    let i = 0,
-        z = 0;
-
+    let currentItems = 0;
     let budgetPercent = 0;
 
-
-    if(events == 0)
+    if(tabUserEvents.length == 0)
         document.querySelectorAll('.dashboard-item')[0].innerHTML = '<h2>You have no events.  </h2>';
     
-    if(targets == 0)
+    if(userTargets.length == 0)
         document.querySelectorAll('.dashboard-item')[1].innerHTML = '<h2>No goals yet.</h2>';
 
-    if(tasks == 0)
+    if(userTasks.length == 0)
         document.querySelectorAll('.dashboard-item')[2].innerHTML = '<h2>No tasks yet. </h2>';
 
 
@@ -200,9 +174,12 @@ const dashboard = () => {
     })
 
     dashboardItems[2].appendChild(document.createElement('ul'))
-    while(z < 5 && z < tasks) {    
+    for(let i=0; i<userTasks.length; i++) {
+        
+        if(currentItems>=5)
+            continue;
+            
         const wrapperTasks = document.querySelector('.dashboard-item ul')
-        if(userTasks[i].taskActive == 1) {
             let li = document.createElement('li');
             wrapperTasks.appendChild(li);
 
@@ -216,55 +193,56 @@ const dashboard = () => {
             else 
                 wrapperTasks.lastChild.classList.add('shadow-green')
 
-            z++;
-        }
-        
-        i++;      
+            currentItems++;     
     }
 
 
-    z = 0;
-    i = 0;
+    currentItems = 0;
 
-   
+    for(let i = 0; i<tabUserEvents.length; i++) {
 
-    while(z < 4 && z < events) {
+        if(currentItems>=4)
+            continue;
+            
+        let div = document.createElement('div');
+        dashboardItems[0].appendChild(div);
+        dashboardItems[0].lastChild.classList.add("event-item")
+
+        let liSyntax = `<p>${tabUserEvents[i].eventTitle}</p>
+                        <h1>${tabUserEvents[i].eventDay}</h1>
+                        <h3>${allMonths[tabUserEvents[i].eventMonth]}</h3>`
+        div.innerHTML = liSyntax;
+        currentItems++; 
         
-        if(tabUserEvents[i].display) {
-                let div = document.createElement('div');
-                dashboardItems[0].appendChild(div);
-                dashboardItems[0].lastChild.classList.add("event-item")
-
-                let liSyntax = `<p>${tabUserEvents[i].eventTitle}</p>
-                                <h1>${tabUserEvents[i].eventDay}</h1>
-                                <h3>${allMonths[tabUserEvents[i].eventMonth]}</h3>`
-                div.innerHTML = liSyntax;
-                z++; 
-        }
-
-        i++;
     }
 
-    z = 0;
-    i = 0;
+    currentItems = 0;
 
-    while(z < 3 && z < targets) {  
+    for(let i = 0; i<userTargets.length; i++) {
 
-        if(userTargets[i].complete == 0) {
-                budgetPercent = userTargets[i].currentDeposit/userTargets[i].amount * 100;
-                let div = document.createElement('div');
-                dashboardItems[1].appendChild(div);
-                dashboardItems[1].lastChild.classList.add("budget-item")
-    
-                let liSyntax = `<h3 class="budget_title">${userTargets[i].targetName}</h3>
-                <div class="graph_width">
-                    <div class="graph_progress" style="width: ${Math.floor(budgetPercent)}%;"></div>
-                </div>
-                <div class="graph_percent">${Math.floor(budgetPercent)}%</div>`;
-                div.innerHTML = liSyntax;
-                z++;
-        }
-        i++                               
+        if(currentItems>=3)
+            continue;
+
+        budgetPercent = userTargets[i].currentDeposit/userTargets[i].amount * 100;
+        let div = document.createElement('div');
+        dashboardItems[1].appendChild(div);
+        dashboardItems[1].lastChild.classList.add("budget-item")
+
+        let liSyntax = `<h3 class="budget_title">${userTargets[i].targetName}</h3>
+        <div class="graph_width">
+            <div class="graph_progress" style="width: ${Math.floor(budgetPercent)}%;"></div>
+        </div>
+        <div class="graph_percent">${Math.floor(budgetPercent)}%</div>`;
+        div.innerHTML = liSyntax;
+        currentItems++                                    
     }
            
 } 
+
+const isSameDay = (date1, date2) => {
+    return (
+        date1.getDate() === date2.getDate() &&
+        date1.getMonth() === date2.getMonth() &&
+        date1.getFullYear() === date2.getFullYear()
+    );
+}
