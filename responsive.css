@@ -141,6 +141,17 @@
         bottom: 23px;
     }
 
+    .sidebar_item {
+        padding: 10px;
+    }
+
+    .sidebar_list {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
 }
 
 @media only screen and (min-width: 900px)
@@ -159,11 +170,8 @@
         bottom: -5px;
     }
 
-    .sidebar_list 
-    {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
+    .sidebar_list {
+        display: block;
     }
 
     .sidebar_item 
@@ -235,7 +243,7 @@
     }
 
     .item_task {
-        width: 95%;
+        width: 80%;
     }
 
     .tooltiptext {
