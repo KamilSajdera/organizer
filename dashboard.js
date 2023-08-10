@@ -1,26 +1,8 @@
-const pageTitle = document.querySelector(".title_dashboard");
-const pageDescription = document.querySelector(".p_dashboard");
-const myEvent = document.querySelector(".closest_event");
-const myTasks = document.querySelector(".closest_tasks");
 const dashboardItems = document.querySelectorAll('.dashboard-item')
 
 let eventsStorage = 0,
     tasksStorage = 0,
     targetsStorage = 0;
-
-let interval,
-    interval2,
-    interval3,
-    interval4;
-
-let trans = -90,
-    trans2 = 120,
-    trans3 = -165;
-
-let opc = 0,
-    opc2 = 0,
-    opc3 = 0,
-    opc4 = 0;
 
 const userTasks = [];
 const tabUserEvents = [];
@@ -56,7 +38,6 @@ window.addEventListener('load', (event) => {
             eventsStorage++;          
     }
 
-    showEffects();
     loadData();
     dashboard();
 });
@@ -90,53 +71,6 @@ const loadData = () => {
         if(myTarget.complete == 0)
             userTargets.push(myTarget);
     }
-}
-
-const showEffects = () => {
-    setTimeout(() => {
-        interval = setInterval(() => {
-                if(trans++ == 0)
-                    clearInterval(interval)
-
-                opc+= 0.0099;
-                pageTitle.style.transform = "translateY(" + trans + "px)";
-                pageTitle.style.opacity = opc;
-                pageDescription.style.opacity = opc;
-
-        }, 1);
-    }, 150);
-
-    
-    setTimeout(() => {
-        interval2 = setInterval(() => {
-                if(opc2 >= 1)
-                        clearInterval(interval2)  
-                
-                opc2+= 0.0099;      
-                dashboardItems[0].style.opacity = opc2;
-        }, 1);
-    }, 750);
-
-    setTimeout(() => {
-       interval3 = setInterval(() => {
-                if(opc3 >= 1)
-                        clearInterval(interval3)  
-                
-                opc3+= 0.0099;      
-                dashboardItems[1].style.opacity = opc3;
-        }, 1);
-    }, 1000);
-
-    setTimeout(() => {
-        interval4 = setInterval(() => {
-                 if(opc4 >= 1)
-                         clearInterval(interval4)  
-                 
-                 opc4+= 0.0099;      
-                 dashboardItems[2].style.opacity = opc4;
-         }, 1);
-     }, 1250);
-
 }
 
 const dashboard = () => {
