@@ -1,0 +1,67 @@
+@import '@/styles/variables.module.scss';
+@import '@/styles/_mixins.module.scss';
+
+.sidebar 
+{
+    background: #2c2c2c;
+    width: 22%;
+    min-height: 100vh;
+    overflow: hidden;
+    padding: 40px 5px;
+    font-size: 16px;
+
+    &-logo 
+    {
+        width: 100%;
+        text-align: center;
+
+        &_squares 
+        {
+            margin: auto;
+            width: 21px;
+            height: 23px;
+            background: #4f1787;
+            position: relative;
+
+            &::after 
+            {
+                content: '';
+                position: absolute;
+                top: 4px;
+                right: -5px;
+                width: 17px;
+                height: 16px;
+                background: #ff50ff;
+            }
+        }
+
+        p 
+        {
+            padding-top: 7px;
+            font-size: 0.95em;
+            font-family: $secondary-font;
+            font-weight: 500;
+            visibility: hidden;
+        }
+    }
+}
+
+@media screen and (min-width: 425px) {
+    .sidebar-logo p { visibility: visible; }
+}
+
+@media screen and (min-width: 767px) {
+    .sidebar-logo p {
+        font-size: 1.1em;
+    }
+}
+
+@media screen and (min-width: 1023px) {
+    .sidebar-logo {
+        @include flex($align-items: flex-end);
+
+        &_squares {
+            margin: 0 15px 0 0;
+        }
+    }
+}

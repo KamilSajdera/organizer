@@ -1,0 +1,17 @@
+@import './mixins.module';
+@import './variables.module.scss';
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body 
+{
+    background: #232128;
+    color: #ccc;
+    font-family: $primary-font;
+    font-weight: 400;
+    @include flex;
+}
