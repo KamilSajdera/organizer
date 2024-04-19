@@ -1,0 +1,78 @@
+@import "@/styles/variables.module.scss";
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.header {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+}
+
+.header h1 {
+  font-weight: 500;
+  font-size: 1.9em;
+  text-transform: capitalize;
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.form {
+  width: 100%;
+  margin-top: 20px;
+  margin-inline: auto;
+  position: relative;
+
+  input {
+    width: 100%;
+    outline: none;
+    background: #1c1c1c;
+    border: 1px solid #2a2a2a;
+    color: #eee;
+    border-radius: 20px;
+    padding: 13px 17% 13px 25px;
+    font-family: $secondary-font;
+    transition: box-shadow 150ms ease;
+    border-left: 2px solid #373737;
+    border-right: 2px solid #373737;
+
+    &::placeholder {
+      color: #a9a9a9;
+      font-family: $secondary-font;
+    }
+
+    &:focus {
+      box-shadow: 0px 0px 20px -12px #6d6d6d;
+      background: #212023;
+    }
+  }
+
+  svg {
+    width: 15px;
+    position: absolute;
+    top: 15px;
+    right: 9%;
+    color: #a9a9a9;
+  }
+}
+
+@media screen and (min-width: 767px) {
+  .header {
+    text-align: left;
+  }
+
+  .form {
+    width: 250px;
+    margin-inline: 0;
+    margin-top: 15px;
+
+    input {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-right: 50px;
+    }
+
+    svg {
+        top: 12px;
+    }
+  }
+}
