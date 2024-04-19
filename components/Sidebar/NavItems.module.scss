@@ -4,7 +4,6 @@
     margin-top: 30px;
     text-align: center;
     padding-inline: 5px;
-    color: #858488;
 
     &-item 
     {
@@ -13,6 +12,8 @@
         align-items: center;
         padding: 10px;
         margin-bottom: 20px;
+        color: #858488;
+        text-decoration: none;
 
         svg 
         {
