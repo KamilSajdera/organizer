@@ -12,7 +12,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <SidebarArea />
-        {children}
+        <main className='mainContent'>
+          {children}
+        </main>
         </body>
     </html>
   );

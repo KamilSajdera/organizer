@@ -15,3 +15,27 @@ body
     font-weight: 400;
     @include flex;
 }
+
+.mainContent 
+{
+    padding: 40px 15px 40px 15px;
+    width: 78%;
+
+    @media screen and (min-width: 767px) {
+        padding-left: 45px;
+        padding-right: 30px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        padding-left: 75px;
+    }
+
+    @media screen and (min-width: 1150px) {
+        width: 82%;
+    }
+
+    @media screen and (min-width: 1350px) {
+        width: 84%;
+        padding-left: 85px;
+    }
+}
