@@ -1,0 +1,107 @@
+@import "@/styles/_mixins.module.scss";
+@import "@/styles/variables.module.scss";
+
+@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap");
+
+.main {
+  width: 90%;
+  margin: 50px auto;
+  @include flex($justify-content: space-between);
+}
+
+.about {
+  width: 100%;
+}
+
+.logo {
+  width: 100%;
+  text-align: center;
+  margin: auto;
+  @include flex($align-items: center);
+
+  &_squares {
+    width: 21px;
+    height: 23px;
+    background: #4f1787;
+    position: relative;
+    margin-right: 15px;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      right: -5px;
+      width: 17px;
+      height: 16px;
+      background: $pink;
+    }
+  }
+
+  h3 {
+    font-size: 1.25em;
+    font-family: $secondary-font;
+    font-weight: 500;
+  }
+  p {
+    width: 100%;
+    padding-top: 5px;
+    font-family: $secondary-font;
+    font-style: italic;
+  }
+}
+
+.login-text {
+  font-family: $secondary-font;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  padding-top: 30px;
+  text-align: justify;
+  font-size: 1.2em;
+}
+
+.loginArea {
+  width: 100%;
+  margin: 65px auto 0 auto;
+  background: #2a2a2a;
+}
+
+.options {
+  @include flex;
+
+  &-item {
+    width: 50%;
+    text-align: center;
+    padding: 15px 0;
+
+    &.active {
+      font-weight: 700;
+      text-shadow: 0 0 8px #a79292;
+      background: #343434;
+    }
+  }
+}
+
+@media screen and (min-width: 767px) {
+  .about,
+  .loginArea {
+    width: 47%;
+    margin: 80px 0 0 0;
+  }
+
+  .login-text {
+    padding-top: 65px;
+  }
+}
+
+@media screen and (min-width: 1023px) {
+  .main {
+    width: 75%;
+  }
+}
+
+@media screen and (min-width: 1350px) {
+  .main {
+    width: 60%;
+  }
+}
