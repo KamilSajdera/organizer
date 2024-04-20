@@ -1,7 +1,6 @@
-import styles from "./LoginPage.module.scss";
+import styles from "./AuthPage.module.scss";
 
-import SignInForm from "./SignInForm";
-import SignUpForm from "./SignUpForm";
+import FormsArea from "./FormsArea";
 
 export default function LoginPage() {
   return (
@@ -19,15 +18,7 @@ export default function LoginPage() {
           control your expenses. All this is available to you after logging in!
         </article>
       </section>
-      <section className={styles.loginArea}>
-        <header className={styles.options}>
-          <div className={`${styles["options-item"]} ${styles.active}`}>
-            Sign In
-          </div>
-          <div className={styles["options-item"]}>Sign Up</div>
-        </header>
-        <SignUpForm />
-      </section>
+      <FormsArea />
     </main>
   );
 }

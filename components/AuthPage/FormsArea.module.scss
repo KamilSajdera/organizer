@@ -1,0 +1,30 @@
+@import "@/styles/_mixins.module.scss";
+
+.loginArea {
+  width: 100%;
+  margin: 65px auto 0 auto;
+  background: #2a2a2a;
+}
+
+.options {
+  @include flex;
+
+  &-item {
+    width: 50%;
+    text-align: center;
+    padding: 15px 0;
+
+    &.active {
+      font-weight: 700;
+      text-shadow: 0 0 8px #a79292;
+      background: #343434;
+    }
+  }
+}
+
+@media screen and (min-width: 767px) {
+  .loginArea {
+    width: 47%;
+    margin: 80px 0 0 0;
+  }
+}
