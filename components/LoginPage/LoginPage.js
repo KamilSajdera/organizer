@@ -1,6 +1,7 @@
 import styles from "./LoginPage.module.scss";
 
 import SignInForm from "./SignInForm";
+import SignUpForm from "./SignUpForm";
 
 export default function LoginPage() {
   return (
@@ -25,7 +26,7 @@ export default function LoginPage() {
           </div>
           <div className={styles["options-item"]}>Sign Up</div>
         </header>
-        <SignInForm />
+        <SignUpForm />
       </section>
     </main>
   );

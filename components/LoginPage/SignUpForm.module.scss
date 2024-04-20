@@ -1,0 +1,53 @@
+@import "@/styles/variables.module.scss";
+
+.form {
+  width: 100%;
+  padding: 40px 10px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.inputBox {
+  width: 80%;
+  margin: 35px auto;
+  position: relative;
+
+  label {
+    position: absolute;
+    top: -22px;
+    left: 0;
+    background: transparent;
+    transition: all 150ms ease;
+    font-size: 0.95em;
+  }
+
+  input {
+    width: 100%;
+    outline: none;
+    padding: 15px 15px 15px 20px;
+    background: transparent;
+    border: 1px solid #484848;
+    color: #eee;
+    font-family: $primary-font;
+    font-size: 0.95em;
+  }
+
+}
+
+.btnLog {
+  margin-top: 25px;
+  padding: 8px 30px;
+  outline: none;
+  border: none;
+  font-family: $secondary-font;
+  font-weight: 500;
+  font-size: 0.95em;
+  background: linear-gradient(45deg, #ff50ff, #581787);
+  color: #fff;
+  cursor: pointer;
+  transition: filter 150ms ease-out;
+
+  &:hover {
+    filter: brightness(1.2);
+  }
+}
