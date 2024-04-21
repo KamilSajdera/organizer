@@ -21,6 +21,10 @@ export default function SignInForm() {
         <label htmlFor="password">Password</label>
         <FontAwesomeIcon icon={faEye} />
       </div>
+      <div className={styles.inputRemember}>
+        <input type="checkbox" id="remember" />
+        <label htmlFor="remember">Remember me</label>
+      </div>
       <button type="submit" className={styles.btnLog}>
         Log in
       </button>

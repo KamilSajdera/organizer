@@ -64,3 +64,15 @@
     filter: brightness(1.2);
   }
 }
+
+.inputRemember {
+  width: 80%;
+  text-align: left;
+  margin: 0 auto;
+  display: flex;
+
+  input {
+    margin-right: 10px;
+    width: 15px;
+  }
+}
