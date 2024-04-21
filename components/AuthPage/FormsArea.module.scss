@@ -8,6 +8,7 @@
 
 .options {
   @include flex;
+  cursor: pointer;
 
   &-item {
     width: 50%;

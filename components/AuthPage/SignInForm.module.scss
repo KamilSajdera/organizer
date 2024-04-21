@@ -5,6 +5,10 @@
   padding: 40px 10px;
   text-align: center;
   margin: 0 auto;
+  animation-name: showForm;
+  animation-duration: 200ms;
+  animation-fill-mode: both;
+  opacity: 0;
 }
 
 .inputBox {
@@ -74,5 +78,14 @@
   input {
     margin-right: 10px;
     width: 15px;
+  }
+}
+
+@keyframes showForm {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

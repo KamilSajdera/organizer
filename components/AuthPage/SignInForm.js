@@ -7,7 +7,7 @@ export default function SignInForm() {
   return (
     <form className={styles.form}>
       <div className={styles.inputBox}>
-        <input type="email" name="email" id="email" placeholder="" required />
+        <input type="email" name="email" id="email" placeholder="" autoComplete="off" required />
         <label htmlFor="email">Email</label>
       </div>
       <div className={styles.inputBox}>

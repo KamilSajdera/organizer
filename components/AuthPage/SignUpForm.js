@@ -16,8 +16,8 @@ export default function SignUpForm() {
         <label htmlFor="password">Password</label>
       </div>
       <div className={styles.inputBox}>
-        <input type="password" name="password" id="password" required />
-        <label htmlFor="password">Confirm password</label>
+        <input type="password" name="Cpassword" id="Cpassword" required />
+        <label htmlFor="Cpassword">Confirm password</label>
       </div>
       <button type="submit" className={styles.btnLog}>
         Sign Up
