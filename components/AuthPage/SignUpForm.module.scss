@@ -13,16 +13,22 @@
 
 .inputBox {
   width: 80%;
-  margin: 35px auto;
+  margin: 50px auto;
   position: relative;
 
   label {
     position: absolute;
-    top: -22px;
+    top: -35px;
     left: 0;
     background: transparent;
     transition: all 150ms ease;
     font-size: 0.95em;
+    text-align: left;
+
+    p {
+      font-size: 0.75em;
+      color: #bdbdbd;
+    }
   }
 
   input {

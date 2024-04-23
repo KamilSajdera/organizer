@@ -15,7 +15,10 @@ export default function SignUpForm() {
       <form className={styles.form} action={formAction}>
         <div className={styles.inputBox}>
           <input type="text" name="username" id="username" required />
-          <label htmlFor="username">Username</label>
+          <label htmlFor="username">
+            Username
+            <p>min. 5, max 12 characters</p>
+          </label>
         </div>
         <div className={styles.inputBox}>
           <input
@@ -25,7 +28,10 @@ export default function SignUpForm() {
             required
             autoComplete="off"
           />
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">
+            Email
+            <p>You'll log in by email.</p>
+          </label>
         </div>
         <InputPassword
           type="password"

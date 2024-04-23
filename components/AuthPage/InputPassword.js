@@ -32,7 +32,10 @@ export default function InputPassword({ type, name, styles, label }) {
         required
         ref={inputRef}
       />
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name}>
+        {label}
+        {styles === "signUp" && <p>min. 6 characters</p>}
+      </label>
       {userType === "text" && (
         <FontAwesomeIcon icon={faEye} onClick={showPasswordHandle} />
       )}
