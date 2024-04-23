@@ -3,6 +3,8 @@ import styles from "./TasksContainer.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faBars, faSpinner } from "@fortawesome/free-solid-svg-icons";
 
+import TaskItem from "./TaskItem";
+
 export default function TasksContainer() {
   return (
     <article className={styles.tasksContainer}>
@@ -10,6 +12,7 @@ export default function TasksContainer() {
         <h4>
           <FontAwesomeIcon icon={faBars}></FontAwesomeIcon>ToDo
         </h4>
+        <TaskItem />
       </section>
       <section className={styles["task-category"]}>
         <h4>
