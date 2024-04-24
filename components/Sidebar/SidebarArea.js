@@ -1,5 +1,6 @@
 import styles from "./SidebarArea.module.scss";
 import NavItems from "./NavItems";
+import UserData from "./UserData";
 
 export default function SidebarArea() {
     return (
@@ -9,6 +10,7 @@ export default function SidebarArea() {
                 <p>MANAGEO</p>
             </div>
             <NavItems />
+            <UserData />
         </aside>
     )
 };
