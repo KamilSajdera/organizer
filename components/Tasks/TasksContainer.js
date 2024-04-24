@@ -1,30 +1,50 @@
 import styles from "./TasksContainer.module.scss";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faBars, faSpinner } from "@fortawesome/free-solid-svg-icons";
 
-import TaskItem from "./TaskItem";
+import TaskCategory from "./TaskCategory";
+
+const dummyTasks = [
+  {
+    id: "t1",
+    category: "ToDo",
+    name: "To Do Task",
+    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.",
+    level: "mid",
+    date: "20-03-2024",
+    add_date: "15-03-2024",
+  },
+  {
+    id: "t2",
+    category: "InProgress",
+    name: "InProgress Task",
+    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.",
+    level: "high",
+    date: "27-04-2024",
+    add_date: "21-04-2024",
+  },
+  {
+    id: "t3",
+    category: "Done",
+    name: "Done Task",
+    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.",
+    level: "low",
+    date: "26-02-2024",
+    add_date: "12-02-2024",
+  },
+];
 
 export default function TasksContainer() {
+
+  const toDoTasks = dummyTasks.filter(item => item.category === "ToDo");
+  const InProgressTasks = dummyTasks.filter(item => item.category === "InProgress");
+  const doneTasks = dummyTasks.filter(item => item.category === "Done");
+
   return (
     <article className={styles.tasksContainer}>
-      <section className={styles["task-category"]}>
-        <h4>
-          <FontAwesomeIcon icon={faBars}></FontAwesomeIcon>ToDo
-        </h4>
-        <TaskItem />
-      </section>
-      <section className={styles["task-category"]}>
-        <h4>
-          <FontAwesomeIcon icon={faSpinner}></FontAwesomeIcon>In Progress
-        </h4>
-      </section>
-
-      <section className={styles["task-category"]}>
-        <h4>
-          <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon> Done
-        </h4>
-      </section>
+      <TaskCategory name="ToDo" icon={faBars} tasks={toDoTasks} />
+      <TaskCategory name="In Progress" icon={faSpinner} tasks={InProgressTasks} />
+      <TaskCategory name="Done" icon={faCheck} tasks={doneTasks} />
     </article>
   );
 }
