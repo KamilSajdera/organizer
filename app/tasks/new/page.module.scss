@@ -1,0 +1,148 @@
+@import "@/styles/variables.module.scss";
+
+.newTask {
+  width: 100%;
+  padding-top: 10px;
+
+  header {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 700;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #555062;
+
+    svg {
+      width: 15px;
+      margin: 0 5px;
+    }
+  }
+
+  &_content {
+    width: 100%;
+    margin: 50px auto;
+    background: #2b2932;
+    padding: 15px;
+    filter: drop-shadow(3px 5px 6px rgb(27, 27, 27));
+    border-radius: 10px;
+  }
+}
+
+.inputBox {
+  margin: 20px 0;
+
+  label {
+    font-weight: 500;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+
+    h5 {
+      display: inline-block;
+      margin-left: 5px;
+    }
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    background: #232128;
+    margin-top: 5px;
+    outline: none;
+    border: none;
+    padding: 10px 10px;
+    color: #eee;
+    font-family: $secondary-font;
+  }
+
+  textarea {
+    max-width: 100%;
+    min-height: 180px;
+    max-height: 180px;
+    resize: none;
+  }
+}
+
+.formBtn {
+  position: absolute;
+  bottom: -50px;
+  left: 0px;
+  padding: 7px 25px;
+  font-size: 0.9em;
+  font-weight: 600;
+  outline: none;
+  border: none;
+  background: #524d61;
+  color: #ddd;
+  cursor: pointer;
+  transition: all 100ms ease;
+
+  &:last-child {
+    left: 100px;
+    background: #626262;
+  }
+
+  &:hover {
+    filter: brightness(1.2);
+    transform: scale(1.03);
+  }
+}
+
+.inputRadio {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+  font-weight: 500;
+  position: relative;
+
+  input {
+    width: 17px;
+  }
+
+  label {
+    padding: 3px 12px;
+    border-radius: 10px;
+    font-size: 0.85em;
+    font-weight: 700;
+  }
+
+  &:nth-child(4) label {
+    background: rgba(88, 172, 58, 0.3411764706);
+    color: #00dd00;
+  }
+
+  &:nth-child(5) label {
+    background: rgba(172, 166, 58, 0.3411764706);
+    color: #ddd900;
+  }
+
+  &:nth-child(6) label {
+    background: rgba(172, 58, 58, 0.3411764706);
+    color: #dd0000;
+  }
+}
+
+@media screen and (min-width: 767px) {
+  .newTask_content {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 1023px) {
+  .newTask_content {
+    width: 60%;
+  }
+
+  .inputBox textarea {
+    min-height: 130px;
+    max-height: 130px;
+    overflow: hidden;
+  }
+}
+
+@media screen and (min-width: 1350px) {
+  .newTask_content {
+    width: 40%;
+  }
+}
+
+
