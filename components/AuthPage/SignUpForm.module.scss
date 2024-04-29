@@ -62,10 +62,26 @@
   background: linear-gradient(45deg, #ff50ff, #581787);
   color: #fff;
   cursor: pointer;
-  transition: filter 150ms ease-out;
+  transition: all 150ms ease-out;
 
   &:hover {
     filter: brightness(1.2);
+  }
+
+  &-off {
+    opacity: 0;
+    animation-name: changeText;
+    animation-duration: 200ms;
+    animation-fill-mode: both;
+  }
+}
+
+@keyframes changeText {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.6;
   }
 }
 

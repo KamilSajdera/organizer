@@ -9,8 +9,8 @@ export const metadata = {
 
 import LoginPage from "@/components/AuthPage/AuthPage";
 
-export default function RootLayout({ children }) {
-  let loggedIn = true;
+export default async function RootLayout({ children }) {
+  let loggedIn = false;
   /// all login logic will be add soon...
 
   return (

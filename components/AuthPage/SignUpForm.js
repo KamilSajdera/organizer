@@ -6,6 +6,8 @@ import styles from "./SignUpForm.module.scss";
 import InputPassword from "./InputPassword";
 import ErrorBlock from "./ErrorBlock";
 
+import ButtonSignUp from "./ButtonSignUp";
+
 export default function SignUpForm() {
   const [state, formAction] = useFormState(registerUser, { message: null });
 
@@ -45,9 +47,7 @@ export default function SignUpForm() {
           styles="signUp"
           label="Confirm password"
         />
-        <button type="submit" className={styles.btnLog}>
-          Sign Up
-        </button>
+        <ButtonSignUp />
       </form>
     </>
   );
