@@ -1,5 +1,7 @@
 "use client";
 
+import { useRef, useState } from "react";
+import { useFormState } from "react-dom";
 import styles from "./page.module.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,16 +10,19 @@ import {
   faArrowRight,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
+import { addTask } from "@/lib/tasks";
 
-import { useRef, useState } from "react";
+import Error from "@/ui/Error";
 
 export default function NewTask() {
   const textAreaRef = useRef();
   const [charactersAmount, setCharactersAmount] = useState(0);
+  const [state, formAction] = useFormState(addTask, { message: null });
 
   function checkCharactersHandle() {
     setCharactersAmount(textAreaRef.current.value.length);
   }
+
   return (
     <section className={styles.newTask}>
       <header>
@@ -26,8 +31,9 @@ export default function NewTask() {
         <FontAwesomeIcon icon={faPenToSquare} style={{ marginLeft: "0px" }} />
         New
       </header>
+      {state?.message && <Error>{state.message}</Error>}
       <div className={styles["newTask_content"]}>
-        <form>
+        <form action={formAction}>
           <div className={styles.inputBox}>
             <label htmlFor="title">Title</label>
             <input type="text" id="title" name="title" required />

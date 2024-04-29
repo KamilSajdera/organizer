@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
         {loggedIn && (
           <>
             <SidebarArea />
-            <main className="mainContent">{children}</main>{" "}
+            <main className="mainContent">{children}</main>
           </>
         )}
         {!loggedIn && <LoginPage />}
