@@ -21,7 +21,7 @@ export default function SignUpForm() {
       {state?.error_message && (
         <ErrorBlock message={"An error occured: " + state.error_message} />
       )}
-      {state?.success_message && <div className={styles.success}>{state?.success_message}</div>}
+      {state?.success_message && <div className={styles.success}>{state.success_message}</div>}
       <form className={styles.form} action={formAction}>
         <div className={styles.inputBox}>
           <input type="text" name="username" id="username" required />
