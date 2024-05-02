@@ -9,11 +9,19 @@ import ErrorBlock from "./ErrorBlock";
 import ButtonSignUp from "./ButtonSignUp";
 
 export default function SignUpForm() {
-  const [state, formAction] = useFormState(registerUser, { message: null });
+  const [state, formAction] = useFormState(registerUser, {
+    message: null,
+    error_message: null,
+    success_message: null,
+  });
 
   return (
     <>
       {state?.message && <ErrorBlock message={state.message} />}
+      {state?.error_message && (
+        <ErrorBlock message={"An error occured: " + state.error_message} />
+      )}
+      {state?.success_message && <div className={styles.success}>{state?.success_message}</div>}
       <form className={styles.form} action={formAction}>
         <div className={styles.inputBox}>
           <input type="text" name="username" id="username" required />
