@@ -4,6 +4,7 @@ import styles from "./SignInForm.module.scss";
 
 import InputPassword from "./InputPassword";
 import ErrorBlock from "./ErrorBlock";
+import Button from "./Button";
 
 import { loginUser } from "@/lib/auth";
 
@@ -12,7 +13,7 @@ export default function SignInForm() {
 
   return (
     <>
-    {state?.message && <ErrorBlock message={state.message}/>}
+      {state?.message && <ErrorBlock message={state.message} />}
       <form className={styles.form} action={formAction}>
         <div className={styles.inputBox}>
           <input
@@ -35,9 +36,11 @@ export default function SignInForm() {
           <input type="checkbox" id="remember" />
           <label htmlFor="remember">Remember me</label>
         </div>
-        <button type="submit" className={styles.btnLog}>
-          Log in
-        </button>
+        <Button
+          pendingText="Logging"
+          value="Log in"
+          style={{ marginTop: "20px" }}
+        />
       </form>
     </>
   );
