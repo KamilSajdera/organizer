@@ -28,6 +28,24 @@
   }
 }
 
+.animate-todo {
+  animation-name: toDoAnimation;
+  animation-duration: 1500ms;
+  animation-iteration-count: infinite;
+}
+
+.animate-inprogress {
+  animation-name: inProgressAnimation;
+  animation-duration: 1500ms;
+  animation-iteration-count: infinite;
+}
+
+.animate-done {
+  animation-name: doneAnimation;
+  animation-duration: 1500ms;
+  animation-iteration-count: infinite;
+}
+
 @media screen and (min-width: 767px) {
   .task-category {
     width: 47%;
@@ -48,5 +66,34 @@
 @media screen and (min-width: 1350px) {
   .task-category {
     width: 30%;
+  }
+}
+
+@keyframes toDoAnimation {
+  10% {
+    transform: scale(1.2);
+  }
+  20% {
+    transform: scale(1);
+  }
+}
+
+@keyframes inProgressAnimation {
+  from {
+    transform: rotate(0);
+  } to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes doneAnimation {
+  10% {
+    transform: scale(1.2) rotate(-15deg);
+  }
+  30% {
+    transform: scale(1.2) rotate(15deg);
+  } 
+  50% {
+    transform: scale(1) rotate(0deg);
   }
 }

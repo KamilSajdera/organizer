@@ -7,7 +7,12 @@ export default function TaskCategory({ name, icon, tasks }) {
   return (
     <section className={styles["task-category"]}>
       <h4>
-        <FontAwesomeIcon icon={icon}></FontAwesomeIcon>
+        <FontAwesomeIcon
+          icon={icon}
+          className={
+            styles[`animate-${name.trim().toLowerCase().replace(/\s+/g, "")}`]
+          }
+        ></FontAwesomeIcon>
         {name}
       </h4>
       {tasks.map((item) => (
