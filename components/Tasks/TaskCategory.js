@@ -11,7 +11,7 @@ export default function TaskCategory({ name, icon, tasks }) {
         {name}
       </h4>
       {tasks.map((item) => (
-        <TaskItem key={item.id} {...item} />
+        <TaskItem key={item._id.toString()} {...item} />
       ))}
     </section>
   );
