@@ -1,6 +1,8 @@
 import "@/styles/globals.scss";
 
 import SidebarArea from "@/components/Sidebar/SidebarArea";
+import { verifySession } from "@/lib/session";
+import { MongoClient, ObjectId } from "mongodb";
 
 export const metadata = {
   title: "Create Next App",
@@ -10,19 +12,29 @@ export const metadata = {
 import LoginPage from "@/components/AuthPage/AuthPage";
 
 export default async function RootLayout({ children }) {
-  let loggedIn = false;
-  /// all login logic will be add soon...
+  const { isAuth, userId } = await verifySession();
+
+  const client = await MongoClient.connect(
+    process.env.NEXT_PUBLIC_MONGODB_USERS_DATA
+  );
+
+  const db = client.db();
+
+  const usersCollection = db.collection("users");
+  const userData = await usersCollection.findOne({
+    _id: new ObjectId(userId)
+  });
 
   return (
     <html lang="en">
       <body>
-        {loggedIn && (
+        {isAuth && (
           <>
             <SidebarArea />
             <main className="mainContent">{children}</main>
           </>
         )}
-        {!loggedIn && <LoginPage />}
+        {!isAuth && <LoginPage />}
       </body>
     </html>
   );
