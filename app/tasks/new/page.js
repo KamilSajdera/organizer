@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useFormState } from "react-dom";
+import { useRouter } from "next/navigation";
 import styles from "./page.module.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,12 +16,17 @@ import { addTask } from "@/lib/tasks";
 import Error from "@/ui/Error";
 
 export default function NewTask() {
+  const router = useRouter();
   const textAreaRef = useRef();
   const [charactersAmount, setCharactersAmount] = useState(0);
   const [state, formAction] = useFormState(addTask, { message: null });
 
   function checkCharactersHandle() {
     setCharactersAmount(textAreaRef.current.value.length);
+  }
+
+  function handleBack() {
+    router.push("/tasks");
   }
 
   return (
@@ -70,7 +76,7 @@ export default function NewTask() {
           <button type="submit" className={styles.formBtn}>
             Save
           </button>
-          <button type="button" className={styles.formBtn}>
+          <button type="button" className={styles.formBtn} onClick={handleBack}>
             Back
           </button>
         </form>
