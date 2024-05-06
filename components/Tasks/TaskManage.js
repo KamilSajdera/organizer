@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { useEffect, useRef } from "react";
+import { updateCategory } from "@/lib/tasks";
 
 export default function TaskManage({ id, category }) {
   const manageBoxRef = useRef();
@@ -38,14 +39,18 @@ export default function TaskManage({ id, category }) {
     (item) => item !== category
   );
 
+  function changeTaskCategoryHandle(category) {
+    updateCategory(id, category);
+  }
+
   return (
     <div className={styles["task-item_manage"]} onClick={() => openBoxHandle()}>
       <FontAwesomeIcon icon={faEllipsisVertical} />
       <ul className={styles["manage-box"]} ref={manageBoxRef}>
-        <li>
+        <li onClick={() => changeTaskCategoryHandle(availableCategory[0])}>
           <FontAwesomeIcon icon={faArrowRight} /> {availableCategory[0]}
         </li>
-        <li>
+        <li onClick={() => changeTaskCategoryHandle(availableCategory[1])}>
           <FontAwesomeIcon icon={faArrowRight} /> {availableCategory[1]}
         </li>
         <li>
