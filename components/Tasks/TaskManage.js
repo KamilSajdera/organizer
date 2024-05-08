@@ -11,6 +11,8 @@ import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { useEffect, useRef } from "react";
 import { updateCategory } from "@/lib/tasks";
 
+import containerStyles from "./TasksContainer.module.scss";
+
 export default function TaskManage({ id, category }) {
   const manageBoxRef = useRef();
 
@@ -39,8 +41,16 @@ export default function TaskManage({ id, category }) {
     (item) => item !== category
   );
 
-  function changeTaskCategoryHandle(category) {
-    updateCategory(id, category);
+  async function changeTaskCategoryHandle(category) {
+    const tasksContainer = document.querySelector(
+      `.${containerStyles.tasksContainer}`
+    );
+    tasksContainer.classList.add(containerStyles.taskMoving);
+    await updateCategory(id, category);
+
+    setTimeout(() => {
+      tasksContainer.classList.remove(containerStyles.taskMoving);
+    }, 500);
   }
 
   return (
