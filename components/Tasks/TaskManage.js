@@ -9,14 +9,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { useEffect, useRef } from "react";
-import { updateCategory } from "@/lib/tasks";
+import { updateCategory, deleteTask } from "@/lib/tasks";
 
 import containerStyles from "./TasksContainer.module.scss";
 
 export default function TaskManage({ id, category }) {
   const manageBoxRef = useRef();
+  let tasksContainer;
 
   useEffect(() => {
+    tasksContainer = document.querySelector(
+      `.${containerStyles.tasksContainer}`
+    );
     function handleClickOutside(event) {
       if (
         manageBoxRef.current &&
@@ -42,12 +46,17 @@ export default function TaskManage({ id, category }) {
   );
 
   async function changeTaskCategoryHandle(category) {
-    const tasksContainer = document.querySelector(
-      `.${containerStyles.tasksContainer}`
-    );
     tasksContainer.classList.add(containerStyles.taskMoving);
     await updateCategory(id, category);
 
+    setTimeout(() => {
+      tasksContainer.classList.remove(containerStyles.taskMoving);
+    }, 500);
+  }
+
+  async function deleteTaskHandle() {
+    tasksContainer.classList.add(containerStyles.taskMoving);
+    await deleteTask(id);
     setTimeout(() => {
       tasksContainer.classList.remove(containerStyles.taskMoving);
     }, 500);
@@ -66,7 +75,7 @@ export default function TaskManage({ id, category }) {
         <li>
           <FontAwesomeIcon icon={faPenToSquare} /> Edit
         </li>
-        <li>
+        <li onClick={() => deleteTaskHandle()}>
           <FontAwesomeIcon icon={faTrash} /> Delete
         </li>
       </ul>
