@@ -4,7 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./TaskManage.module.scss";
 import containerStyles from "./TasksContainer.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisVertical, faArrowRight, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEllipsisVertical,
+  faArrowRight,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 
 import { updateCategory } from "@/lib/tasks";
@@ -13,16 +17,12 @@ import DeleteConfirmation from "./DeleteConfirmation";
 export default function TaskManage({ id, category }) {
   const [isUserWantDelete, setIsUserWantDelete] = useState(false);
   const manageBoxRef = useRef();
-  let tasksContainer;
 
   const availableCategory = ["ToDo", "InProgress", "Done"].filter(
     (item) => item !== category
   );
 
   useEffect(() => {
-    tasksContainer = document.querySelector(
-      `.${containerStyles.tasksContainer}`
-    );
     function handleClickOutside(event) {
       if (
         manageBoxRef.current &&
@@ -44,6 +44,9 @@ export default function TaskManage({ id, category }) {
   };
 
   async function changeTaskCategoryHandle(category) {
+    const tasksContainer = document.querySelector(
+      `.${containerStyles.tasksContainer}`
+    );
     tasksContainer.classList.add(containerStyles.taskMoving);
     await updateCategory(id, category);
 
