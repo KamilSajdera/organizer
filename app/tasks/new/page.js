@@ -14,6 +14,7 @@ import {
 import { addTask } from "@/lib/tasks";
 
 import Error from "@/ui/Error";
+import NewTaskButton from "@/components/Tasks/NewTaskButton";
 
 export default function NewTask() {
   const router = useRouter();
@@ -73,9 +74,7 @@ export default function NewTask() {
             <input type="radio" id="high" name="priority" value="high" />
             <label htmlFor="high">High</label>
           </div>
-          <button type="submit" className={styles.formBtn}>
-            Save
-          </button>
+          <NewTaskButton />
           <button type="button" className={styles.formBtn} onClick={handleBack}>
             Back
           </button>
