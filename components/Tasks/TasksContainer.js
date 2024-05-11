@@ -3,21 +3,43 @@ import styles from "./TasksContainer.module.scss";
 import { faCheck, faBars, faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 import TaskCategory from "./TaskCategory";
-import { getUserTasks } from "@/lib/tasks";
 import { verifySession } from "@/lib/session";
+import { cookies } from "next/headers";
 
 export default async function TasksContainer() {
   const { userId } = await verifySession();
-  const { userTasks } = await getUserTasks(userId);
+  const { value: userKey } = cookies().get("session");
 
-  const toDoTasks = userTasks.filter(item => item.category === "ToDo");
-  const inProgressTasks = userTasks.filter(item => item.category === "InProgress");
-  const doneTasks = userTasks.filter(item => item.category === "Done");
-  
+  let userTasks = [];
+
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/tasks?userId=${userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${userKey}`,
+        },
+      }
+    );
+    userTasks = await response.json();
+  } catch (error) {
+    console.error("An error occured! ", error);
+  }
+
+  const toDoTasks = userTasks.filter((item) => item.category === "ToDo");
+  const inProgressTasks = userTasks.filter(
+    (item) => item.category === "InProgress"
+  );
+  const doneTasks = userTasks.filter((item) => item.category === "Done");
+
   return (
     <article className={styles.tasksContainer}>
       <TaskCategory name="ToDo" icon={faBars} tasks={toDoTasks} />
-      <TaskCategory name="In Progress" icon={faSpinner} tasks={inProgressTasks} />
+      <TaskCategory
+        name="In Progress"
+        icon={faSpinner}
+        tasks={inProgressTasks}
+      />
       <TaskCategory name="Done" icon={faCheck} tasks={doneTasks} />
     </article>
   );
