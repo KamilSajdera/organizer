@@ -66,3 +66,32 @@ export async function DELETE(req, res) {
     );
   }
 }
+
+export async function POST(req) {
+  try {
+    const url = new URL(req.url);
+    const userId = url.searchParams.get("userId");
+
+    const body = await req.text();
+    const newTask = JSON.parse(body);
+
+    const client = await MongoClient.connect(
+      process.env.NEXT_PUBLIC_MONGODB_ACTIVITIES_DATA
+    );
+    const db = client.db();
+
+    const tasksCollection = db.collection("tasks");
+    const result = await tasksCollection.insertOne({
+      ...newTask,
+      userId: userId,
+    });
+
+    client.close();
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, errorMessage: error },
+      { status: 500 }
+    );
+  }
+}
