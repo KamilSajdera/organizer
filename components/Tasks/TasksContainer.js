@@ -17,6 +17,7 @@ export default async function TasksContainer() {
       `http://localhost:3000/api/tasks?userId=${userId}`,
       {
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${userKey}`,
         },
       }
@@ -24,6 +25,7 @@ export default async function TasksContainer() {
     userTasks = await response.json();
   } catch (error) {
     console.error("An error occured! ", error);
+    throw new Error(error);
   }
 
   const toDoTasks = userTasks.filter((item) => item.category === "ToDo");
@@ -35,11 +37,7 @@ export default async function TasksContainer() {
   return (
     <article className={styles.tasksContainer}>
       <TaskCategory name="ToDo" icon={faBars} tasks={toDoTasks} />
-      <TaskCategory
-        name="In Progress"
-        icon={faSpinner}
-        tasks={inProgressTasks}
-      />
+      <TaskCategory name="In Progress" icon={faSpinner} tasks={inProgressTasks} />
       <TaskCategory name="Done" icon={faCheck} tasks={doneTasks} />
     </article>
   );
