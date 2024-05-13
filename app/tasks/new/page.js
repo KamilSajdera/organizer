@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { addTask } from "@/lib/tasks";
 
-import Error from "@/ui/Error";
+import ErrorBoundary from "@/ui/ErrorBoundary";
 import NewTaskButton from "@/components/Tasks/NewTaskButton";
 
 export default function NewTask() {
@@ -38,7 +38,7 @@ export default function NewTask() {
         <FontAwesomeIcon icon={faPenToSquare} style={{ marginLeft: "0px" }} />
         New
       </header>
-      {state?.message && <Error>{state.message}</Error>}
+      {state?.message && <ErrorBoundary>{state.message}</ErrorBoundary>}
       <div className={styles["newTask_content"]}>
         <form action={formAction}>
           <div className={styles.inputBox}>
