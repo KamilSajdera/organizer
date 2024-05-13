@@ -6,7 +6,7 @@ export default function DeleteConfirmation({ taskId, onCloseModal }) {
   const [isDeleting, setIsDeleting] = useState();
   async function deleteHandle() {
     setIsDeleting(true);
-    await deleteTask(taskId);
+    const result = await deleteTask(taskId);
     onCloseModal();
     setIsDeleting(false);
   }
