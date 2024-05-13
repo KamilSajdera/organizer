@@ -23,6 +23,9 @@ export default async function TasksContainer() {
       }
     );
     userTasks = await response.json();
+    if (userTasks?.error) {
+      throw new Error(userTasks.error);
+    }
   } catch (error) {
     console.error("An error occured! ", error);
     throw new Error(error);
@@ -36,9 +39,18 @@ export default async function TasksContainer() {
 
   return (
     <article className={styles.tasksContainer}>
-      <TaskCategory name="ToDo" icon={faBars} tasks={toDoTasks} />
-      <TaskCategory name="In Progress" icon={faSpinner} tasks={inProgressTasks} />
-      <TaskCategory name="Done" icon={faCheck} tasks={doneTasks} />
+      {userTasks.length === 0 && <p>Could not find any tasks...</p>}
+      {userTasks.length > 0 && (
+        <>
+          <TaskCategory name="ToDo" icon={faBars} tasks={toDoTasks} />
+          <TaskCategory
+            name="In Progress"
+            icon={faSpinner}
+            tasks={inProgressTasks}
+          />
+          <TaskCategory name="Done" icon={faCheck} tasks={doneTasks} />{" "}
+        </>
+      )}
     </article>
   );
 }

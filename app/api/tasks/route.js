@@ -14,6 +14,13 @@ export async function GET(req) {
     );
   }
 
+  if (!userId) {
+    return NextResponse.json(
+      { error: "Internal Server Error: no userID!" },
+      { status: 500 }
+    );
+  }
+
   const client = await MongoClient.connect(
     process.env.NEXT_PUBLIC_MONGODB_ACTIVITIES_DATA
   );
