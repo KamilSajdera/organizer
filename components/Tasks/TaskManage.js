@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./TaskManage.module.scss";
 import containerStyles from "./TasksContainer.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,6 +17,7 @@ import DeleteConfirmation from "./DeleteConfirmation";
 
 export default function TaskManage({ id, category }) {
   const [isUserWantDelete, setIsUserWantDelete] = useState(false);
+  const router = useRouter();
   const manageBoxRef = useRef();
 
   const availableCategory = ["ToDo", "InProgress", "Done"].filter(
@@ -57,10 +59,7 @@ export default function TaskManage({ id, category }) {
 
   return (
     <>
-      <div
-        className={styles["task-item_manage"]}
-        onClick={() => openBoxHandle()}
-      >
+      <div className={styles["task-item_manage"]} onClick={openBoxHandle}>
         <FontAwesomeIcon icon={faEllipsisVertical} />
         <ul className={styles["manage-box"]} ref={manageBoxRef}>
           <li onClick={() => changeTaskCategoryHandle(availableCategory[0])}>
@@ -69,7 +68,7 @@ export default function TaskManage({ id, category }) {
           <li onClick={() => changeTaskCategoryHandle(availableCategory[1])}>
             <FontAwesomeIcon icon={faArrowRight} /> {availableCategory[1]}
           </li>
-          <li>
+          <li onClick={() => router.push(`/tasks/edit?id=${id}`)}>
             <FontAwesomeIcon icon={faPenToSquare} /> Edit
           </li>
           <li onClick={() => setIsUserWantDelete(true)}>
