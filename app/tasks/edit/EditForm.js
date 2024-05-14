@@ -1,6 +1,11 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useFormState } from "react-dom";
 import styles from "../new/page.module.scss";
+
+import { editTask } from "@/lib/tasks";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,8 +14,15 @@ import {
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 
+import NewTaskButton from "@/components/Tasks/NewTaskButton";
+import ErrorBoundary from "@/ui/ErrorBoundary";
+
 export default function EditForm({ taskData }) {
-  const { title, description, date, priority } = taskData;
+  const { id, title, description, date, priority } = taskData;
+
+  const router = useRouter();
+  const [charactersAmount, setCharactersAmount] = useState(description.length);
+  const [state, formAction] = useFormState(editTask, { message: null });
 
   return (
     <section className={styles.newTask}>
@@ -18,11 +30,11 @@ export default function EditForm({ taskData }) {
         <FontAwesomeIcon icon={faListCheck} /> Tasks
         <FontAwesomeIcon icon={faArrowRight} style={{ marginInline: "15px" }} />
         <FontAwesomeIcon icon={faPenToSquare} style={{ marginLeft: "0px" }} />
-        New
+        Edit
       </header>
-      {/* {state?.message && <ErrorBoundary>{state.message}</ErrorBoundary>} */}
+      {state?.message && <ErrorBoundary>{state.message}</ErrorBoundary>}
       <div className={styles["newTask_content"]}>
-        <form action={null}>
+        <form action={formAction}>
           <div className={styles.inputBox}>
             <label htmlFor="title">Title</label>
             <input
@@ -35,15 +47,14 @@ export default function EditForm({ taskData }) {
           </div>
           <div className={styles.inputBox}>
             <label htmlFor="description">
-              Description<h5>({null}/300)</h5>
+              Description<h5>({charactersAmount}/300)</h5>
             </label>
             <textarea
               id="description"
               name="description"
               defaultValue={description}
               maxLength={300}
-              onInput={null}
-              ref={null}
+              onInput={(e) => setCharactersAmount(e.target.value.length)}
               required
             ></textarea>
           </div>
@@ -81,8 +92,19 @@ export default function EditForm({ taskData }) {
             />
             <label htmlFor="high">High</label>
           </div>
-          {/* <NewTaskButton /> */}
-          <button type="button" className={styles.formBtn} onClick={null}>
+          <input
+            type="text"
+            name="id"
+            value={id}
+            style={{ display: "none" }}
+            readOnly
+          />
+          <NewTaskButton />
+          <button
+            type="button"
+            className={styles.formBtn}
+            onClick={() => router.push("/tasks")}
+          >
             Back
           </button>
         </form>
