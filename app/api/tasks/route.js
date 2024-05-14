@@ -95,3 +95,49 @@ export async function POST(req) {
     );
   }
 }
+
+export async function PUT(req) {
+  const url = new URL(req.url);
+  const id = url.searchParams.get("id");
+  const categoryName = url.searchParams.get("category");
+
+  if (!id) {
+    return NextResponse.json({
+      success: false,
+      errorMessage: "Cannot find ID!",
+    });
+  }
+  if (!categoryName) {
+    return NextResponse.json({
+      success: false,
+      errorMessage: "No category given!",
+    });
+  }
+
+  try {
+    const client = await MongoClient.connect(
+      process.env.NEXT_PUBLIC_MONGODB_ACTIVITIES_DATA
+    );
+    const db = client.db();
+
+    const updateData = {
+      $set: {
+        category: categoryName,
+      },
+    };
+    const tasksCollection = db.collection("tasks");
+    const updateResult = await tasksCollection.updateOne(
+      { _id: new ObjectId(id) },
+      updateData
+    );
+
+    client.close();
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({
+      success: false,
+      errorMessage: "Something went wrong! " + error,
+    });
+  }
+}
