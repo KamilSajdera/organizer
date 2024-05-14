@@ -7,5 +7,15 @@ export default async function EditPage({ searchParams }) {
 
   if (errorMessage) throw new Error(errorMessage);
 
-  return <EditForm taskData={result} />;
+  return (
+    <EditForm
+      taskData={{
+        id: result._id.toString(),
+        title: result.title,
+        description: result.description,
+        date: result.date,
+        priority: result.priority,
+      }}
+    />
+  );
 }
