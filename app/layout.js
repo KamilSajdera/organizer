@@ -22,7 +22,7 @@ export default async function RootLayout({ children }) {
 
   const usersCollection = db.collection("users");
   const userData = await usersCollection.findOne({
-    _id: new ObjectId(userId)
+    _id: new ObjectId(userId),
   });
 
   return (
@@ -30,7 +30,7 @@ export default async function RootLayout({ children }) {
       <body>
         {isAuth && (
           <>
-            <SidebarArea />
+            <SidebarArea username={userData.username} email={userData.email} />
             <main className="mainContent">{children}</main>
           </>
         )}

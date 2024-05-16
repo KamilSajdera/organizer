@@ -2,7 +2,7 @@ import styles from "./SidebarArea.module.scss";
 import NavItems from "./NavItems";
 import UserData from "./UserData";
 
-export default function SidebarArea() {
+export default function SidebarArea(props) {
     return (
         <aside className={styles.sidebar}>
             <div className={styles['sidebar-logo']}>
@@ -10,7 +10,7 @@ export default function SidebarArea() {
                 <p>MANAGEO</p>
             </div>
             <NavItems />
-            <UserData />
+            <UserData {...props}/>
         </aside>
     )
 };
