@@ -4,15 +4,18 @@ import styles from "./TasksContainer.module.scss";
 import { faCheck, faBars, faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 import { verifySession } from "@/lib/session";
-import { getUserTasks } from "@/lib/tasks";
+import { getFilteredTasks, getUserTasks } from "@/lib/tasks";
 
 import TaskCategory from "./TaskCategory";
 
-export default async function TasksContainer() {
+export default async function TasksContainer({ query }) {
   const { userId } = await verifySession();
   const { value: userKey } = cookies().get("session");
+  let userTasks;
 
-  const { userTasks } = await getUserTasks(userId, userKey);
+  if (!query || query.trim() === "")
+    userTasks = await getUserTasks(userId, userKey, query);
+  else userTasks = await getFilteredTasks(query);
 
   const toDoTasks = userTasks.filter((item) => item.category === "ToDo");
   const inProgressTasks = userTasks.filter(
@@ -26,7 +29,11 @@ export default async function TasksContainer() {
       {userTasks.length > 0 && (
         <>
           <TaskCategory name="ToDo" icon={faBars} tasks={toDoTasks} />
-          <TaskCategory name="In Progress" icon={faSpinner} tasks={inProgressTasks} />
+          <TaskCategory
+            name="In Progress"
+            icon={faSpinner}
+            tasks={inProgressTasks}
+          />
           <TaskCategory name="Done" icon={faCheck} tasks={doneTasks} />
         </>
       )}
