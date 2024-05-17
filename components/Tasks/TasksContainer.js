@@ -11,10 +11,10 @@ import TaskCategory from "./TaskCategory";
 export default async function TasksContainer({ query }) {
   const { userId } = await verifySession();
   const { value: userKey } = cookies().get("session");
-  let userTasks;
+  let userTasks = [];
 
   if (!query || query.trim() === "")
-    userTasks = await getUserTasks(userId, userKey, query);
+    userTasks = await getUserTasks(userId, userKey);
   else userTasks = await getFilteredTasks(query);
 
   const toDoTasks = userTasks.filter((item) => item.category === "ToDo");

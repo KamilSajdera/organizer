@@ -14,6 +14,7 @@ import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 
 import { updateCategory } from "@/lib/tasks";
 import DeleteConfirmation from "./DeleteConfirmation";
+import { revalidatePath } from "next/cache";
 
 export default function TaskManage({ id, category }) {
   const [isUserWantDelete, setIsUserWantDelete] = useState(false);
@@ -49,12 +50,16 @@ export default function TaskManage({ id, category }) {
     const tasksContainer = document.querySelector(
       `.${containerStyles.tasksContainer}`
     );
+    router.push("/tasks");
     tasksContainer.classList.add(containerStyles.taskMoving);
-    await updateCategory(id, category);
+
+    setTimeout(async () => {
+      await updateCategory(id, category);
+    }, 50);
 
     setTimeout(() => {
       tasksContainer.classList.remove(containerStyles.taskMoving);
-    }, 500);
+    }, 1200);
   }
 
   return (

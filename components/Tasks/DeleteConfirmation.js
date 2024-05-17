@@ -1,14 +1,23 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 import styles from "./DeleteConfirmation.module.scss";
 import { deleteTask } from "@/lib/tasks";
 
 export default function DeleteConfirmation({ taskId, onCloseModal }) {
   const [isDeleting, setIsDeleting] = useState();
+  const router = useRouter();
   async function deleteHandle() {
     setIsDeleting(true);
-    const result = await deleteTask(taskId);
-    onCloseModal();
-    setIsDeleting(false);
+    router.push("/tasks");
+    setTimeout(async () => {
+      const result = await deleteTask(taskId);
+    }, 50);
+
+    setTimeout(() => {
+      onCloseModal();
+      setIsDeleting(false);
+    }, 600);
   }
   return (
     <div className={styles.overlay}>
