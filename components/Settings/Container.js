@@ -6,6 +6,7 @@ import styles from "./Container.module.scss";
 
 import ImagePicker from './ImagePicker';
 import ItemInput from "./ItemInput";
+import Controls from "./Controls";
 
 export default function Container() {
   return (
@@ -19,6 +20,7 @@ export default function Container() {
         <ItemInput label="Nickname" value="osoba1" />
         <ItemInput label="Email" value="example1@email.net" />
       </section>
+      <Controls />
     </>
   );
 }
