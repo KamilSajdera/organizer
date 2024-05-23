@@ -5,6 +5,7 @@ import { faGears } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Container.module.scss";
 
 import ImagePicker from './ImagePicker';
+import ItemInput from "./ItemInput";
 
 export default function Container() {
   return (
@@ -14,6 +15,10 @@ export default function Container() {
         User settings
       </header>
       <ImagePicker />
+      <section className={styles['user-data']}>
+        <ItemInput label="Nickname" value="osoba1" />
+        <ItemInput label="Email" value="example1@email.net" />
+      </section>
     </>
   );
 }

@@ -1,0 +1,49 @@
+@import "@/styles/_mixins.module.scss";
+@import "@/styles/variables.module.scss";
+
+.itemInput {
+  @include flex(column);
+  width: 100%;
+  margin-bottom: 25px;
+  position: relative;
+
+  @media screen and (min-width: 767px) {
+    width: 40%;
+  }
+
+  @media screen and (min-width: 1350px) {
+    width: 25%;
+  }
+
+  label {
+    font-size: 0.85em;
+    padding: 2px 5px;
+    background: #4f1787;
+    margin-bottom: 5px;
+    font-weight: 700;
+    border-radius: 5px;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    font-family: $primary-font;
+    border: none;
+    background: #2b2932;
+    outline: none;
+    color: #fff;
+  }
+
+  button {
+    position: absolute;
+    right: 0;
+    bottom: -30px;
+    padding: 5px 15px;
+    border: none;
+    background: #2b2932;
+    color: #eee;
+    filter: drop-shadow(2px 2px 1px black);
+    font-weight: 700;
+    cursor: pointer;
+  }
+}
