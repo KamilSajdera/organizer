@@ -1,14 +1,22 @@
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGears } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./Container.module.scss";
 
-import ImagePicker from './ImagePicker';
+import ImagePicker from "./ImagePicker";
 import ItemInput from "./ItemInput";
 import Controls from "./Controls";
 
-export default function Container() {
+import { verifySession, getUserData } from "@/lib/session";
+
+export default async function Container() {
+  const session = await verifySession();
+
+  if (!session.isAuth)
+    throw new Error("Your session expired. Please, sign in.");
+
+  const { username, email } = await getUserData(session.userId);
+
   return (
     <>
       <header className={styles.header}>
@@ -16,9 +24,9 @@ export default function Container() {
         User settings
       </header>
       <ImagePicker />
-      <section className={styles['user-data']}>
-        <ItemInput label="Nickname" value="osoba1" />
-        <ItemInput label="Email" value="example1@email.net" />
+      <section className={styles["user-data"]}>
+        <ItemInput label="Nickname" value={username} />
+        <ItemInput label="Email" value={email} />
       </section>
       <Controls />
     </>
