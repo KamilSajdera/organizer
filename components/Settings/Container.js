@@ -25,8 +25,16 @@ export default async function Container() {
       </header>
       <ImagePicker />
       <section className={styles["user-data"]}>
-        <ItemInput label="Nickname" value={username} />
-        <ItemInput label="Email" value={email} />
+        <ItemInput
+          label="Nickname"
+          value={username}
+          confirmationText="You are going to edit your display username."
+        />
+        <ItemInput
+          label="Email"
+          value={email}
+          confirmationText="You are going to edit your email. Remember! You will log in with this email in the future."
+        />
       </section>
       <Controls />
     </>
