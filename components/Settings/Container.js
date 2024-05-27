@@ -29,11 +29,13 @@ export default async function Container() {
           label="Nickname"
           value={username}
           confirmationText="You are going to edit your display username."
+          id={session.userId}
         />
         <ItemInput
           label="Email"
           value={email}
           confirmationText="You are going to edit your email. Remember! You will log in with this email in the future."
+          id={session.userId}
         />
       </section>
       <Controls />

@@ -16,7 +16,7 @@ export default function ConfirmationArea({
         <p>{children}</p>
         <div className={styles.controls}>
           <button onClick={onClose}>Cancel</button>
-          <button>Confirm</button>
+          <button onClick={onConfirmation}>Confirm</button>
         </div>
       </div>
     </div>

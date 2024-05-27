@@ -1,12 +1,15 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useTransition } from "react";
 import styles from "./ItemInput.module.scss";
 
 import ConfirmationArea from "@/ui/ConfirmationArea";
 
-export default function ItemInput({ label, value, confirmationText }) {
+import { updateUserData } from "@/app/api/settings/route";
+
+export default function ItemInput({ label, value, confirmationText, id }) {
   const [isModalShow, setIsModalShow] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const [isDisable, setIsDisable] = useState(true);
   const inputRef = useRef();
 
@@ -15,10 +18,22 @@ export default function ItemInput({ label, value, confirmationText }) {
     else setIsDisable(false);
   }
 
+  const editedField = label === "Email" ? "email" : "username";
+
+  async function changeUserDataHandle() {
+    startTransition(async () => {
+      await updateUserData(id, editedField, inputRef.current.value);
+      setIsModalShow(false);
+    });
+  }
+
   return (
     <>
-      {isModalShow && (
-        <ConfirmationArea onClose={() => setIsModalShow(false)}>
+      {(isPending || isModalShow) && (
+        <ConfirmationArea
+          onClose={() => setIsModalShow(false)}
+          onConfirmation={changeUserDataHandle}
+        >
           {confirmationText}
         </ConfirmationArea>
       )}
