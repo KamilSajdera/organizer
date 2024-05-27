@@ -3,7 +3,7 @@ import styles from "./ConfirmationArea.module.scss";
 import { useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClipboardCheck, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { faClipboardCheck } from "@fortawesome/free-solid-svg-icons";
 
 export default function ConfirmationArea({
   children,
@@ -26,7 +26,7 @@ export default function ConfirmationArea({
           <button onClick={onClose}>Cancel</button>
           <button onClick={handleOnConfirmation}>
             Confirm
-            {isPending && <span class={styles.loader}></span>}
+            {isPending && <span className={styles.loader}></span>}
           </button>
         </div>
       </div>
