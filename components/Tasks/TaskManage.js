@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+
 import styles from "./TaskManage.module.scss";
 import containerStyles from "./TasksContainer.module.scss";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEllipsisVertical,
@@ -12,12 +14,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 
-import { updateCategory } from "@/lib/tasks";
-import DeleteConfirmation from "./DeleteConfirmation";
-import { revalidatePath } from "next/cache";
+import { updateCategory, deleteTask } from "@/lib/tasks";
+
+import ConfirmationArea from "@/ui/ConfirmationArea";
 
 export default function TaskManage({ id, category }) {
   const [isUserWantDelete, setIsUserWantDelete] = useState(false);
+  const [isPendingDelete, startTransitionDelete] = useTransition();
+  const [isPendingUpdate, startTransitionUpdate] = useTransition();
   const router = useRouter();
   const manageBoxRef = useRef();
 
@@ -47,20 +51,28 @@ export default function TaskManage({ id, category }) {
   };
 
   async function changeTaskCategoryHandle(category) {
-    const tasksContainer = document.querySelector(
+    startTransitionUpdate(async () => {
+      await updateCategory(id, category);
+    });
+  }
+
+  function deleteHandle() {
+    startTransitionDelete(async () => {
+      await deleteTask(id);
+      setIsUserWantDelete(false);
+    });
+  }
+
+  useEffect(() => {
+    window.history.pushState({}, "", "/tasks");
+
+    let tasksContainer = document.querySelector(
       `.${containerStyles.tasksContainer}`
     );
-    router.push("/tasks");
-    tasksContainer.classList.add(containerStyles.taskMoving);
-
-    setTimeout(async () => {
-      await updateCategory(id, category);
-    }, 50);
-
-    setTimeout(() => {
-      tasksContainer.classList.remove(containerStyles.taskMoving);
-    }, 1200);
-  }
+    if (isPendingUpdate)
+      tasksContainer.classList.add(containerStyles.taskMoving);
+    else tasksContainer.classList.remove(containerStyles.taskMoving);
+  }, [isPendingUpdate, isPendingDelete]);
 
   return (
     <>
@@ -81,11 +93,14 @@ export default function TaskManage({ id, category }) {
           </li>
         </ul>
       </div>
-      {isUserWantDelete && (
-        <DeleteConfirmation
-          taskId={id}
-          onCloseModal={() => setIsUserWantDelete(false)}
-        />
+      {(isPendingDelete || isUserWantDelete) && (
+        <ConfirmationArea
+          onConfirmation={deleteHandle}
+          onClose={() => setIsUserWantDelete(false)}
+        >
+          Are you sure you want to delete this task? This operation cannot be
+          undone!
+        </ConfirmationArea>
       )}
     </>
   );
