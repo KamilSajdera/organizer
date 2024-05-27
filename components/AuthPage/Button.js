@@ -1,7 +1,8 @@
 import { useFormStatus } from "react-dom";
 import styles from "./SignUpForm.module.scss";
+import loadingSpinner from "@/ui/ConfirmationArea.module.scss";
 
-export default function Button({pendingText, value, style}) {
+export default function Button({ pendingText, value, style }) {
   const { pending } = useFormStatus();
 
   return (
@@ -12,6 +13,7 @@ export default function Button({pendingText, value, style}) {
       disabled={pending}
     >
       {pending ? pendingText : value}
+      {pending ? <span className={loadingSpinner.loader}></span> : ""}
     </button>
   );
 }

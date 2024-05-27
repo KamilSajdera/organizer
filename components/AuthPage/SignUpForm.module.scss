@@ -62,6 +62,10 @@
   color: #fff;
   cursor: pointer;
   transition: all 150ms ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
 
   &:hover {
     filter: brightness(1.2);
