@@ -78,6 +78,30 @@
 
   :last-child {
     background: #4741fc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.loader {
+  width: 17px;
+  height: 17px;
+  margin-left: 15px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 3px solid #fff;
+  border-right: 3px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 
