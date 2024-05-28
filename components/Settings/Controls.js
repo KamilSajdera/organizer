@@ -1,12 +1,15 @@
 "use client";
 
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
+import { logOut } from "@/lib/auth";
+
 import styles from "./Controls.module.scss";
 import loadingSpinner from "@/ui/ConfirmationArea.module.scss";
-import { logOut } from "@/lib/auth";
+import ChangePassword from "./ChangePassword";
 
 export default function Controls() {
   const [isPendingLogout, startTransitionLogout] = useTransition();
+  const [isWantChangePassword, setIsWantChangePassword] = useState(false);
 
   function handleLogOut() {
     startTransitionLogout(async () => {
@@ -16,7 +19,10 @@ export default function Controls() {
 
   return (
     <div className={styles["user-controls"]}>
-      <button>Change password</button>
+      {isWantChangePassword && <ChangePassword />}
+      <button onClick={() => setIsWantChangePassword(true)}>
+        Change password
+      </button>
       <button
         onClick={handleLogOut}
         style={isPendingLogout ? { opacity: "0.75" } : {}}
