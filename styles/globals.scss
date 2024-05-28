@@ -1,41 +1,57 @@
-@import './mixins.module';
-@import './variables.module.scss';
+@import "./mixins.module";
+@import "./variables.module.scss";
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-body 
-{
-    background: #232128;
-    color: #ccc;
-    font-family: $primary-font;
-    font-weight: 400;
-    @include flex;
+body {
+  background: #232128;
+  color: #ccc;
+  font-family: $primary-font;
+  font-weight: 400;
+  @include flex;
 }
 
-.mainContent 
-{
-    padding: 35px 15px 40px 15px;
-    width: 78%;
+.mainContent {
+  padding: 35px 15px 40px 15px;
+  width: 78%;
 
-    @media screen and (min-width: 767px) {
-        padding-left: 45px;
-        padding-right: 30px;
-    }
+  @media screen and (min-width: 767px) {
+    padding-left: 45px;
+    padding-right: 30px;
+  }
 
-    @media screen and (min-width: 1024px) {
-        padding-left: 75px;
-    }
+  @media screen and (min-width: 1024px) {
+    padding-left: 75px;
+  }
 
-    @media screen and (min-width: 1150px) {
-        width: 82%;
-    }
+  @media screen and (min-width: 1150px) {
+    width: 82%;
+  }
 
-    @media screen and (min-width: 1350px) {
-        width: 84%;
-        padding-left: 85px;
-    }
+  @media screen and (min-width: 1350px) {
+    width: 84%;
+    padding-left: 85px;
+  }
+}
+
+button {
+  outline: none;
+
+  &:not(:disabled):active {
+    animation-name: btnPulse;
+    animation-duration: 150ms;
+  }
+}
+
+@keyframes btnPulse {
+  from {
+    transform: scale(0.85);
+  }
+  to {
+    transform: scale(1);
+  }
 }
