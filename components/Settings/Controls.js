@@ -19,7 +19,9 @@ export default function Controls() {
 
   return (
     <div className={styles["user-controls"]}>
-      {isWantChangePassword && <ChangePassword />}
+      {isWantChangePassword && (
+        <ChangePassword onClose={() => setIsWantChangePassword(false)} />
+      )}
       <button onClick={() => setIsWantChangePassword(true)}>
         Change password
       </button>
