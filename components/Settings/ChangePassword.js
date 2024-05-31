@@ -2,6 +2,7 @@ import { useFormState } from "react-dom";
 import { updateUserPassword } from "@/lib/settings";
 
 import styles from "./ChangePassword.module.scss";
+import ButtonChangePassword from "./BtnChangePass";
 
 export default function ChangePassword({ id, onClose, onConfirm }) {
   const [state, formAction] = useFormState(updateUserPassword, null); 
@@ -55,13 +56,7 @@ export default function ChangePassword({ id, onClose, onConfirm }) {
           >
             Close
           </button>
-          <button
-            onClick={onConfirm}
-            type="submit"
-            className={styles["button-confirm"]}
-          >
-            Confirm
-          </button>
+          <ButtonChangePassword onConfirm={onConfirm} />
         </form>
       </div>
     </div>
