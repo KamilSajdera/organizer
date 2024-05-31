@@ -1,5 +1,6 @@
 @import "@/styles/_mixins.module.scss";
 
+@include nth-animation-delay(100, 50);
 .task-item {
   width: 100%;
   background: #2b2932;
@@ -7,6 +8,10 @@
   padding: 15px 20px;
   margin-bottom: 30px;
   position: relative;
+  animation-name: showItem;
+  animation-duration: 150ms;
+  animation-fill-mode: both;
+ 
 
   h4 {
     font-size: 0.95em;
@@ -78,3 +83,12 @@
   }
 }
 
+@keyframes showItem {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  } to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}

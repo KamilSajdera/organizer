@@ -5,3 +5,12 @@
   justify-content: $justify-content;
   align-items: $align-items;
 }
+
+@mixin nth-animation-delay($count, $increment) {
+  @for $i from 1 through $count {
+    .task-item-#{$i} {
+      animation-delay: #{$i * $increment}ms;
+    }
+  }
+}
+
