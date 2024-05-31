@@ -5,7 +5,7 @@ import styles from "./ItemInput.module.scss";
 
 import ConfirmationArea from "@/ui/ConfirmationArea";
 
-import { updateUserData } from "@/app/api/settings/route";
+import { updateUserData } from "@/lib/settings";
 
 export default function ItemInput({ label, value, confirmationText, id }) {
   const [isModalShow, setIsModalShow] = useState(false);

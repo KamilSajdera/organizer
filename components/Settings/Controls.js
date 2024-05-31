@@ -7,7 +7,7 @@ import styles from "./Controls.module.scss";
 import loadingSpinner from "@/ui/ConfirmationArea.module.scss";
 import ChangePassword from "./ChangePassword";
 
-export default function Controls() {
+export default function Controls({ id }) {
   const [isPendingLogout, startTransitionLogout] = useTransition();
   const [isWantChangePassword, setIsWantChangePassword] = useState(false);
 
@@ -20,7 +20,10 @@ export default function Controls() {
   return (
     <div className={styles["user-controls"]}>
       {isWantChangePassword && (
-        <ChangePassword onClose={() => setIsWantChangePassword(false)} />
+        <ChangePassword
+          id={id}
+          onClose={() => setIsWantChangePassword(false)}
+        />
       )}
       <button onClick={() => setIsWantChangePassword(true)}>
         Change password

@@ -38,7 +38,7 @@ export default async function Container() {
           id={session.userId}
         />
       </section>
-      <Controls />
+      <Controls id={session.userId}/>
     </>
   );
 }

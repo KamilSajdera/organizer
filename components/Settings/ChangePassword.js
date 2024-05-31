@@ -1,11 +1,21 @@
+import { useFormState } from "react-dom";
+import { updateUserPassword } from "@/lib/settings";
+
 import styles from "./ChangePassword.module.scss";
 
-export default function ChangePassword({ onClose, onConfirm }) {
+export default function ChangePassword({ id, onClose, onConfirm }) {
+  const [state, formAction] = useFormState(updateUserPassword, null); 
+
+  if (state?.success) onClose();
+
   return (
     <div className={styles.changeOverlay}>
       <div className={styles.changeContent}>
         <h3>Change password</h3>
-        <form className={styles.form}>
+        {state?.errorMessage && (
+          <div className={styles.error}> {state.errorMessage} </div>
+        )}
+        <form className={styles.form} action={formAction}>
           <label htmlFor="old_pass">Current Password</label>
           <input
             type="password"
@@ -29,6 +39,14 @@ export default function ChangePassword({ onClose, onConfirm }) {
             name="repeat_pass"
             required
             placeholder="Repeat your new password"
+          />
+          <input
+            type="password"
+            id="id"
+            name="id"
+            value={id}
+            readOnly
+            style={{ display: "none" }}
           />
           <button
             onClick={onClose}
