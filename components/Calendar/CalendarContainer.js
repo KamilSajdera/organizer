@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useRef } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -7,25 +8,57 @@ import interactionPlugin from "@fullcalendar/interaction";
 
 import styles from './CalendarContainer.module.scss';
 
-export default function CalendarContainer() {
+import "@/styles/MyCalendar.css"; // Import niestandardowych stylów
+
+const MyCalendar = () => {
+  const calendarRef = useRef(null);
+
+  const handlePrevYear = () => {
+    const calendarApi = calendarRef.current.getApi();
+    calendarApi.prevYear();
+  };
+
+  const handleNextYear = () => {
+    const calendarApi = calendarRef.current.getApi();
+    calendarApi.nextYear();
+  };
+
   return (
     <div className={styles.container}>
       <FullCalendar
+        ref={calendarRef}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         headerToolbar={{
-          left: "prev,next today",
+          left: "prev,next myPrevYear myNextYear",
           center: "title",
-          right: "dayGridMonth,timeGridWeek,timeGridDay",
+          right: "today dayGridMonth,timeGridWeek,timeGridDay",
+        }}
+        customButtons={{
+          myPrevYear: {
+            text: "Prev Year",
+            click: handlePrevYear,
+          },
+          myNextYear: {
+            text: "Next Year",
+            click: handleNextYear,
+          },
         }}
         editable={true}
-        selectable={true}
-        firstDay={1}  
+        selectable={false}
+        firstDay={1} // 1 oznacza, że tydzień zaczyna się od poniedziałku
         events={[
-          { title: "event 1", date: "2024-06-01" },
-          { title: "event 2", date: "2024-05-02" },
+          { title: "event 1 o okreslonym dzialaniu", date: "2024-06-01" },
+          { title: "event 2", date: "2024-06-02" },
+          { title: "event 3", date: "2024-06-02" },
+          { title: "event 4", date: "2024-06-02" },
+          { title: "event 5", date: "2024-06-02" },
+          { title: "event 6", date: "2024-06-02" },
+          { title: "event 7", date: "2024-06-02" },
         ]}
       />
     </div>
   );
-}
+};
+
+export default MyCalendar;

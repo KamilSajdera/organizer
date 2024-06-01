@@ -1,0 +1,93 @@
+:root {
+  --fc-border-color: #ffffff70;
+}
+
+.fc-view-harness {
+  min-height: 370px !important; /* Ustaw wysokość na 500px lub inną wartość */
+}
+
+.fc-col-header-cell {
+  padding: 10px 0 !important;
+  border-bottom: 2px solid #fff !important;
+  margin-bottom: 10px;
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+  margin-bottom: 1.5em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  align-content: center;
+  gap: 10px;
+}
+
+/* Stylowanie specyficzne dla widoku miesięcznego */
+.fc-dayGridMonth-view .fc-scrollgrid {
+  border: none !important;
+}
+
+.fc-dayGridMonth-view .fc-scrollgrid td,
+.fc-dayGridMonth-view .fc-scrollgrid th {
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  border-bottom: none;
+  border-bottom-color: #2c3e50 !important;
+}
+
+.fc .fc-daygrid-day-top {
+  justify-content: center;
+  margin-bottom: 7px;
+  margin-top: 7px;
+}
+
+.fc-dayGridMonth-view tbody td {
+  height: 50px;
+}
+
+.fc-toolbar-chunk {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.fc-direction-ltr .fc-toolbar > * > :not(:first-child) {
+  margin: 0;
+}
+
+.fc-dayGridMonth-view .fc-scrollgrid-sync-table {
+  height: 200px !important;
+}
+
+.fc-daygrid-day-number {
+  background: #656567;
+  font-variant-numeric: tabular-nums;
+  border-radius: 10px;
+  width: 50px;
+  text-align: center;
+  padding: 7px 0;
+  font-weight: 700;
+}
+
+.fc-dayGridMonth-view .fc-daygrid-day.fc-day-today {
+  background: transparent;
+}
+
+.fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
+  background: #6eb7ff;
+  color: #232128;
+  transform: scale(1.15);
+  box-shadow: 0px 0px 8px 0px #6eb6ff;
+}
+
+.fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
+  min-height: 10px;
+}
+
+@media screen and (min-width: 767px) {
+  .fc-dayGridMonth-view tbody {
+    transform: translateY(10px);
+  }
+}
