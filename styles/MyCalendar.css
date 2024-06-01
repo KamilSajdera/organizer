@@ -3,7 +3,7 @@
 }
 
 .fc-view-harness {
-  min-height: 370px !important; /* Ustaw wysokość na 500px lub inną wartość */
+  min-height: 370px !important;
 }
 
 .fc-col-header-cell {
@@ -22,7 +22,6 @@
   gap: 10px;
 }
 
-/* Stylowanie specyficzne dla widoku miesięcznego */
 .fc-dayGridMonth-view .fc-scrollgrid {
   border: none !important;
 }
@@ -84,6 +83,11 @@
 
 .fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
   min-height: 10px;
+}
+
+.fc-day-sun .fc-daygrid-day-number {
+  color: red;
+  background: #683034;
 }
 
 @media screen and (min-width: 767px) {
