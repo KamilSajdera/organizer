@@ -8,7 +8,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 
 import styles from './CalendarContainer.module.scss';
 
-import "@/styles/MyCalendar.css"; // Import niestandardowych stylów
+import "@/styles/MyCalendar.css"; 
 
 const MyCalendar = () => {
   const calendarRef = useRef(null);
@@ -46,13 +46,13 @@ const MyCalendar = () => {
         }}
         editable={true}
         selectable={false}
-        firstDay={1} // 1 oznacza, że tydzień zaczyna się od poniedziałku
+        firstDay={1} 
         events={[
           { title: "event 1 o okreslonym dzialaniu", date: "2024-06-01" },
           { title: "event 2", date: "2024-06-02" },
           { title: "event 3", date: "2024-06-02" },
-          { title: "event 4", date: "2024-06-02" },
-          { title: "event 5", date: "2024-06-02" },
+          { title: "event 4", date: "2024-06-12" },
+          { title: "event 5", date: "2024-06-22" },
           { title: "event 6", date: "2024-06-02" },
           { title: "event 7", date: "2024-06-02" },
         ]}
