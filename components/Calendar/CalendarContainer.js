@@ -6,9 +6,9 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
-import styles from './CalendarContainer.module.scss';
+import styles from "./CalendarContainer.module.scss";
 
-import "@/styles/MyCalendar.css"; 
+import "@/styles/MyCalendar.css";
 
 const MyCalendar = () => {
   const calendarRef = useRef(null);
@@ -46,7 +46,7 @@ const MyCalendar = () => {
         }}
         editable={true}
         selectable={false}
-        firstDay={1} 
+        firstDay={1}
         events={[
           { title: "event 1 o okreslonym dzialaniu", date: "2024-06-01" },
           { title: "event 2", date: "2024-06-02" },
@@ -56,6 +56,11 @@ const MyCalendar = () => {
           { title: "event 6", date: "2024-06-02" },
           { title: "event 7", date: "2024-06-02" },
         ]}
+        slotLabelFormat={{
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        }}
       />
     </div>
   );
