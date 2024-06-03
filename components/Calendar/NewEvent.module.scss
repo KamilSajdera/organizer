@@ -1,0 +1,193 @@
+@import "@/styles/variables.module.scss";
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #00000061;
+  z-index: 5;
+}
+
+.newEvent-modal {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  background: #1d1e22;
+  color: #d2d2d2;
+  border-radius: 5px;
+  text-align: center;
+  padding: 20px 15px;
+  font-family: $secondary-font;
+
+  @media screen and (min-width: 767px) {
+    width: 45%;
+  }
+
+  @media screen and (min-width: 1023px) {
+    width: 30%;
+  }
+
+  @media screen and (min-width: 1350px) {
+    width: 25%;
+  }
+
+  h4 {
+    font-weight: 400;
+    color: #ccc;
+  }
+
+  &_form {
+    text-align: left;
+    margin-top: 20px;
+  }
+}
+
+.inputBox {
+  position: relative;
+  width: 100%;
+  margin: 25px 0;
+
+  label {
+    font-size: 0.9em;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    transition: all 100ms ease;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: 10px;
+    font-family: $secondary-font;
+    font-weight: 500;
+    background: #161616;
+    color: #d2d2d2;
+
+    &:focus ~ label,
+    &:valid ~ label {
+      top: -17px;
+      font-size: 0.8em;
+      font-weight: 500;
+      left: 0px;
+    }
+  }
+
+  textarea {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 150px;
+    max-height: 150px;
+    resize: none;
+  }
+}
+
+.all-day {
+  margin-top: -10px;
+}
+
+.form-switch {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.form-switch i {
+  position: relative;
+  display: inline-block;
+  margin-left: 0.5rem;
+  width: 46px;
+  height: 26px;
+  background-color: #343434;
+  border-radius: 23px;
+  vertical-align: text-bottom;
+  transition: all 0.3s linear;
+}
+
+.form-switch i::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 42px;
+  height: 22px;
+  background-color: #242424;
+  border-radius: 11px;
+  transform: translate3d(2px, 2px, 0) scale3d(1, 1, 1);
+  transition: all 0.25s linear;
+}
+
+.form-switch i::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  background-color: #e4e4e4;
+  border-radius: 11px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24);
+  transform: translate3d(2px, 2px, 0);
+  transition: all 0.2s ease-in-out;
+}
+
+.form-switch:active i::after {
+  width: 28px;
+  transform: translate3d(2px, 2px, 0);
+}
+
+.form-switch:active input:checked + i::after {
+  transform: translate3d(16px, 2px, 0);
+}
+
+.form-switch input {
+  display: none;
+}
+
+.form-switch input:checked + i {
+  background-color: #3b8848;
+}
+
+.form-switch input:checked + i::before {
+  transform: translate3d(18px, 2px, 0) scale3d(0, 0, 0);
+}
+
+.form-switch input:checked + i::after {
+  transform: translate3d(22px, 2px, 0);
+}
+
+.hours-con {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 75%;
+}
+
+.hour-item {
+  text-align: center;
+
+  input {
+    outline: none;
+    border: none;
+    padding: 5px;
+    background: #161616;
+    color: #d2d2d2;
+    font-family: $secondary-font;
+    position: relative;
+    font-weight: 500;
+
+    &::-webkit-calendar-picker-indicator {
+      background-color: #5b5b5b; 
+      padding: 4px;
+      border-radius: 50%;
+      margin: 3px 3px 3px 8px;
+      cursor: pointer;
+    }
+  }
+}
