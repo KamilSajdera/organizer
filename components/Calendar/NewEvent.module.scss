@@ -22,6 +22,8 @@
   text-align: center;
   padding: 20px 15px;
   font-family: $secondary-font;
+  animation-name: showModal;
+  animation-duration: 150ms;
 
   @media screen and (min-width: 767px) {
     width: 45%;
@@ -183,11 +185,22 @@
     font-weight: 500;
 
     &::-webkit-calendar-picker-indicator {
-      background-color: #5b5b5b; 
+      background-color: #5b5b5b;
       padding: 4px;
       border-radius: 50%;
       margin: 3px 3px 3px 8px;
       cursor: pointer;
     }
+  }
+}
+
+@keyframes showModal {
+  from {
+    top: -10%;
+    opacity: 0;
+  }
+  to {
+    top: 10%;
+    opacity: 1;
   }
 }
