@@ -1,6 +1,17 @@
+import { useState } from "react";
+
 import styles from "./NewEvent.module.scss";
 
 export default function NewEvent() {
+  const [isDisableHours, setIsDisableHours] = useState(true);
+
+  function handleChangeAllDay(e) {
+    const isChecked = e.target.checked;
+
+    if (isChecked) setIsDisableHours(true);
+    else setIsDisableHours(false);
+  }
+
   return (
     <div className={styles.overlay}>
       <div className={styles["newEvent-modal"]}>
@@ -23,18 +34,41 @@ export default function NewEvent() {
           <div className={styles["all-day"]}>
             <label className={styles["form-switch"]}>
               All Day
-              <input type="checkbox" id={styles["all_day_input"]} />
+              <input
+                type="checkbox"
+                id={styles["all_day_input"]}
+                onChange={handleChangeAllDay}
+                defaultChecked
+              />
               <i></i>
             </label>
           </div>
           <div className={styles["hours-con"]}>
-            <div className={styles["hour-item"]}>
-              <input type="time" name="hour" step="1800" />
+            <div
+              className={`${styles["hour-item"]} ${
+                isDisableHours && styles.disabled
+              }`}
+            >
+              <input
+                type="time"
+                name="hour"
+                step="1800"
+                disabled={isDisableHours}
+              />
               <p>Start</p>
             </div>
             -
-            <div className={styles["hour-item"]}>
-              <input type="time" name="hour" step="1800" />
+            <div
+              className={`${styles["hour-item"]} ${
+                isDisableHours && styles.disabled
+              }`}
+            >
+              <input
+                type="time"
+                name="hour"
+                step="1800"
+                disabled={isDisableHours}
+              />
               <p>End</p>
             </div>
           </div>

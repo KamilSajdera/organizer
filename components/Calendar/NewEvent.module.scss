@@ -194,6 +194,11 @@
   }
 }
 
+.disabled input, .disabled {
+  opacity: 0.7;
+  cursor: no-drop;
+}
+
 .button {
   margin: 35px 5px 0 5px;
   outline: none;
