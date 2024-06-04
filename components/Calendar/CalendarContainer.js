@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -10,8 +10,11 @@ import styles from "./CalendarContainer.module.scss";
 
 import "@/styles/MyCalendar.css";
 
+import NewEvent from "./NewEvent";
+
 const MyCalendar = () => {
   const calendarRef = useRef(null);
+  const [seletedDate, setSelectedDate] = useState(null);
 
   const handlePrevYear = () => {
     const calendarApi = calendarRef.current.getApi();
@@ -23,8 +26,16 @@ const MyCalendar = () => {
     calendarApi.nextYear();
   };
 
+  const handleDateClick = (info) => {
+    const clickedDate = info.dateStr;
+    setSelectedDate(clickedDate);
+  };
+
   return (
     <div className={styles.container}>
+      {seletedDate && (
+        <NewEvent date={seletedDate} onClose={() => setSelectedDate(null)} />
+      )}
       <FullCalendar
         ref={calendarRef}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -61,6 +72,7 @@ const MyCalendar = () => {
           minute: "2-digit",
           hour12: false,
         }}
+        dateClick={handleDateClick}
       />
     </div>
   );

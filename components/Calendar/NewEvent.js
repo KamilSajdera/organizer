@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import styles from "./NewEvent.module.scss";
 
-export default function NewEvent() {
+export default function NewEvent({ date, onClose }) {
   const [isDisableHours, setIsDisableHours] = useState(true);
 
   function handleChangeAllDay(e) {
@@ -12,11 +12,17 @@ export default function NewEvent() {
     else setIsDisableHours(false);
   }
 
+  date = new Date(date).toLocaleDateString('pl-PL', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  });
+
   return (
     <div className={styles.overlay}>
       <div className={styles["newEvent-modal"]}>
         <h2>New event</h2>
-        <h4>21.07.2024</h4>
+        <h4>{date}</h4>
         <form className={styles["newEvent-modal_form"]}>
           <div className={styles.inputBox}>
             <input type="text" id="title" name="title" required minLength={1} />
@@ -72,7 +78,7 @@ export default function NewEvent() {
               <p>End</p>
             </div>
           </div>
-          <button type="button" className={styles.button}>
+          <button type="button" className={styles.button} onClick={onClose}>
             Cancel
           </button>
           <button
