@@ -29,15 +29,24 @@ export default function NewEvent() {
           </div>
           <div className={styles["hours-con"]}>
             <div className={styles["hour-item"]}>
-              <input type="time" name="hour" step="1800"/>
+              <input type="time" name="hour" step="1800" />
               <p>Start</p>
             </div>
             -
             <div className={styles["hour-item"]}>
-              <input type="time" name="hour" step="1800"/>
+              <input type="time" name="hour" step="1800" />
               <p>End</p>
             </div>
           </div>
+          <button type="button" className={styles.button}>
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className={`${styles.button} ${styles["button-save"]}`}
+          >
+            Confirm
+          </button>
         </form>
       </div>
     </div>
