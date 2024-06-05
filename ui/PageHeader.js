@@ -23,9 +23,9 @@ export default function PageHeader({ title, href }) {
         <input type="text" placeholder="Search" onChange={handle} />
         <FontAwesomeIcon icon={faMagnifyingGlass} />
       </form>
-      <div className={styles["add-button"]}>
+      {href && <div className={styles["add-button"]}>
         <Link href={`${href}/new`}>+</Link>
-      </div>
+      </div>}
     </header>
   );
 }
