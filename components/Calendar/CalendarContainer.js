@@ -28,7 +28,7 @@ const MyCalendar = () => {
 
   const handleDateClick = (info) => {
     const clickedDate = info.dateStr;
-    setSelectedDate(clickedDate);
+    setSelectedDate(clickedDate);    
   };
 
   return (
