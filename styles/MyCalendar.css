@@ -4,6 +4,7 @@
 
 .fc-view-harness {
   min-height: 370px !important;
+  max-height: 460px !important;
 }
 
 .fc-col-header-cell {
