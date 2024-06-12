@@ -12,10 +12,12 @@ import "@/styles/MyCalendar.css";
 
 import NewEvent from "./NewEvent";
 import PageHeader from "@/ui/PageHeader";
+import EventDetails from "./EventDetails";
 
-const MyCalendar = () => {
+const CalendarContainer = ({userEvents}) => {
   const calendarRef = useRef(null);
   const [seletedDate, setSelectedDate] = useState(null);
+  const [eventDisplayData, setEventDisplayData] = useState();
 
   const handlePrevYear = () => {
     const calendarApi = calendarRef.current.getApi();
@@ -32,12 +34,31 @@ const MyCalendar = () => {
     setSelectedDate(clickedDate);
   };
 
+  const handleEventClick = (info) => {
+    const eventInfo = {
+      title: info.event.title,
+      description: info.event._def.extendedProps.description,
+      all_day: info.event.allDay,
+      has_end: info.event._def.hasEnd,
+      start: info.event._instance.range.start,
+      end: info.event._instance.range.end,
+    };
+
+    setEventDisplayData(eventInfo);
+  };
+
   return (
     <>
       <PageHeader title="Calendar" />
       <div className={styles.container}>
         {seletedDate && (
           <NewEvent date={seletedDate} onClose={() => setSelectedDate(null)} />
+        )}
+        {eventDisplayData && (
+          <EventDetails
+            {...eventDisplayData}
+            onClose={() => setEventDisplayData(null)}
+          />
         )}
         <FullCalendar
           ref={calendarRef}
@@ -61,25 +82,18 @@ const MyCalendar = () => {
           editable={true}
           selectable={false}
           firstDay={1}
-          events={[
-            { title: "event 1 o okreslonym dzialaniu", date: "2024-06-01" },
-            { title: "event 2", date: "2024-06-02" },
-            { title: "event 3", date: "2024-06-02" },
-            { title: "event 4", date: "2024-06-12" },
-            { title: "event 5", date: "2024-06-22" },
-            { title: "event 6", date: "2024-06-02" },
-            { title: "event 7", date: "2024-06-02" },
-          ]}
+          events={userEvents}
           slotLabelFormat={{
             hour: "2-digit",
             minute: "2-digit",
             hour12: false,
           }}
           dateClick={handleDateClick}
+          eventClick={handleEventClick}
         />
       </div>
     </>
   );
 };
 
-export default MyCalendar;
+export default CalendarContainer;
