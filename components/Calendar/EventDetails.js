@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import styles from "./EventDetails.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
@@ -27,6 +28,7 @@ export default function EventDetails({
   end,
   onClose,
 }) {
+  const modalRef = useRef();
   const startDateTime = formatDateTime(start);
   const endDateTime = has_end ? formatDateTime(end) : { day: "", time: "" };
 
@@ -47,8 +49,20 @@ export default function EventDetails({
     ? "All day"
     : `${displayStartData} - ${displayEndData}`;
 
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        onClose();
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [modalRef]);
+
   return (
-    <div className={styles["event-details"]}>
+    <div className={styles["event-details"]} ref={modalRef}>
       <FontAwesomeIcon icon={faCircleInfo} />
       <h3>{title}</h3>
       <p>{description}</p>
