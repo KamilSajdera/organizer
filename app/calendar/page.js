@@ -11,5 +11,5 @@ export default async function CaledarPage() {
   const { userId } = session;
   const events = await getEvents(userId);
 
-  return <CalendarContainer userEvents={events} />;
+  return <CalendarContainer userEvents={events} userId={userId}/>;
 }

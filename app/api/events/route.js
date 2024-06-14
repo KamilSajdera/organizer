@@ -24,3 +24,45 @@ export async function GET(req) {
 
   return NextResponse.json(events);
 }
+
+export async function POST(req) {
+  const data = await req.json();
+  const url = new URL(req.url);
+  const id = url.searchParams.get("userId");
+
+  if (!id || id.trim() === "") {
+    return NextResponse.json({
+      success: false,
+      errorMessage: "No userID given!",
+    });
+  }
+
+  if (!data) {
+    return NextResponse.json({
+      success: false,
+      errorMessage: "No relevant data.",
+    });
+  }
+
+  try {
+    const client = await MongoClient.connect(
+      process.env.NEXT_PUBLIC_MONGODB_ACTIVITIES_DATA
+    );
+    const db = client.db();
+
+    const eventsCollection = db.collection("events");
+    const response = await eventsCollection.insertOne({
+      ...data,
+      userId: id,
+    });
+
+    client.close();
+  } catch (error) {
+    return NextResponse.json({
+      success: false,
+      errorMessage: "Something went wrong while saving event in database.",
+    });
+  }
+
+  return NextResponse.json({ success: true });
+}

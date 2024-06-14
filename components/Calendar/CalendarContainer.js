@@ -14,7 +14,7 @@ import NewEvent from "./NewEvent";
 import PageHeader from "@/ui/PageHeader";
 import EventDetails from "./EventDetails";
 
-const CalendarContainer = ({userEvents}) => {
+const CalendarContainer = ({ userEvents, userId }) => {
   const calendarRef = useRef(null);
   const [seletedDate, setSelectedDate] = useState(null);
   const [eventDisplayData, setEventDisplayData] = useState();
@@ -52,7 +52,11 @@ const CalendarContainer = ({userEvents}) => {
       <PageHeader title="Calendar" />
       <div className={styles.container}>
         {seletedDate && (
-          <NewEvent date={seletedDate} onClose={() => setSelectedDate(null)} />
+          <NewEvent
+            date={seletedDate}
+            onClose={() => setSelectedDate(null)}
+            userId={userId}
+          />
         )}
         {eventDisplayData && (
           <EventDetails

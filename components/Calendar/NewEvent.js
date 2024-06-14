@@ -1,10 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useFormState } from "react-dom";
 
 import styles from "./NewEvent.module.scss";
 
-export default function NewEvent({ date, onClose }) {
+import { sendEvent } from "@/lib/events";
+
+export default function NewEvent({ date, onClose, userId }) {
+
   const eventWithHours = date.includes("T");
   const [isDisableHours, setIsDisableHours] = useState(!eventWithHours);
+  const [state, formAction] = useFormState(sendEvent.bind(null, userId), null);
+  
+  useEffect(() => {
+    if(state)
+      onClose();
+  }, [state])
 
   let formatedDate = new Date(date);
 
@@ -38,7 +48,7 @@ export default function NewEvent({ date, onClose }) {
             year: "numeric",
           })}
         </h4>
-        <form className={styles["newEvent-modal_form"]}>
+        <form className={styles["newEvent-modal_form"]} action={formAction}>
           <div className={styles.inputBox}>
             <input type="text" id="title" name="title" required minLength={1} />
             <label htmlFor="title">Title</label>
@@ -72,10 +82,11 @@ export default function NewEvent({ date, onClose }) {
             >
               <input
                 type="time"
-                name="hour"
+                name="start-hour"
                 step="1800"
                 defaultValue={`${eventHour}:${eventMinutes}`}
                 disabled={isDisableHours}
+                required={!eventWithHours}
               />
               <p>Start</p>
             </div>
@@ -87,13 +98,20 @@ export default function NewEvent({ date, onClose }) {
             >
               <input
                 type="time"
-                name="hour"
+                name="end-hour"
                 step="1800"
                 disabled={isDisableHours}
               />
               <p>End</p>
             </div>
           </div>
+          <input
+            type="text"
+            readOnly
+            style={{ display: "none" }}
+            value={date}
+            name="date"
+          />
           <button type="button" className={styles.button} onClick={onClose}>
             Cancel
           </button>
