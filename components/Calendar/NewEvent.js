@@ -4,6 +4,7 @@ import { useFormState } from "react-dom";
 import styles from "./NewEvent.module.scss";
 
 import { sendEvent } from "@/lib/events";
+import NewEventSubmit from "./NewEventSubmit";
 
 export default function NewEvent({ date, onClose, userId }) {
 
@@ -115,12 +116,7 @@ export default function NewEvent({ date, onClose, userId }) {
           <button type="button" className={styles.button} onClick={onClose}>
             Cancel
           </button>
-          <button
-            type="submit"
-            className={`${styles.button} ${styles["button-save"]}`}
-          >
-            Confirm
-          </button>
+          <NewEventSubmit />
         </form>
       </div>
     </div>
