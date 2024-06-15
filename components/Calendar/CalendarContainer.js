@@ -34,8 +34,9 @@ const CalendarContainer = ({ userEvents, userId }) => {
     setSelectedDate(clickedDate);
   };
 
-  const handleEventClick = (info) => {
+  const handleEventClick = (info) => {    
     const eventInfo = {
+      id: info.event._def.extendedProps._id,
       title: info.event.title,
       description: info.event._def.extendedProps.description,
       all_day: info.event.allDay,

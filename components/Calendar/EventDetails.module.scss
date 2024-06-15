@@ -58,7 +58,7 @@
   }
 }
 
-.btnClose {
+.btnClose, .btnDelete {
   margin-top: 10px;
   outline: none;
   border: none;
@@ -69,4 +69,10 @@
   color: #d2d2d2;
   font-weight: 700;
   border-radius: 5px;
+}
+
+.btnDelete {
+  margin-left: 10px;
+  background: red;
+  color: #fff;
 }

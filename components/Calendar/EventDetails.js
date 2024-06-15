@@ -1,8 +1,12 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./EventDetails.module.scss";
+import { deleteEvent } from "@/lib/events";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
+
+import ConfirmationArea from "@/ui/ConfirmationArea";
 
 const formatDateTime = (date) => {
   const day = date.toLocaleDateString("pl-PL", {
@@ -20,17 +24,19 @@ const formatDateTime = (date) => {
 };
 
 export default function EventDetails({
+  id,
   title,
   description,
   all_day,
   has_end,
   start,
   end,
-  onClose,
+  onClose
 }) {
   const modalRef = useRef();
+  const [isWantDelete, setIsWantDelete] = useState(false);
   const startDateTime = formatDateTime(start);
-  const endDateTime = has_end ? formatDateTime(end) : { day: "", time: "" };
+  const endDateTime = has_end ? formatDateTime(end) : { day: "", time: "" };  
 
   const isSameDay =
     start.toLocaleDateString("pl-PL") === end.toLocaleDateString("pl-PL");
@@ -49,30 +55,53 @@ export default function EventDetails({
     ? "All day"
     : `${displayStartData} - ${displayEndData}`;
 
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        onClose();
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [modalRef]);
+  // useEffect(() => {
+  //   function handleClickOutside(event) {
+  //     if (modalRef.current && !modalRef.current.contains(event.target)) {
+  //       onClose();
+  //     }
+  //   }
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, [modalRef]);
+
+  function handleDeleteEvent() {
+    setIsWantDelete(true);
+  }
+
+  async function handleFinishDelete() {   
+    await deleteEvent(id);
+    setIsWantDelete(false);
+    onClose();
+  }
 
   return (
-    <div className={styles["event-details"]} ref={modalRef}>
-      <FontAwesomeIcon icon={faCircleInfo} />
-      <h3>{title}</h3>
-      <p>{description}</p>
-      <div className={styles["event-details_duration"]}>
-        <FontAwesomeIcon icon={faClock} />{" "}
-        <div dangerouslySetInnerHTML={{ __html: durationFormat }} />
+    <>
+      {isWantDelete && (
+        <ConfirmationArea
+          onClose={() => setIsWantDelete(false)}
+          onConfirmation={handleFinishDelete}
+        >
+          You're going to delete event.
+        </ConfirmationArea>
+      )}
+      <div className={styles["event-details"]} ref={modalRef}>
+        <FontAwesomeIcon icon={faCircleInfo} />
+        <h3>{title}</h3>
+        <p>{description}</p>
+        <div className={styles["event-details_duration"]}>
+          <FontAwesomeIcon icon={faClock} />{" "}
+          <div dangerouslySetInnerHTML={{ __html: durationFormat }} />
+        </div>
+        <button className={styles.btnClose} onClick={onClose}>
+          Close
+        </button>
+        <button className={styles.btnDelete} onClick={handleDeleteEvent}>
+          Delete
+        </button>
       </div>
-      <button className={styles.btnClose} onClick={onClose}>
-        Close
-      </button>
-    </div>
+    </>
   );
 }
