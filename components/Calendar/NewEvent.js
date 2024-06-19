@@ -7,15 +7,13 @@ import { sendEvent } from "@/lib/events";
 import NewEventSubmit from "./NewEventSubmit";
 
 export default function NewEvent({ date, onClose, userId }) {
-
   const eventWithHours = date.includes("T");
   const [isDisableHours, setIsDisableHours] = useState(!eventWithHours);
   const [state, formAction] = useFormState(sendEvent.bind(null, userId), null);
-  
+
   useEffect(() => {
-    if(state)
-      onClose();
-  }, [state])
+    if (state) onClose();
+  }, [state]);
 
   let formatedDate = new Date(date);
 
@@ -71,6 +69,7 @@ export default function NewEvent({ date, onClose, userId }) {
                 id={styles["all_day_input"]}
                 onChange={handleChangeAllDay}
                 defaultChecked={!eventWithHours}
+                name='all-day'
               />
               <i></i>
             </label>
@@ -81,6 +80,7 @@ export default function NewEvent({ date, onClose, userId }) {
                 isDisableHours && styles.disabled
               }`}
             >
+              <p>Start</p>
               <input
                 type="time"
                 name="start-hour"
@@ -89,21 +89,18 @@ export default function NewEvent({ date, onClose, userId }) {
                 disabled={isDisableHours}
                 required={!eventWithHours}
               />
-              <p>Start</p>
             </div>
-            -
+            <p>End</p>
             <div
               className={`${styles["hour-item"]} ${
                 isDisableHours && styles.disabled
               }`}
             >
               <input
-                type="time"
-                name="end-hour"
-                step="1800"
+                type="datetime-local"
+                name="end"
                 disabled={isDisableHours}
               />
-              <p>End</p>
             </div>
           </div>
           <input

@@ -165,14 +165,15 @@
 
 .hours-con {
   margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
   width: 75%;
 }
 
 .hour-item {
-  text-align: center;
+  margin-bottom: 10px;
+
+  p {
+    margin-bottom: 3px;
+  }
 
   input {
     outline: none;
@@ -194,7 +195,8 @@
   }
 }
 
-.disabled input, .disabled {
+.disabled input,
+.disabled {
   opacity: 0.7;
   cursor: no-drop;
 }
