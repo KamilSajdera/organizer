@@ -5,6 +5,7 @@ import styles from "./NewEvent.module.scss";
 
 import { sendEvent } from "@/lib/events";
 import NewEventSubmit from "./NewEventSubmit";
+import ErrorBoundary from "@/ui/ErrorBoundary";
 
 export default function NewEvent({ date, onClose, userId }) {
   const eventWithHours = date.includes("T");
@@ -12,7 +13,7 @@ export default function NewEvent({ date, onClose, userId }) {
   const [state, formAction] = useFormState(sendEvent.bind(null, userId), null);
 
   useEffect(() => {
-    if (state) onClose();
+    if (state?.success) onClose();
   }, [state]);
 
   let formatedDate = new Date(date);
@@ -39,6 +40,7 @@ export default function NewEvent({ date, onClose, userId }) {
   return (
     <div className={styles.overlay}>
       <div className={styles["newEvent-modal"]}>
+        
         <h2>New event</h2>
         <h4>
           {formatedDate.toLocaleDateString("pl-PL", {
@@ -47,6 +49,7 @@ export default function NewEvent({ date, onClose, userId }) {
             year: "numeric",
           })}
         </h4>
+        {state?.success === false && <ErrorBoundary>{state?.errorMessage}</ErrorBoundary>}
         <form className={styles["newEvent-modal_form"]} action={formAction}>
           <div className={styles.inputBox}>
             <input type="text" id="title" name="title" required minLength={1} />
@@ -84,7 +87,6 @@ export default function NewEvent({ date, onClose, userId }) {
               <input
                 type="time"
                 name="start-hour"
-                step="1800"
                 defaultValue={`${eventHour}:${eventMinutes}`}
                 disabled={isDisableHours}
                 required={!eventWithHours}
