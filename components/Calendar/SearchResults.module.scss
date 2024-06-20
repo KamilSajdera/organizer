@@ -1,0 +1,24 @@
+@import '@/styles/variables.module.scss';
+
+.results {
+    font-family: $secondary-font;
+    margin-top: 20px;
+    padding-inline: 5px;
+    list-style-type: disclosure-closed;
+
+    &-item {
+        margin-bottom: 15px;
+
+        p {
+            color: #afafaf;
+            padding-bottom: 5px;
+        }
+    }
+}
+
+.hr {
+    width: 200px;
+    height: 3px;
+    background: linear-gradient(45deg, #a783a7, transparent);
+    margin-top: 15px;
+}
