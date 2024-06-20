@@ -11,7 +11,6 @@ import styles from "./CalendarContainer.module.scss";
 import "@/styles/MyCalendar.css";
 
 import NewEvent from "./NewEvent";
-import PageHeader from "@/ui/PageHeader";
 import EventDetails from "./EventDetails";
 
 const CalendarContainer = ({ userEvents, userId }) => {
@@ -50,7 +49,6 @@ const CalendarContainer = ({ userEvents, userId }) => {
 
   return (
     <>
-      <PageHeader title="Calendar" />
       <div className={styles.container}>
         {seletedDate && (
           <NewEvent
