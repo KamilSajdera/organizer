@@ -14,7 +14,7 @@ const formatDateTime = (date) => {
     month: "2-digit",
     year: "numeric",
   });
-  const hours = date.getHours();
+  const hours = date.getHours() - 2;
   const minutes = date.getMinutes();
   const time = `${hours < 10 ? "0" + hours : hours}:${
     minutes < 10 ? "0" + minutes : minutes
@@ -31,12 +31,12 @@ export default function EventDetails({
   has_end,
   start,
   end,
-  onClose
+  onClose,
 }) {
   const modalRef = useRef();
   const [isWantDelete, setIsWantDelete] = useState(false);
   const startDateTime = formatDateTime(start);
-  const endDateTime = has_end ? formatDateTime(end) : { day: "", time: "" };  
+  const endDateTime = has_end ? formatDateTime(end) : { day: "", time: "" };
 
   const isSameDay =
     start.toLocaleDateString("pl-PL") === end.toLocaleDateString("pl-PL");
@@ -71,7 +71,7 @@ export default function EventDetails({
     setIsWantDelete(true);
   }
 
-  async function handleFinishDelete() {   
+  async function handleFinishDelete() {
     await deleteEvent(id);
     setIsWantDelete(false);
     onClose();
