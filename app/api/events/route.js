@@ -100,3 +100,42 @@ export async function DELETE(req) {
 
   return NextResponse.json({ success: true });
 }
+
+export async function PATCH(req) {
+  const data = await req.json();
+
+  if (!data) {
+    return NextResponse.json({
+      success: false,
+      errorMessage: "No data provided for update.",
+    });
+  }
+
+  const client = await MongoClient.connect(
+    process.env.NEXT_PUBLIC_MONGODB_ACTIVITIES_DATA
+  );
+  const db = client.db();
+
+  const updateData = {
+    $set: {
+      start: data.newStart,
+      end: data.newEnd,
+    },
+  };
+  const eventsCollection = db.collection("events");
+  const updateResult = await eventsCollection.updateOne(
+    { _id: new ObjectId(data.id) },
+    updateData
+  );
+
+  client.close();
+
+  if (updateResult.modifiedCount <= 0) {
+    return NextResponse.json({
+      success: false,
+      errorMessage: "Failed to update the event in the database!",
+    });
+  }
+
+  return NextResponse.json({ success: true });
+}

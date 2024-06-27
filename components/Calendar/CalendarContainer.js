@@ -6,17 +6,20 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
+import { updateEventDate } from "@/lib/events";
 import styles from "./CalendarContainer.module.scss";
 
 import "@/styles/MyCalendar.css";
 
 import NewEvent from "./NewEvent";
 import EventDetails from "./EventDetails";
+import ConfirmationArea from "@/ui/ConfirmationArea";
 
 const CalendarContainer = ({ userEvents, userId }) => {
   const calendarRef = useRef(null);
   const [seletedDate, setSelectedDate] = useState(null);
   const [eventDisplayData, setEventDisplayData] = useState();
+  const [movedEventData, setMovedEventData] = useState(null);
 
   const handlePrevYear = () => {
     const calendarApi = calendarRef.current.getApi();
@@ -33,7 +36,7 @@ const CalendarContainer = ({ userEvents, userId }) => {
     setSelectedDate(clickedDate);
   };
 
-  const handleEventClick = (info) => {    
+  const handleEventClick = (info) => {
     const eventInfo = {
       id: info.event._def.extendedProps._id,
       title: info.event.title,
@@ -47,8 +50,50 @@ const CalendarContainer = ({ userEvents, userId }) => {
     setEventDisplayData(eventInfo);
   };
 
+  const handleEventDrop = (info) => {
+    const data = {
+      id: info.event._def.extendedProps._id,
+      oldStart: info.oldEvent.startStr,
+      oldEnd: info.oldEvent.endStr,
+      newStart: info.event.startStr,
+      newEnd: info.event.endStr,
+      all_day: info.event.allDay,
+    };
+
+    setMovedEventData(data);
+  };
+
+  const dateFormatOptions = movedEventData?.all_day
+    ? { year: "numeric", month: "numeric", day: "numeric" }
+    : {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+
+        hour: "numeric",
+        minute: "numeric",
+      };
+
   return (
     <>
+      {movedEventData && (
+        <ConfirmationArea
+          onClose={() => setMovedEventData(null)}
+          onConfirmation={async () => {
+            await updateEventDate(movedEventData);
+            setMovedEventData(null);
+          }}
+        >
+          You are going to change the date of your event to{" "}
+          <b style={{ color: "#eee" }}>
+            {new Date(movedEventData.newStart).toLocaleString(
+              "pl-PL",
+              dateFormatOptions
+            )}
+          </b>
+          .
+        </ConfirmationArea>
+      )}
       <div className={styles.container}>
         {seletedDate && (
           <NewEvent
@@ -93,6 +138,7 @@ const CalendarContainer = ({ userEvents, userId }) => {
           }}
           dateClick={handleDateClick}
           eventClick={handleEventClick}
+          eventDrop={handleEventDrop}
         />
       </div>
     </>
