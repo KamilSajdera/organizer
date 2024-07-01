@@ -33,7 +33,7 @@ export default function SignInForm() {
           label="Password"
         />
         <div className={styles.inputRemember}>
-          <input type="checkbox" id="remember" />
+          <input type="checkbox" id="remember" name="remember"/>
           <label htmlFor="remember">Remember me</label>
         </div>
         <Button
