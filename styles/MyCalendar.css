@@ -95,6 +95,35 @@
   border: 1px solid #5f5f5f70;
 }
 
+
+.fc .fc-button-primary {
+  background-color: #303137;
+  border: none;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.fc .fc-button-primary:disabled
+{
+  box-shadow: none!important;
+  background-color: #303137b9!important;
+  border: none!important;
+}
+
+.fc .fc-button-primary:hover {
+  background-color: #303137;
+}
+
+.fc .fc-button-primary:focus, .fc .fc-button-primary:not(:disabled):active {
+  box-shadow: none!important;
+  background-color: #303137!important;
+  border: none!important;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active {
+  background-color: #682d68!important;
+}
+
 @media screen and (min-width: 767px) {
   .fc-dayGridMonth-view tbody {
     transform: translateY(10px);
