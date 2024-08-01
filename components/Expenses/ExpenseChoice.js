@@ -11,13 +11,13 @@ export default function ExpenseChoice() {
         <div className={styles.faBorder}>
           <FontAwesomeIcon icon={faMoneyBillAlt} />
         </div>
-        <p>Expense</p>
+        <p>+ Expense</p>
       </div>
       <div className={styles["user-actions__item"]}>
         <div className={styles.faBorder}>
           <FontAwesomeIcon icon={faHandHoldingDollar} />
         </div>
-        <p>Goal</p>
+        <p>+ Goal</p>
       </div>
     </section>
   );
