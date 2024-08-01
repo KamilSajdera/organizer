@@ -2,16 +2,25 @@
 
 .user-actions {
   display: flex;
-  margin-top: 50px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: -10px;
+
+  @media screen and (min-width: 767px) {
+    justify-content: start;
+  }
 
   &__item {
-    margin-inline: 40px;
+    margin-inline: 10px;
     text-align: center;
-    opacity: 0.7;
     cursor: pointer;
 
+    @media screen and (min-width: 767px) {
+      margin-inline: 30px;
+    }
+
     &:first-child {
-      margin-left: 0;
+      margin-left: 0 !important;
     }
 
     &:hover svg {
@@ -24,9 +33,9 @@
     }
 
     p {
-      padding-top: 10px;
+      padding-top: 15px;
       font-weight: 500;
-      color: $pink;
+      color: #b382b3;
       font-family: $secondary-font;
       filter: drop-shadow(2px 4px 6px black);
       font-size: 1.1em;
@@ -36,7 +45,7 @@
   svg {
     font-size: 2.5em;
     width: 100%;
-    color: $pink;
+    color: #b178b1;
   }
 }
 
@@ -48,9 +57,12 @@
   justify-content: center;
   align-content: center;
   text-align: center;
-  border: 2px solid $pink;
-  border-radius: 50%;
+  border-bottom: 1px solid #b382b358;
   overflow: hidden;
+}
+
+.expense-choice__title {
+  width: 100%;
 }
 
 @keyframes slideSvg {
