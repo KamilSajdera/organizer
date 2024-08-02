@@ -81,15 +81,17 @@
     width: 40%;
     padding: 5px;
     margin: 5px;
-    background: #574b57;
-    border-radius: 5px;
+    border-radius: 25px;
     font-size: 0.9em;
     cursor: pointer;
-    transition: background 100ms ease;
+    transition: background 200ms ease;
+    border: 2px solid #605569;
 
     &:hover {
-        background: #443544;
-        color: #fff;
+      background: linear-gradient(45deg, #74667b, #3c3747);
+      color: #fff;
+      border: none;
+      padding: 6px;
     }
 
     @media screen and (min-width: 767px) {
@@ -102,5 +104,8 @@
 
 .active {
   font-weight: 700;
-  box-shadow: 0px 0px 9px 0px #1fd415;
+  color: #fff;
+  border: none;
+  background: linear-gradient(45deg, #74667b, #3c3747) !important;
+  padding: 6px;
 }
