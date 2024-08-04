@@ -1,0 +1,19 @@
+.paginationBox {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+    
+    @media screen and (min-width: 1023px) {
+        justify-content: flex-end;
+    }
+}
+
+.pagination-item {
+    padding: 4px 10px;
+    margin-inline: 5px;
+    background: #54576a;
+    border-radius: 3px;
+    font-weight: bold;
+    cursor: pointer;
+}
