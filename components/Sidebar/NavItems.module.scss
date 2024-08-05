@@ -1,66 +1,89 @@
-.mainNav 
-{
-    width: 100%;
-    margin-top: 30px;
-    text-align: center;
-    padding-inline: 5px;
+.mainNav {
+  width: 100%;
+  margin-top: 30px;
+  text-align: center;
+  padding-inline: 5px;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-items: center;
 
-    &-item 
-    {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        padding: 10px;
-        margin-bottom: 20px;
-        color: #858488;
-        text-decoration: none;
+  &-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    margin-bottom: 20px;
+    color: #858488;
+    text-decoration: none;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
 
-        svg 
-        {
-            width: 20px;
-            margin: auto;
-        }
-
-        h5 
-        {
-            display: none;
-            font-weight: 500;
-            padding-top: 5px;
-            font-size: 0.93em;
-        }
+    svg {
+      width: 20px;
+      margin: auto;
     }
+
+    h5 {
+      display: none;
+      font-weight: 500;
+      padding-top: 5px;
+      font-size: 0.93em;
+    }
+  }
 }
 
-.mainNav-item.active 
-{
-    background: #141432;
-    border-radius: 15px;
-    color: #dddddd;
+.mainNav-item.active {
+  background: #54576a;
+  color: #eee;
 }
 
 @media screen and (min-width: 767px) {
-    .mainNav-item 
-    {
-        flex-direction: column;
-        h5 { display: block; }
+  .mainNav-item {
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    aspect-ratio: auto;
+    h5 {
+      display: block;
     }
+  }
+
+  .mainNav-item.active {
+    animation-name: showItems;
+    animation-duration: 300ms;
+    animation-fill-mode: both;
+  }
 }
 
-@media screen and (min-width: 900px)
-{
-    .mainNav
-    {
-        margin-top: 70px;
+@media screen and (min-width: 900px) {
+  .mainNav {
+    margin-top: 70px;
 
-        &-item 
-        {
-            flex-direction: row;
-            padding: 17px 10px;
+    &-item {
+      flex-direction: row;
+      padding: 17px 10px;
 
-            h5 { padding-top: 0; }
-            svg {
-                margin: 0 20px 0 13px;
-            }
-        }
+      h5 {
+        padding-top: 0;
+      }
+      svg {
+        margin: 0 20px 0 13px;
+      }
     }
+  }
+}
+
+@keyframes showItems {
+  0% {
+    color: transparent;
+    padding-inline: 1px;
+    width: 0;
+  }
+  50% {
+    padding-inline: 10px;
+  }
+  80% {
+    color: #eee;
+  }
 }
