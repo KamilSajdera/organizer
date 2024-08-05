@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+import DetailsPagination from "./DetailsPagination";
 import styles from "./DetailsSummary.module.scss";
 
 const DUMMY_EXPENSES = [
@@ -29,6 +33,69 @@ const DUMMY_EXPENSES = [
     amount: 400,
     date: "31.02.2024",
   },
+  {
+    id: 5,
+    type: "expense",
+    name: "Something else2",
+    amount: 350,
+    date: "15.05.2024",
+  },
+  {
+    id: 6,
+    type: "expense",
+    name: "Something else 3",
+    amount: 350,
+    date: "15.05.2024",
+  },
+  {
+    id: 7,
+    type: "expense",
+    name: "Something else 4",
+    amount: 350,
+    date: "15.05.2024",
+  },
+  {
+    id: 8,
+    type: "expense",
+    name: "Something else5",
+    amount: 350,
+    date: "15.05.2024",
+  },
+  {
+    id: 9,
+    type: "expense",
+    name: "Something else6",
+    amount: 350,
+    date: "15.05.2024",
+  },
+  {
+    id: 10,
+    type: "expense",
+    name: "Something else7",
+    amount: 350,
+    date: "15.05.2024",
+  },
+  {
+    id: 11,
+    type: "expense",
+    name: "Something else8",
+    amount: 350,
+    date: "15.05.2024",
+  },
+  {
+    id: 12,
+    type: "expense",
+    name: "Something else9",
+    amount: 350,
+    date: "15.05.2024",
+  },
+  {
+    id: 13,
+    type: "expense",
+    name: "and mooore",
+    amount: 500,
+    date: "15.05.2024",
+  },
 ];
 
 const DUMMY_GOALS = [
@@ -47,28 +114,36 @@ const DUMMY_GOALS = [
 ];
 
 export default function DetailsSummary() {
+  const [actualPage, setActualPage] = useState(1);
+
   return (
     <section className={styles["details-wrapper"]}>
       <h4>Details</h4>
-      {DUMMY_EXPENSES.map((expense) => {
-        let goal_details = (expense.type =
-          "goal" && DUMMY_GOALS.find((goal) => goal.id === expense.goal_id));
+      {DUMMY_EXPENSES.slice(actualPage * 6 - 6, actualPage * 6).map(
+        (expense) => {
+          let goal_details = (expense.type =
+            "goal" && DUMMY_GOALS.find((goal) => goal.id === expense.goal_id));
 
-        return (
-          <div className={styles["detail-item"]} key={expense.id}>
-            <h5>{expense.name || goal_details.name}</h5>
-            <div className={styles["detail-item_amount"]}>
-              + {expense.amount}$
-              {goal_details && (
-                <p>
-                  ({goal_details.collected}$/{goal_details.amount}$)
-                </p>
-              )}
+          return (
+            <div className={styles["detail-item"]} key={expense.id}>
+              <h5>{expense.name || goal_details.name}</h5>
+              <div className={styles["detail-item_amount"]}>
+                + {expense.amount}$
+                {goal_details && (
+                  <p>
+                    ({goal_details.collected}$/{goal_details.amount}$)
+                  </p>
+                )}
+              </div>
+              <div className={styles["detail-item_date"]}>{expense.date}</div>
             </div>
-            <div className={styles["detail-item_date"]}>{expense.date}</div>
-          </div>
-        );
-      })}
+          );
+        }
+      )}
+      <DetailsPagination
+        expensesAmount={DUMMY_EXPENSES.length}
+        onChangePage={(value) => setActualPage(value)}
+      />
     </section>
   );
 }
