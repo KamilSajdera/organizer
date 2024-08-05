@@ -2,6 +2,7 @@
     margin-top: 20px;
     display: flex;
     justify-content: center;
+    align-items: center;
     padding-bottom: 10px;
     
     @media screen and (min-width: 1023px) {
@@ -15,5 +16,11 @@
     background: #54576a;
     border-radius: 3px;
     font-weight: bold;
+    transition: all 100ms ease;
     cursor: pointer;
+}
+
+.active {
+    background: #3c3e4b;
+    padding: 6px 12px;
 }
