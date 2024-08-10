@@ -8,6 +8,7 @@ import AddExpenseModal from "./AddExpenseModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHandHoldingDollar } from "@fortawesome/free-solid-svg-icons";
 import { faMoneyBillAlt } from "@fortawesome/free-regular-svg-icons";
+import AddGoalModal from "./AddGoalModal";
 
 export default function ExpenseChoice() {
   const [isShowAddExpenseModal, setIsShowAddExpenseModal] = useState(false);
@@ -17,6 +18,7 @@ export default function ExpenseChoice() {
   const handleCloseExpense = () => setIsShowAddExpenseModal(false);
 
   const handleAddGoal = () => setIsShowAddGoalModal(true);
+  const handleCloseGoal = () => setIsShowAddGoalModal(false);
 
   return (
     <>
@@ -39,6 +41,9 @@ export default function ExpenseChoice() {
       </section>
       {isShowAddExpenseModal && (
         <AddExpenseModal onCloseExpenseModal={handleCloseExpense} />
+      )}
+      {isShowAddGoalModal && (
+        <AddGoalModal onCloseGoalModal={handleCloseGoal} />
       )}
     </>
   );
