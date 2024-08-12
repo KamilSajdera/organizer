@@ -1,12 +1,14 @@
 .mainNav {
-  width: 100%;
-  margin-top: 30px;
+  width: 90%;
   text-align: center;
-  padding-inline: 5px;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
   align-items: center;
+  background: #201e24;
+  border-radius: 20px;
+  margin: 30px auto 0 auto;
+  padding: 15px 0;
 
   &-item {
     display: flex;
@@ -33,17 +35,18 @@
 }
 
 .mainNav-item.active {
-  background: #54576a;
+  background: #232128;
   color: #eee;
 }
 
 @media screen and (min-width: 767px) {
   .mainNav-item {
     flex-direction: column;
-    width: 100%;
+    width: 90%;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 20px;
     aspect-ratio: auto;
+    position: relative;
     h5 {
       display: block;
     }
@@ -53,6 +56,13 @@
     animation-name: showItems;
     animation-duration: 300ms;
     animation-fill-mode: both;
+
+    svg, h5 {
+      animation-name: showText;
+      animation-duration: 400ms;
+      animation-fill-mode: both;
+    }
+
   }
 }
 
@@ -62,7 +72,7 @@
 
     &-item {
       flex-direction: row;
-      padding: 17px 10px;
+      padding: 15px 10px;
 
       h5 {
         padding-top: 0;
@@ -76,14 +86,20 @@
 
 @keyframes showItems {
   0% {
-    color: transparent;
-    padding-inline: 1px;
-    width: 0;
+    opacity: 0
   }
-  50% {
-    padding-inline: 10px;
+  100% {
+    opacity: 1;
   }
-  80% {
-    color: #eee;
+}
+
+
+@keyframes showText {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  } to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
