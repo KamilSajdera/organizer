@@ -3,12 +3,18 @@ import { addExpense } from "@/lib/expenses";
 
 import styles from "./AddExpenseModal.module.scss";
 import ErrorBlock from "../AuthPage/ErrorBlock";
+import Button from "./AddButton";
 
 export default function AddExpenseModal({
   onCloseExpenseModal,
   userId = "663009b4e52957d9bc1e331a",
 }) {
   const [state, formAction] = useFormState(addExpense.bind(null, userId), null);
+
+  if (state?.success) {
+    onCloseExpenseModal();
+  }
+
   return (
     <div className={styles["addExpense-overlay"]}>
       <div className={styles["addExpense-modal"]}>
@@ -36,9 +42,7 @@ export default function AddExpenseModal({
           >
             Close
           </button>
-          <button type="submit" className={`${styles.btn} ${styles.add}`}>
-            Add
-          </button>
+          <Button />
         </form>
       </div>
     </div>
