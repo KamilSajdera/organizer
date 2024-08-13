@@ -1,11 +1,26 @@
-import styles from "./AddExpenseModal.module.scss";
+import { useFormState } from "react-dom";
+import { addExpense } from "@/lib/expenses";
 
-export default function AddExpenseModal({ onCloseExpenseModal }) {
+import styles from "./AddExpenseModal.module.scss";
+import ErrorBlock from "../AuthPage/ErrorBlock";
+
+export default function AddExpenseModal({
+  onCloseExpenseModal,
+  userId = "663009b4e52957d9bc1e331a",
+}) {
+  const [state, formAction] = useFormState(addExpense.bind(null, userId), null);
   return (
     <div className={styles["addExpense-overlay"]}>
       <div className={styles["addExpense-modal"]}>
         <h3>New expense</h3>
-        <form>
+        {state?.errorMessage && (
+          <>
+            <ErrorBlock message={state?.errorMessage} />{" "}
+            <div style={{ marginBottom: "40px" }}></div>
+          </>
+        )}
+
+        <form action={formAction}>
           <div className={styles.inputBox}>
             <label htmlFor="title">Title</label>
             <input type="text" name="title" required />
