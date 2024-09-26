@@ -10,7 +10,7 @@ import { faHandHoldingDollar } from "@fortawesome/free-solid-svg-icons";
 import { faMoneyBillAlt } from "@fortawesome/free-regular-svg-icons";
 import AddGoalModal from "./AddGoalModal";
 
-export default function ExpenseChoice() {
+export default function ExpenseChoice({ userId }) {
   const [isShowAddExpenseModal, setIsShowAddExpenseModal] = useState(false);
   const [isShowAddGoalModal, setIsShowAddGoalModal] = useState(false);
 
@@ -40,7 +40,10 @@ export default function ExpenseChoice() {
         </div>
       </section>
       {isShowAddExpenseModal && (
-        <AddExpenseModal onCloseExpenseModal={handleCloseExpense} />
+        <AddExpenseModal
+          onCloseExpenseModal={handleCloseExpense}
+          userId={userId}
+        />
       )}
       {isShowAddGoalModal && (
         <AddGoalModal onCloseGoalModal={handleCloseGoal} />
