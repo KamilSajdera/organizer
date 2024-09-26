@@ -46,7 +46,7 @@ export default function ExpenseChoice({ userId }) {
         />
       )}
       {isShowAddGoalModal && (
-        <AddGoalModal onCloseGoalModal={handleCloseGoal} />
+        <AddGoalModal onCloseGoalModal={handleCloseGoal} userId={userId} />
       )}
     </>
   );
