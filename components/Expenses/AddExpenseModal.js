@@ -6,7 +6,7 @@ import ErrorBlock from "../AuthPage/ErrorBlock";
 import Button from "./AddButton";
 
 export default function AddExpenseModal({ onCloseExpenseModal, userId }) {
-  const [state, formAction] = useFormState(addExpense.bind(null, userId), null);
+  const [state, formAction] = useFormState(addExpense.bind(null, userId, false), null);
 
   if (state?.success) {
     onCloseExpenseModal();
