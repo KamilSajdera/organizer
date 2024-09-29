@@ -37,3 +37,34 @@ export async function POST(req) {
 
   return NextResponse.json({ success: true });
 }
+
+export async function GET(req) {
+  const url = new URL(req.url);
+  const userId = url.searchParams.get("userId");
+  let expensesArray = [];
+
+  if (!userId) {
+    return NextResponse.json(
+      { error: "Internal Server Error: no userID!" },
+      { status: 500 }
+    );
+  }
+
+  const client = await MongoClient.connect(
+    process.env.NEXT_PUBLIC_MONGODB_ACTIVITIES_DATA
+  );
+  try {
+    const db = client.db();
+    const expensesCollection = db.collection("expenses");
+    const response = expensesCollection.find({ userId: userId });
+
+    expensesArray = await response.toArray();
+  } catch (error) {
+    return NextResponse.json({
+      success: false,
+      errorMessage: error.toString(),
+    });
+  }
+
+  return NextResponse.json(expensesArray);
+}
