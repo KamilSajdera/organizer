@@ -113,35 +113,36 @@ const DUMMY_GOALS = [
   },
 ];
 
-export default function DetailsSummary() {
+export default function DetailsSummary({ expenses }) {
   const [actualPage, setActualPage] = useState(1);
 
   return (
     <section className={styles["details-wrapper"]}>
       <h4>Details</h4>
-      {DUMMY_EXPENSES.slice(actualPage * 6 - 6, actualPage * 6).map(
-        (expense) => {
-          let goal_details = (expense.type =
-            "goal" && DUMMY_GOALS.find((goal) => goal.id === expense.goal_id));
+      {expenses.slice(actualPage * 6 - 6, actualPage * 6).map((expense) => {
+        let goal_details =
+          expense.type === "goal" &&
+          DUMMY_GOALS.find((goal) => goal.id === expense.goal_id);
 
-          return (
-            <div className={styles["detail-item"]} key={expense.id}>
-              <h5>{expense.name || goal_details.name}</h5>
-              <div className={styles["detail-item_amount"]}>
-                + {expense.amount}$
-                {goal_details && (
-                  <p>
-                    ({goal_details.collected}$/{goal_details.amount}$)
-                  </p>
-                )}
-              </div>
-              <div className={styles["detail-item_date"]}>{expense.date}</div>
+        return (
+          <div className={styles["detail-item"]} key={expense._id}>
+            <h5>{expense.name || goal_details.name}</h5>
+            <div className={styles["detail-item_amount"]}>
+              + {expense.amount}$
+              {goal_details && (
+                <p>
+                  ({goal_details.collected}$/{goal_details.amount}$)
+                </p>
+              )}
             </div>
-          );
-        }
-      )}
+            <div className={styles["detail-item_date"]}>
+              {new Date(expense.date).toLocaleDateString("pl-PL", {})}
+            </div>
+          </div>
+        );
+      })}
       <DetailsPagination
-        expensesAmount={DUMMY_EXPENSES.length}
+        expensesAmount={expenses.length}
         onChangePage={(value) => setActualPage(value)}
       />
     </section>
