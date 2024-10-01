@@ -4,7 +4,9 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
   margin-top: -10px;
+  position: relative;
 
   @media screen and (min-width: 767px) {
     justify-content: start;
@@ -47,6 +49,27 @@
     font-size: 2.5em;
     width: 100%;
     color: #b178b1;
+  }
+
+  &__show-goals {
+    margin: 40px auto 0 auto;
+    outline: none;
+    border: none;
+    font-family: $secondary-font;
+    padding: 5px 20px;
+    border-radius: 2px;
+    font-size: 1em;
+    background: #54576a;
+    color: #fff;
+    font-weight: 600;
+    filter: drop-shadow(2px 4px 6px black);
+    cursor: pointer;
+    transition: all 100ms ease;
+
+    &:hover {
+      background: #65687b;
+      filter: drop-shadow(2px 4px 6px rgb(40, 40, 40));
+    }
   }
 }
 

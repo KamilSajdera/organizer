@@ -13,12 +13,15 @@ import AddGoalModal from "./AddGoalModal";
 export default function ExpenseChoice({ userId }) {
   const [isShowAddExpenseModal, setIsShowAddExpenseModal] = useState(false);
   const [isShowAddGoalModal, setIsShowAddGoalModal] = useState(false);
+  const [isShowUserGoals, setIsShowUserGoals] = useState(false);
 
   const handleAddExpense = () => setIsShowAddExpenseModal(true);
   const handleCloseExpense = () => setIsShowAddExpenseModal(false);
 
   const handleAddGoal = () => setIsShowAddGoalModal(true);
   const handleCloseGoal = () => setIsShowAddGoalModal(false);
+
+  const handleShowGoals = () => setIsShowUserGoals(true);
 
   return (
     <>
@@ -38,6 +41,12 @@ export default function ExpenseChoice({ userId }) {
           </div>
           <p>+ Goal</p>
         </div>
+        <button
+          className={styles["user-actions__show-goals"]}
+          onClick={handleShowGoals}
+        >
+          Goals
+        </button>
       </section>
       {isShowAddExpenseModal && (
         <AddExpenseModal
