@@ -41,7 +41,16 @@ export async function POST(req) {
 export async function GET(req) {
   const url = new URL(req.url);
   const userId = url.searchParams.get("userId");
+  const typeOfSearchingData = url.searchParams.get("type");
   let expensesArray = [];
+
+  const clientUri =
+    typeOfSearchingData === "goals"
+      ? process.env.NEXT_PUBLIC_MONGODB_GOALS_DATA
+      : process.env.NEXT_PUBLIC_MONGODB_ACTIVITIES_DATA;
+
+  const collectionName =
+    typeOfSearchingData === "goals" ? "expenses_goals" : "expenses";
 
   if (!userId) {
     return NextResponse.json(
@@ -50,12 +59,11 @@ export async function GET(req) {
     );
   }
 
-  const client = await MongoClient.connect(
-    process.env.NEXT_PUBLIC_MONGODB_ACTIVITIES_DATA
-  );
+  const client = await MongoClient.connect(clientUri);
+
   try {
     const db = client.db();
-    const expensesCollection = db.collection("expenses");
+    const expensesCollection = db.collection(collectionName);
     const response = expensesCollection.find({ userId: userId });
 
     expensesArray = await response.toArray();
