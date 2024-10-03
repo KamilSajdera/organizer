@@ -1,0 +1,162 @@
+.goals {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #0000006d;
+  z-index: 2;
+
+  &-container {
+    width: 90%;
+    margin: 40px auto 0 auto;
+    height: 80vh;
+    background: #1d1e22;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    position: relative;
+    padding-bottom: 20px;
+
+    @media screen and (min-width: 767px) {
+      padding-top: 80px;
+
+      h3 {
+        position: absolute;
+        top: 0px;
+      }
+    }
+
+    @media screen and (min-width: 1023px) {
+      width: 70%;
+    }
+
+    @media screen and (min-width: 1350px) {
+      width: 50%;
+    }
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #4e4c4b;
+    }
+
+    h3 {
+      margin: 20px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid #9f5aae;
+      display: inline-block;
+      margin-bottom: 20px;
+      z-index: 3;
+      background: #1d1e22;
+    }
+
+    svg {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 1.65em;
+      cursor: pointer;
+    }
+  }
+}
+
+.goal-item {
+  width: 100%;
+  margin: auto;
+  height: 180px;
+  padding: 10px 30px;
+  text-align: right;
+  color: #fff;
+
+  @media screen and (min-width: 767px) {
+    width: 45%;
+    border-bottom: 2px solid #21262f;
+
+    &:nth-child(2n + 1) {
+      background: transparent !important;
+    }
+  }
+
+  &:nth-child(2n + 1) {
+    background: #1a1b1e;
+  }
+
+  h4 {
+    text-align: center;
+  }
+
+  &__details {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 20px;
+    padding-inline: 10px;
+
+    &-pos {
+      text-align: left;
+      width: 50%;
+      white-space: pre-line;
+      display: flex;
+      flex-direction: column;
+      color: #b1b1b1;
+      font-size: 0.9em;
+
+      b {
+        color: #fff;
+        font-size: 1.25em;
+      }
+
+      &:last-child {
+        text-align: right;
+      }
+    }
+  }
+}
+
+.goal-progress_bar {
+  width: 100%;
+  height: 12px;
+  background: #161616;
+  margin-top: 15px;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.goal-user_progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(216deg, #ff50ff, #421e42);
+  width: 30%;
+  height: 12px;
+}
+
+.goal-progress_percent {
+  text-align: left;
+  padding: 3px 0 0 5px;
+  font-weight: 600;
+  color: #ccc;
+  font-size: 0.85em;
+}
+
+.deposit-btn {
+  border: none;
+  outline: none;
+  text-align: center;
+  background: #303137;
+  padding: 5px 15px;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.75em;
+  margin-left: auto;
+  margin-top: -5px;
+}

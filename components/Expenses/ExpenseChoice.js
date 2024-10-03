@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHandHoldingDollar } from "@fortawesome/free-solid-svg-icons";
 import { faMoneyBillAlt } from "@fortawesome/free-regular-svg-icons";
 import AddGoalModal from "./AddGoalModal";
+import GoalsWrapper from "./goals-wrapper";
 
 export default function ExpenseChoice({ userId }) {
   const [isShowAddExpenseModal, setIsShowAddExpenseModal] = useState(false);
@@ -22,6 +23,7 @@ export default function ExpenseChoice({ userId }) {
   const handleCloseGoal = () => setIsShowAddGoalModal(false);
 
   const handleShowGoals = () => setIsShowUserGoals(true);
+  const handleCloseGoals = () => setIsShowUserGoals(false);
 
   return (
     <>
@@ -57,6 +59,7 @@ export default function ExpenseChoice({ userId }) {
       {isShowAddGoalModal && (
         <AddGoalModal onCloseGoalModal={handleCloseGoal} userId={userId} />
       )}
+      {isShowUserGoals && <GoalsWrapper onCloseGoals={handleCloseGoals} />}
     </>
   );
 }
