@@ -11,7 +11,7 @@ import { faMoneyBillAlt } from "@fortawesome/free-regular-svg-icons";
 import AddGoalModal from "./AddGoalModal";
 import GoalsWrapper from "./goals-wrapper";
 
-export default function ExpenseChoice({ userId }) {
+export default function ExpenseChoice({ userId, userGoals }) {
   const [isShowAddExpenseModal, setIsShowAddExpenseModal] = useState(false);
   const [isShowAddGoalModal, setIsShowAddGoalModal] = useState(false);
   const [isShowUserGoals, setIsShowUserGoals] = useState(false);
@@ -59,7 +59,9 @@ export default function ExpenseChoice({ userId }) {
       {isShowAddGoalModal && (
         <AddGoalModal onCloseGoalModal={handleCloseGoal} userId={userId} />
       )}
-      {isShowUserGoals && <GoalsWrapper onCloseGoals={handleCloseGoals} />}
+      {isShowUserGoals && (
+        <GoalsWrapper goals={userGoals} onCloseGoals={handleCloseGoals} />
+      )}
     </>
   );
 }
