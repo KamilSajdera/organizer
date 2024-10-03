@@ -53,14 +53,6 @@
       z-index: 3;
       background: #1d1e22;
     }
-
-    svg {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 1.65em;
-      cursor: pointer;
-    }
   }
 }
 
@@ -159,4 +151,18 @@
   font-size: 0.75em;
   margin-left: auto;
   margin-top: -5px;
+}
+
+.closeSvg {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 1.65em;
+  cursor: pointer;
+}
+
+.emoji {
+  padding-left: 5px;
+  font-size: 1.1em;
+  margin-top: 3px;
 }
