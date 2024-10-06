@@ -130,6 +130,7 @@
   background: linear-gradient(216deg, #ff50ff, #421e42);
   width: 30%;
   height: 12px;
+  transition: all 300ms ease;
 }
 
 .goal-progress_percent {
@@ -217,6 +218,13 @@
   padding-left: 5px;
   font-size: 1.1em;
   margin-top: 3px;
+}
+
+.loadingText {
+  padding: 5px;
+  color: #bdbdbd;
+  font-size: 0.8em;
+  margin: auto;
 }
 
 @keyframes showDeposit {

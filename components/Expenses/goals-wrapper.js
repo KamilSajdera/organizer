@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useTransition, useEffect } from "react";
 import styles from "./goals-wrapper.module.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,15 +13,22 @@ import { updateGoal } from "@/lib/expenses";
 
 export default function GoalsWrapper({ goals, onCloseGoals, userId }) {
   const [depositGoalId, setDepositGoalId] = useState(null);
+  const [isPending, startTransition] = useTransition();
   const inputRef = useRef();
 
   function handleClickClose() {
     onCloseGoals();
   }
 
-  const handleUpdateGoal = async () => {
-    await updateGoal(userId, depositGoalId, inputRef.current.value);
+  const handleUpdateGoal = () => {
+    startTransition(async () => {
+      await updateGoal(userId, depositGoalId, inputRef.current.value);
+    });
   };
+
+  useEffect(() => {
+    if (!isPending) setDepositGoalId(null);
+  }, [isPending]);
 
   return (
     <div className={styles.goals}>
@@ -82,13 +89,19 @@ export default function GoalsWrapper({ goals, onCloseGoals, userId }) {
                 </button>
                 {depositGoalId === item._id && (
                   <div className={styles["deposit-input"]}>
-                    <input type="number" required ref={inputRef} />
-                    <button
-                      className={styles["deposit-submit"]}
-                      onClick={handleUpdateGoal}
-                    >
-                      GO
-                    </button>
+                    {isPending ? (
+                      <span className={styles.loadingText}>loading</span>
+                    ) : (
+                      <>
+                        <input type="number" required ref={inputRef} />
+                        <button
+                          className={styles["deposit-submit"]}
+                          onClick={handleUpdateGoal}
+                        >
+                          GO
+                        </button>
+                      </>
+                    )}
                   </div>
                 )}
               </div>
