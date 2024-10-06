@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./goals-wrapper.module.scss";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +9,7 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 
 export default function GoalsWrapper({ goals, onCloseGoals }) {
+  const [depositGoalId, setDepositGoalId] = useState(null);
   function handleClickClose() {
     onCloseGoals();
   }
@@ -62,7 +64,20 @@ export default function GoalsWrapper({ goals, onCloseGoals }) {
                   style={{ color: emojiColor }}
                 />
               </p>
-              <button className={styles["deposit-btn"]}>Deposit</button>
+              <div className={styles.deposit}>
+                <button
+                  className={styles["deposit-btn"]}
+                  onClick={() => setDepositGoalId(item._id)}
+                >
+                  Deposit
+                </button>
+                {depositGoalId === item._id && (
+                  <div className={styles["deposit-input"]}>
+                    <input type="number" required />
+                    <button className={styles["deposit-submit"]}>GO</button>
+                  </div>
+                )}
+              </div>
             </div>
           );
         })}

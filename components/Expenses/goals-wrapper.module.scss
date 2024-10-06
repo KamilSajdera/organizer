@@ -1,3 +1,5 @@
+@import "@/styles/variables.module.scss";
+
 .goals {
   position: fixed;
   top: 0;
@@ -138,19 +140,69 @@
   font-size: 0.85em;
 }
 
-.deposit-btn {
-  border: none;
-  outline: none;
-  text-align: center;
-  background: #303137;
-  padding: 5px 15px;
-  border-radius: 10px;
-  color: #fff;
-  font-weight: 700;
-  cursor: pointer;
-  font-size: 0.75em;
-  margin-left: auto;
-  margin-top: -5px;
+.deposit {
+  position: relative;
+
+  &-btn {
+    border: none;
+    outline: none;
+    text-align: center;
+    background: #303137;
+    padding: 5px 15px;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.75em;
+    margin-left: auto;
+    margin-top: -5px;
+  }
+
+  &-input {
+    position: absolute;
+    top: -35px;
+    right: 0;
+    width: 95px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #21262f;
+    font-weight: 600;
+    border-radius: 5px;
+    animation-name: showDeposit;
+    animation-duration: 100ms;
+
+    input {
+      width: 60%;
+      outline: none;
+      border: none;
+      background: transparent;
+      padding: 5px 10px;
+      color: #fff;
+      -moz-appearance: textfield;
+      appearance: textfield;
+      font-family: $secondary-font;
+      font-size: 1em;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+  }
+
+  &-submit {
+    width: 40%;
+    outline: none;
+    background: transparent;
+    color: #fff;
+    font-family: $secondary-font;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    border-left: 2px solid #9f5aae;
+  }
 }
 
 .closeSvg {
@@ -165,4 +217,13 @@
   padding-left: 5px;
   font-size: 1.1em;
   margin-top: 3px;
+}
+
+@keyframes showDeposit {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
