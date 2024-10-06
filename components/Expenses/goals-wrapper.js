@@ -43,10 +43,10 @@ export default function GoalsWrapper({ goals, onCloseGoals, userId }) {
           const goalProgress = Math.round((item.collected / item.amount) * 100);
           const emojiColor =
             goalProgress <= 30
-              ? "red"
+              ? "#8d4949"
               : goalProgress > 30 && goalProgress <= 70
-              ? "yellow"
-              : "green";
+              ? "#818d49"
+              : "#498d53";
 
           const emojiSvg =
             goalProgress <= 30
