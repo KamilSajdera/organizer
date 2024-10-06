@@ -60,7 +60,11 @@ export default function ExpenseChoice({ userId, userGoals }) {
         <AddGoalModal onCloseGoalModal={handleCloseGoal} userId={userId} />
       )}
       {isShowUserGoals && (
-        <GoalsWrapper goals={userGoals} onCloseGoals={handleCloseGoals} />
+        <GoalsWrapper
+          goals={userGoals}
+          onCloseGoals={handleCloseGoals}
+          userId={userId}
+        />
       )}
     </>
   );

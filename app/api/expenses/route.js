@@ -1,7 +1,7 @@
 "use server";
 
 import { NextResponse } from "next/server";
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 
 export async function POST(req) {
   const data = await req.json();
@@ -75,4 +75,45 @@ export async function GET(req) {
   }
 
   return NextResponse.json(expensesArray);
+}
+
+export async function PUT(req) {
+  const data = await req.json();
+
+  if (!data.userId || !data.goalId || !data.amount || !data) {
+    return NextResponse.json({
+      success: false,
+      errorMessage: "Not all data has been provided!",
+    });
+  }
+
+  const client = await MongoClient.connect(
+    process.env.NEXT_PUBLIC_MONGODB_GOALS_DATA
+  );
+  try {
+    const db = client.db();
+    const goalsCollection = db.collection("expenses_goals");
+
+    const updateData = {
+      $inc: {
+        collected: data.amount,
+      },
+    };
+    const response = await goalsCollection.updateOne(
+      {
+        _id: new ObjectId(data.goalId),
+        userId: data.userId,
+      },
+      updateData
+    );
+  } catch (error) {
+    return NextResponse.json({
+      success: false,
+      errorMessage: error.toString(),
+    });
+  } finally {
+    client.close();
+  }
+
+  return NextResponse.json({ success: true });
 }

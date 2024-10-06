@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState, useRef } from "react";
 import styles from "./goals-wrapper.module.scss";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import {
   faFaceSmile,
@@ -8,11 +9,19 @@ import {
   faFaceFrown,
 } from "@fortawesome/free-regular-svg-icons";
 
-export default function GoalsWrapper({ goals, onCloseGoals }) {
+import { updateGoal } from "@/lib/expenses";
+
+export default function GoalsWrapper({ goals, onCloseGoals, userId }) {
   const [depositGoalId, setDepositGoalId] = useState(null);
+  const inputRef = useRef();
+
   function handleClickClose() {
     onCloseGoals();
   }
+
+  const handleUpdateGoal = async () => {
+    await updateGoal(userId, depositGoalId, inputRef.current.value);
+  };
 
   return (
     <div className={styles.goals}>
@@ -73,8 +82,13 @@ export default function GoalsWrapper({ goals, onCloseGoals }) {
                 </button>
                 {depositGoalId === item._id && (
                   <div className={styles["deposit-input"]}>
-                    <input type="number" required />
-                    <button className={styles["deposit-submit"]}>GO</button>
+                    <input type="number" required ref={inputRef} />
+                    <button
+                      className={styles["deposit-submit"]}
+                      onClick={handleUpdateGoal}
+                    >
+                      GO
+                    </button>
                   </div>
                 )}
               </div>
