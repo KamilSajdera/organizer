@@ -17,7 +17,7 @@
     overflow-y: auto;
     display: flex;
     flex-wrap: wrap;
-    align-content: space-between;
+    align-content: flex-start;
     position: relative;
     padding-bottom: 20px;
 
@@ -225,6 +225,14 @@
   color: #bdbdbd;
   font-size: 0.8em;
   margin: auto;
+}
+
+.no-goals {
+  margin: auto;
+  font-size: 1.05em;
+  font-style: italic;
+  width: 100%;
+  text-align: center;
 }
 
 @keyframes showDeposit {

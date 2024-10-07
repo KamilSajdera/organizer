@@ -39,6 +39,7 @@ export default function GoalsWrapper({ goals, onCloseGoals, userId }) {
           className={styles.closeSvg}
           onClick={handleClickClose}
         />
+        {goals.length <= 0 && <div className={styles["no-goals"]}>You don't have any goals.</div>}
         {goals.map((item) => {
           const goalProgress = Math.round((item.collected / item.amount) * 100);
           const emojiColor =
