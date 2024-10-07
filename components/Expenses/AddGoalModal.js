@@ -1,6 +1,7 @@
 import { useFormState } from "react-dom";
 import { addGoal } from "@/lib/expenses";
 
+import Button from "./AddButton";
 import ErrorBlock from "../AuthPage/ErrorBlock";
 
 import styles from "./AddExpenseModal.module.scss";
@@ -47,9 +48,7 @@ export default function AddGoalModal({ onCloseGoalModal, userId }) {
           >
             Close
           </button>
-          <button type="submit" className={`${styles.btn} ${styles.add}`}>
-            Add
-          </button>
+          <Button />
         </form>
       </div>
     </div>
