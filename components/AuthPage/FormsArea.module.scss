@@ -3,7 +3,9 @@
 .loginArea {
   width: 100%;
   margin: 65px auto 0 auto;
-  background: #2a2a2a;
+  background: #1d1e22;
+  border-radius: 7px;
+  overflow: hidden;
 }
 
 .options {
@@ -18,7 +20,7 @@
     &.active {
       font-weight: 700;
       text-shadow: 0 0 8px #a79292;
-      background: #343434;
+      background: #1a1a1e;
     }
   }
 }
