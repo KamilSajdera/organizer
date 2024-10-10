@@ -5,7 +5,7 @@ import { MongoClient, ObjectId } from "mongodb";
 
 export async function POST(req) {
   const data = await req.json();
-  const isGoal = data.collected ? true : false;
+  const isGoal = data.collected >= 0 ? true : false;
 
   const clientUri = isGoal
     ? process.env.NEXT_PUBLIC_MONGODB_GOALS_DATA
