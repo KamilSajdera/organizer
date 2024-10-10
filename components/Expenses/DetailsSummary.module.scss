@@ -74,7 +74,6 @@
     font-weight: 700;
     text-align: center;
   }
-
   @media screen and (min-width: 767px) {
     display: flex;
     flex-wrap: wrap;
@@ -92,6 +91,13 @@
       text-align: left;
     }
   }
+}
+
+.no-expenses {
+  font-weight: 500;
+  font-style: italic;
+  margin-bottom: 10px;
+  margin-top: 5px;
 }
 
 @keyframes fadeInItems {
