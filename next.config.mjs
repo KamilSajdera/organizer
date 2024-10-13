@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default nextConfig;
+const nextConfig = {
+    optimizeFonts: false, // Wyłącza optymalizację czcionek
+  };
+  
+  export default nextConfig;
