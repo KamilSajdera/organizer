@@ -87,32 +87,49 @@ export async function PUT(req) {
     });
   }
 
-  const client = await MongoClient.connect(
-    process.env.NEXT_PUBLIC_MONGODB_GOALS_DATA
-  );
-  try {
-    const db = client.db();
-    const goalsCollection = db.collection("expenses_goals");
+  const dataForGoalsDb = {
+    $inc: {
+      collected: data.amount,
+    },
+  };
 
-    const updateData = {
-      $inc: {
-        collected: data.amount,
-      },
-    };
-    const response = await goalsCollection.updateOne(
-      {
-        _id: new ObjectId(data.goalId),
-        userId: data.userId,
-      },
-      updateData
-    );
+  const dataForExpensesDb = {
+    userId: data.userId,
+    type: "goal",
+    goal_id: data.goalId,
+    amount: data.amount,
+    date: new Date(),
+  };
+
+  const [clientGoals, clientExpenses] = await Promise.all([
+    MongoClient.connect(process.env.NEXT_PUBLIC_MONGODB_GOALS_DATA),
+    MongoClient.connect(process.env.NEXT_PUBLIC_MONGODB_ACTIVITIES_DATA),
+  ]);
+  try {
+    const dbGoals = clientGoals.db();
+    const dbExpenses = clientExpenses.db();
+
+    const goalsCollection = dbGoals.collection("expenses_goals");
+    const expensesCollection = dbExpenses.collection("expenses");
+
+    await Promise.all([
+      await goalsCollection.updateOne(
+        {
+          _id: new ObjectId(data.goalId),
+          userId: data.userId,
+        },
+        dataForGoalsDb
+      ),
+      await expensesCollection.insertOne(dataForExpensesDb),
+    ]);
   } catch (error) {
     return NextResponse.json({
       success: false,
       errorMessage: error.toString(),
     });
   } finally {
-    client.close();
+    clientExpenses.close();
+    clientGoals.close();
   }
 
   return NextResponse.json({ success: true });
