@@ -31,7 +31,7 @@ export default function DetailsSummary({ expenses, goals }) {
                 + {expense.amount}$
                 {goal_details && (
                   <p>
-                    ({goal_details.collected}$/{goal_details.amount}$)
+                    ({expense.newAmount}$/{goal_details.amount}$)
                   </p>
                 )}
               </div>

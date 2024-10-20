@@ -21,8 +21,17 @@ export default function GoalsWrapper({ goals, onCloseGoals, userId }) {
   }
 
   const handleUpdateGoal = () => {
+    const actualGoalAmount = goals.find(
+      (item) => item._id === depositGoalId
+    ).collected;
+
     startTransition(async () => {
-      await updateGoal(userId, depositGoalId, inputRef.current.value);
+      await updateGoal(
+        userId,
+        depositGoalId,
+        inputRef.current.value,
+        actualGoalAmount
+      );
     });
   };
 
@@ -39,7 +48,9 @@ export default function GoalsWrapper({ goals, onCloseGoals, userId }) {
           className={styles.closeSvg}
           onClick={handleClickClose}
         />
-        {goals.length <= 0 && <div className={styles["no-goals"]}>You don't have any goals.</div>}
+        {goals.length <= 0 && (
+          <div className={styles["no-goals"]}>You don't have any goals.</div>
+        )}
         {goals.map((item) => {
           const goalProgress = Math.round((item.collected / item.amount) * 100);
           const emojiColor =

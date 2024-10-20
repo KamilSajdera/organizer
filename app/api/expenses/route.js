@@ -99,6 +99,7 @@ export async function PUT(req) {
     goal_id: data.goalId,
     amount: data.amount,
     date: new Date(),
+    newAmount: data.actualAmount + data.amount
   };
 
   const [clientGoals, clientExpenses] = await Promise.all([
