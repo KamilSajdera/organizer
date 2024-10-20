@@ -20,7 +20,7 @@ export default async function ExpensesPage() {
     <>
       <PageHeader title="Expenses" />
       <ExpenseChoice userId={userId} userGoals={userGoalsArray} />
-      <FinansesSummary />
+      <FinansesSummary expenses={userExpensesArray} goals={userGoalsArray} />
       <DetailsSummary expenses={userExpensesArray} goals={userGoalsArray} />
     </>
   );
