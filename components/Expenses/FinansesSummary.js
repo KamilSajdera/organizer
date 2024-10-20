@@ -45,15 +45,20 @@ export default function FinansesSummary({ expenses, goals }) {
     const totalGoals = calculateCosts(filteredGoalsArray, "goals");
     setGoalsCost(totalGoals);
 
-    const menuItems = document.querySelectorAll(`.${styles["total-interval-menu_item"]}`);
+    const menuItems = document.querySelectorAll(
+      `.${styles["total-interval-menu_item"]}`
+    );
     menuItems.forEach((item) => item.classList.remove(styles.active));
-    
+
     event.classList.add(styles.active);
   }
 
   function calculateCosts(array, type) {
-    if (type === "expenses")
-      return array.reduce((acc, item) => acc + item.amount, 0);
+    if (type === "expenses") {
+      return array
+        .filter((item) => item.type !== "goal")
+        .reduce((acc, item) => acc + item.amount, 0);
+    }
     if (type === "goals")
       return array.reduce((acc, item) => acc + item.collected, 0);
   }
