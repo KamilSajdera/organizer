@@ -9,6 +9,7 @@ import logo from "@/public/default-image.png";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
+import { faCheck, faX } from "@fortawesome/free-solid-svg-icons";
 
 export default function ImagePicker() {
   const inputRef = useRef();
@@ -20,6 +21,8 @@ export default function ImagePicker() {
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
+
+    console.log(file);
 
     if (!file) {
       setPickedImage(null);
@@ -35,6 +38,10 @@ export default function ImagePicker() {
     fileReader.readAsDataURL(file);
   };
 
+  function handleCancelUpload() {
+    setPickedImage(null);
+  }
+
   return (
     <div className={styles["image-box"]}>
       <Image
@@ -48,9 +55,21 @@ export default function ImagePicker() {
         ref={inputRef}
         onChange={handleImageChange}
       />
-      <button onClick={handleButtonClick}>
-        <FontAwesomeIcon icon={faImage} />
-      </button>
+      {pickedImage && (
+        <>
+          <button className={styles["button-accept"]}>
+            <FontAwesomeIcon icon={faCheck} />
+          </button>
+          <button className={styles["button-cancel"]} onClick={handleCancelUpload}>
+            <FontAwesomeIcon icon={faX} />
+          </button>
+        </>
+      )}
+      {!pickedImage && (
+        <button onClick={handleButtonClick}>
+          <FontAwesomeIcon icon={faImage} />
+        </button>
+      )}
     </div>
   );
 }
