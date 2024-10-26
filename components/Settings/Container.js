@@ -23,7 +23,7 @@ export default async function Container() {
         <FontAwesomeIcon icon={faGears} />
         User settings
       </header>
-      <ImagePicker />
+      <ImagePicker userId={session?.userId} />
       <section className={styles["user-data"]}>
         <ItemInput
           label="Nickname"
@@ -38,7 +38,7 @@ export default async function Container() {
           id={session.userId}
         />
       </section>
-      <Controls id={session.userId}/>
+      <Controls id={session.userId} />
     </>
   );
 }

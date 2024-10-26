@@ -12,8 +12,9 @@ import { faImage } from "@fortawesome/free-regular-svg-icons";
 import { faCheck, faX } from "@fortawesome/free-solid-svg-icons";
 
 import { uploadImage } from "@/lib/cloudinary";
+import { updateUserData } from "@/lib/settings";
 
-export default function ImagePicker() {
+export default function ImagePicker({ userId }) {
   const inputRef = useRef();
   const [pickedImage, setPickedImage] = useState(null);
 
@@ -45,6 +46,7 @@ export default function ImagePicker() {
   async function handleUploadImage() {
     try {
       const url = await uploadImage(pickedImage);
+      await updateUserData(userId, "profile_image", url);
     } catch (error) {
       console.error("Upload failed:", error);
     }

@@ -19,9 +19,15 @@ export async function PUT(req) {
           email: data.value,
         },
       })
+      ? data.editedField === "username"
+      : (updateData = {
+          $set: {
+            username: data.value,
+          },
+        })
     : (updateData = {
         $set: {
-          username: data.value,
+          profile_image: data.value,
         },
       });
 
