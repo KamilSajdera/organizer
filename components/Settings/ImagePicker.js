@@ -11,6 +11,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
 import { faCheck, faX } from "@fortawesome/free-solid-svg-icons";
 
+import { uploadImage } from "@/lib/cloudinary";
+
 export default function ImagePicker() {
   const inputRef = useRef();
   const [pickedImage, setPickedImage] = useState(null);
@@ -21,8 +23,6 @@ export default function ImagePicker() {
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-
-    console.log(file);
 
     if (!file) {
       setPickedImage(null);
@@ -42,6 +42,14 @@ export default function ImagePicker() {
     setPickedImage(null);
   }
 
+  async function handleUploadImage() {
+    try {
+      const url = await uploadImage(pickedImage);
+    } catch (error) {
+      console.error("Upload failed:", error);
+    }
+  }
+
   return (
     <div className={styles["image-box"]}>
       <Image
@@ -57,10 +65,16 @@ export default function ImagePicker() {
       />
       {pickedImage && (
         <>
-          <button className={styles["button-accept"]}>
+          <button
+            className={styles["button-accept"]}
+            onClick={handleUploadImage}
+          >
             <FontAwesomeIcon icon={faCheck} />
           </button>
-          <button className={styles["button-cancel"]} onClick={handleCancelUpload}>
+          <button
+            className={styles["button-cancel"]}
+            onClick={handleCancelUpload}
+          >
             <FontAwesomeIcon icon={faX} />
           </button>
         </>
