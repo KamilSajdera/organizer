@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useTransition } from "react";
 
 import Image from "next/image";
 import styles from "./Container.module.scss";
@@ -17,6 +17,7 @@ import { updateUserData } from "@/lib/settings";
 export default function ImagePicker({ userId }) {
   const inputRef = useRef();
   const [pickedImage, setPickedImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleButtonClick = () => {
     inputRef.current.click();
@@ -44,21 +45,34 @@ export default function ImagePicker({ userId }) {
   }
 
   async function handleUploadImage() {
+    setIsLoading(true);
     try {
       const url = await uploadImage(pickedImage);
-      await updateUserData(userId, "profile_image", url);
+      let result = await updateUserData(userId, "profile_image", url);
     } catch (error) {
       console.error("Upload failed:", error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
   return (
     <div className={styles["image-box"]}>
-      <Image
-        src={pickedImage ? pickedImage : logo}
-        fill
-        alt="User profile image"
-      />
+      {isLoading && (
+        <div className={styles["lds-ring"]}>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      )}
+      {!isLoading && (
+        <Image
+          src={pickedImage ? pickedImage : logo}
+          fill
+          alt="User profile image"
+        />
+      )}
       <input
         type="file"
         accept="image/png, image/jpeg"
@@ -70,12 +84,14 @@ export default function ImagePicker({ userId }) {
           <button
             className={styles["button-accept"]}
             onClick={handleUploadImage}
+            style={isLoading ? { opacity: "0.5" } : {}}
           >
             <FontAwesomeIcon icon={faCheck} />
           </button>
           <button
             className={styles["button-cancel"]}
             onClick={handleCancelUpload}
+            style={isLoading ? { opacity: "0.5" } : {}}
           >
             <FontAwesomeIcon icon={faX} />
           </button>

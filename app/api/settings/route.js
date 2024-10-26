@@ -34,16 +34,24 @@ export async function PUT(req) {
   const client = await MongoClient.connect(
     process.env.NEXT_PUBLIC_MONGODB_USERS_DATA
   );
-  const db = client.db();
-  const usersCollection = db.collection("users");
-  const updateResult = await usersCollection.updateOne(
-    { _id: new ObjectId(id) },
-    updateData
-  );
 
-  client.close();
+  try {
+    const db = client.db();
+    const usersCollection = db.collection("users");
+    const updateResult = await usersCollection.updateOne(
+      { _id: new ObjectId(id) },
+      updateData
+    );
+  } catch (error) {
+    return NextResponse.json({
+      success: false,
+      errorMessage: error.toString(),
+    });
+  } finally {
+    client.close();
+  }
 
-  return NextResponse.json({ message: "ok!" });
+  return NextResponse.json({ success: true });
 }
 
 export async function POST(req) {
