@@ -31,7 +31,11 @@ export default async function RootLayout({ children }) {
       <body>
         {isAuth && (
           <>
-            <SidebarArea username={userData.username} email={userData.email} />
+            <SidebarArea
+              username={userData.username}
+              email={userData.email}
+              image={userData.profile_image}
+            />
             <main className="mainContent">{children}</main>
           </>
         )}
