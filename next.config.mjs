@@ -4,6 +4,11 @@ const nextConfig = {
   images: {
     domains: ["res.cloudinary.com"],
   },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '3mb',
+    },
+  },
 };
 
 export default nextConfig;
