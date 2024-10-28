@@ -15,7 +15,7 @@ export default async function Container() {
   if (!session.isAuth)
     throw new Error("Your session expired. Please, sign in.");
 
-  const { username, email } = await getUserData(session.userId);
+  const { username, email, profile_image } = await getUserData(session.userId);
 
   return (
     <>
@@ -23,7 +23,7 @@ export default async function Container() {
         <FontAwesomeIcon icon={faGears} />
         User settings
       </header>
-      <ImagePicker userId={session?.userId} />
+      <ImagePicker userId={session?.userId} userImage={profile_image}/>
       <section className={styles["user-data"]}>
         <ItemInput
           label="Nickname"

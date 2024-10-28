@@ -5,7 +5,7 @@ import { useRef, useState, useTransition } from "react";
 import Image from "next/image";
 import styles from "./Container.module.scss";
 
-import logo from "@/public/default-image.png";
+import default_logo from "@/public/default-image.png";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
@@ -14,10 +14,14 @@ import { faCheck, faX } from "@fortawesome/free-solid-svg-icons";
 import { uploadImage } from "@/lib/cloudinary";
 import { updateUserData } from "@/lib/settings";
 
-export default function ImagePicker({ userId }) {
+export default function ImagePicker({ userId, userImage }) {
   const inputRef = useRef();
   const [pickedImage, setPickedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const isUserHasImage = userImage.trim().length > 0;
+  const displayingLogo = isUserHasImage ? userImage : default_logo;
+  
 
   const handleButtonClick = () => {
     inputRef.current.click();
@@ -68,7 +72,7 @@ export default function ImagePicker({ userId }) {
       )}
       {!isLoading && (
         <Image
-          src={pickedImage ? pickedImage : logo}
+          src={pickedImage ? pickedImage : displayingLogo}
           fill
           alt="User profile image"
         />
