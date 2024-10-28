@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    optimizeFonts: false, // Wyłącza optymalizację czcionek
-  };
-  
-  export default nextConfig;
+  optimizeFonts: false,
+  images: {
+    domains: ["res.cloudinary.com"],
+  },
+};
+
+export default nextConfig;
