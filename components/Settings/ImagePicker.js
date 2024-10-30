@@ -18,11 +18,12 @@ import ErrorBlock from "../AuthPage/ErrorBlock";
 export default function ImagePicker({ userId, userImage }) {
   const inputRef = useRef();
   const [pickedImage, setPickedImage] = useState(null);
+  const [uploadedImage, setUploadedImage] = useState(userImage);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(undefined);
 
-  const isUserHasImage = userImage.trim().length > 0;
-  const displayingLogo = isUserHasImage ? userImage : default_logo;
+  const isUserHasImage = uploadedImage?.trim().length > 0;
+  const displayingLogo = isUserHasImage ? uploadedImage : default_logo;
 
   const handleButtonClick = () => {
     inputRef.current.click();
@@ -55,7 +56,9 @@ export default function ImagePicker({ userId, userImage }) {
       const url = await uploadImage(pickedImage);
       let result = await updateUserData(userId, "profile_image", url);
 
-      if (!result.success) {
+      if (result.success) {
+        setUploadedImage(url);
+      } else {
         setError(result.errorMessage);
       }
     } catch (error) {
