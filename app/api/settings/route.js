@@ -2,6 +2,7 @@
 
 import { NextResponse } from "next/server";
 import { MongoClient, ObjectId } from "mongodb";
+import { hashUserPassword, verifyPassword } from "@/lib/hash";
 
 export async function PUT(req) {
   const url = new URL(req.url);
@@ -89,7 +90,9 @@ export async function POST(req) {
     });
   }
 
-  if (data.old_pass !== user.password) {
+  const validatePassword = verifyPassword(user.password, data.old_pass);
+
+  if (!validatePassword) {
     client.close();
     return NextResponse.json({
       success: false,
@@ -98,10 +101,12 @@ export async function POST(req) {
     });
   }
 
+  const hashEnteredPassword = hashUserPassword(data.new_pass);
+
   const updateData = {
     $set: {
-      password: data.new_pass,
-      cPassword: data.new_pass,
+      password: hashEnteredPassword,
+      cPassword: hashEnteredPassword,
     },
   };
 
