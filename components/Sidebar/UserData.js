@@ -4,7 +4,7 @@ import styles from "./UserData.module.scss";
 import default_logo from "@/public/default-image.png";
 
 export default function UserData({ username, email, image }) {
-  const isImage = image.trim().length > 0;
+  const isImage = image?.trim().length > 0 || false;
 
   return (
     <div className={styles["user-area"]}>
