@@ -1,12 +1,12 @@
 # Organizer
-This project helps you plan different events, create tasks that you have to complete and manage your budget (set goals). Thanks to accounts system, you have access to your data in any device.
+This project helps you plan different events, create tasks that you have to complete and manage your budget (set goals). Thanks to safe accounts system, you have access to your data in any device.
 Written in NextJS using MongoDB, JWT tokens, SCSS modules.
 ### This project is still in build! Some features may not work yet. By deepening my knowledge of NextJS, I am developing this project.
 
 
 ### Test account:
 * login: example@email.net
-* password: test
+* password: admin!
 
 ### To do list 
 Add tasks you have to do.
