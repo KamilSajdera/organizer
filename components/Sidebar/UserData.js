@@ -8,10 +8,13 @@ export default function UserData({ username, email, image }) {
 
   return (
     <div className={styles["user-area"]}>
-      {!isImage && (
-        <Image src={default_logo} alt="User profile image" width={40} />
-      )}
-      {isImage && <img src={image} alt="User profile image" />}
+      <Image
+        src={isImage ? image : default_logo}
+        alt="User profile image"
+        fill
+        priority
+      />
+
       <h4>{username}</h4>
       <p>({email})</p>
     </div>
