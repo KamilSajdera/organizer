@@ -17,29 +17,26 @@ export default function ChangePassword({ id, onClose, onConfirm }) {
           <div className={styles.error}> {state.errorMessage} </div>
         )}
         <form className={styles.form} action={formAction}>
-          <label htmlFor="old_pass">Current Password</label>
+          <label htmlFor="old_pass">Current password</label>
           <input
             type="password"
             id="old_pass"
             name="old_pass"
             required
-            placeholder="Enter your current password"
           />
-          <label htmlFor="new_pass">New Password</label>
+          <label htmlFor="new_pass">New password</label>
           <input
             type="password"
             id="new_pass"
             name="new_pass"
             required
-            placeholder="Enter new password"
           />
-          <label htmlFor="repeat_pass">Confirm Password</label>
+          <label htmlFor="repeat_pass">Confirm password</label>
           <input
             type="password"
             id="repeat_pass"
             name="repeat_pass"
             required
-            placeholder="Repeat your new password"
           />
           <input
             type="password"
