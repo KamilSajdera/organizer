@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&display=swap");
+
+.events {
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  @media screen and (min-width: 1023px) {
+    margin-top: 70px;
+  }
+
+  @media screen and (min-width: 1300px) {
+    width: 65%;
+  }
+}
+
+.event-item {
+  width: 100%;
+  background: #201e24;
+  padding: 15px 10px;
+  text-align: center;
+  border-radius: 3px;
+  margin: 7px 0;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  @media screen and (min-width: 767px) {
+    width: 32%;
+    margin: 0;
+  }
+
+  h4 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-inline: 5px;
+    color: #b0a554;
+    font-weight: 500;
+  }
+
+  &_date {
+    margin-top: 20px;
+    font-size: 1.35em;
+    font-family: "Edu AU VIC WA NT Pre", cursive;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  &_hours {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    color: #aead9e;
+
+    svg {
+      width: 15px;
+    }
+  }
+}

@@ -1,10 +1,27 @@
-import Image from "next/image";
+import EventsSummary from "@/components/Dashboard/events-summary";
+import { verifySession } from "@/lib/session";
+import { MongoClient, ObjectId } from "mongodb";
 
-export default function Home() {
+export default async function Home() {
+  const { userId } = await verifySession();
+
+  const client = await MongoClient.connect(
+    process.env.NEXT_PUBLIC_MONGODB_USERS_DATA
+  );
+
+  const db = client.db();
+
+  const usersCollection = db.collection("users");
+  const userData = await usersCollection.findOne({
+    _id: new ObjectId(userId),
+  });
+
   return (
-   <center>
-    <img src="https://cdn-icons-png.flaticon.com/512/8297/8297314.png" width="150px"/>
-    <h3>Dashboard in build...</h3>
-   </center>
+    <>
+      <header>
+        <h1>Hi, {userData.username}!</h1>
+      </header>
+      <EventsSummary />
+    </>
   );
 }
