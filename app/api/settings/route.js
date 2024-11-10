@@ -75,6 +75,13 @@ export async function POST(req) {
     });
   }
 
+  if (data.new_pass.trim().length < 6) {
+    return NextResponse.json({
+      success: false,
+      errorMessage: "Password must be contains min. 6 characters.",
+    });
+  }
+
   const client = await MongoClient.connect(
     process.env.NEXT_PUBLIC_MONGODB_USERS_DATA
   );
