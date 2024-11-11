@@ -1,0 +1,39 @@
+.header {
+    width: 100%;
+    text-align: center;
+
+    @media screen and (min-width: 767px) {
+      text-align: left;  
+    }
+
+    .name {
+        color: #9772bb;
+    }
+
+    h1 {
+        color: #fff;
+        letter-spacing: 1px;
+        font-size: 2.3em;
+    }
+
+    svg {
+        width: 12px;
+    }
+}
+
+.lastVisited {
+    align-items: center;
+    gap: 7px;
+    font-size: 0.95em;
+    color: #b7b7b7;
+    font-weight: 500;
+
+    @media screen and (min-width: 767px) {
+        display: flex;
+    }
+
+}
+
+.date {
+    display: block;
+}

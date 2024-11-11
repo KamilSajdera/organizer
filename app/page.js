@@ -1,4 +1,6 @@
 import EventsSummary from "@/components/Dashboard/events-summary";
+import Header from "@/components/Dashboard/header";
+
 import { verifySession } from "@/lib/session";
 import { MongoClient, ObjectId } from "mongodb";
 
@@ -18,9 +20,7 @@ export default async function Home() {
 
   return (
     <>
-      <header>
-        <h1>Hi, {userData.username}!</h1>
-      </header>
+      <Header name={userData.username} />
       <EventsSummary />
     </>
   );
