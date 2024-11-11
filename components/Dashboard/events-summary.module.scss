@@ -2,13 +2,13 @@
 
 .events {
   width: 100%;
-  margin-top: 50px;
+  margin-top: 25px;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 
   @media screen and (min-width: 1023px) {
-    margin-top: 70px;
+    margin-top: 40px;
   }
 
   @media screen and (min-width: 1300px) {
