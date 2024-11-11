@@ -1,4 +1,3 @@
-import { faClock } from "@fortawesome/free-solid-svg-icons";
 import styles from "./header.module.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,7 +10,7 @@ export default function Header({ name }) {
         Hi, <span className={styles.name}>{name}</span>!
       </h1>
       <p className={styles.lastVisited}>
-        <FontAwesomeIcon icon={faFlag} /> Last visited:{" "}
+        <FontAwesomeIcon icon={faFlag} /> Last logged:{" "}
         <span className={styles.date}>20/10/2024 I 20:13:57</span>
       </p>
     </header>
