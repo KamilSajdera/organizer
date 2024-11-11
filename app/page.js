@@ -20,7 +20,7 @@ export default async function Home() {
 
   return (
     <>
-      <Header name={userData.username} />
+      <Header name={userData.username} last_logged={userData.previous_logged} />
       <EventsSummary />
     </>
   );
