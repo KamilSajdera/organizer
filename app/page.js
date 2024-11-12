@@ -1,5 +1,6 @@
-import EventsSummary from "@/components/Dashboard/events-summary";
 import Header from "@/components/Dashboard/header";
+import EventsSummary from "@/components/Dashboard/events-summary";
+import ExpensesCostChart from "@/components/Dashboard/expenses-cost-chart";
 
 import { verifySession } from "@/lib/session";
 import { MongoClient, ObjectId } from "mongodb";
@@ -22,6 +23,7 @@ export default async function Home() {
     <>
       <Header name={userData.username} last_logged={userData.previous_logged} />
       <EventsSummary />
+      <ExpensesCostChart />
     </>
   );
 }
