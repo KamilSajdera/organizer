@@ -1,7 +1,26 @@
 .expensesChartContainer {
-  width: 65%;
-  margin-top: 30px;
+  width: 105%;
+  margin-top: 50px;
+
+  @media screen and (min-width: 424px) {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 1023px) {
+    margin-top: 70px;
+  }
+
+  @media screen and (min-width: 1300px) {
+    width: 66%;
+  }
+
+  h3 {
+    margin-bottom: 7px;
+    font-weight: 400;
+  }
 }
 
 .chart {
+    color: #fff;
 }
+

@@ -37,7 +37,7 @@ export default function ExpensesCostChart() {
       { month: months[displayMonthIndexes[5]], userExpense: 33 },
       { month: months[displayMonthIndexes[4]], userExpense: 0 },
       { month: months[displayMonthIndexes[3]], userExpense: 50 },
-      { month: months[displayMonthIndexes[2]], userExpense: 40 },
+      { month: months[displayMonthIndexes[2]], userExpense: 740 },
       { month: months[displayMonthIndexes[1]], userExpense: 120 },
       { month: months[displayMonthIndexes[0]], userExpense: 300 },
     ],
@@ -46,28 +46,57 @@ export default function ExpensesCostChart() {
         type: "bar",
         xKey: "month",
         yKey: "userExpense",
+        fill: "#9772bb",
         label: {
-          formatter: ({ value }) => `${value}$`,
+          formatter: ({ value }) => `$${value}`,
         },
       },
     ],
     axes: [
       {
-        type: "number",
-        position: "left",
+        type: "category",
+        position: "bottom",
         label: {
-          formatter: ({ value }) => `$${value}`,
+          color: "#ccc",
+        },
+        line: {
+          stroke: "#363636",
         },
       },
       {
-        type: "category",
-        position: "bottom",
+        type: "number",
+        gridLine: {
+          style: [
+            {
+              stroke: "#424046",
+              lineDash: [10, 5],
+            },
+            {
+              stroke: "#6a686f",
+              lineDash: [5, 5],
+            },
+          ],
+        },
+        position: "left",
+        label: {
+          color: "#ccc",
+          fontSize: 14,
+          fontWeight: "bold",
+          formatter: ({ value }) => `$${value}`,
+        },
+        line: {
+          stroke: "#363636",
+        },
       },
     ],
+    background: {
+      fill: "transparent",
+    },
   });
+
   return (
     <section className={styles.expensesChartContainer}>
-      <h3>Expenses </h3>
+      <h3>Goals & Expenses</h3>
       <AgCharts options={chartOptions} className={styles.chart} />
     </section>
   );
