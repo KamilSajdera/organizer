@@ -14,7 +14,8 @@ const formatDateTime = (date) => {
     month: "2-digit",
     year: "numeric",
   });
-  const hours = date.getHours() - 2;
+
+  const hours = date.getHours() - 1;
   const minutes = date.getMinutes();
   const time = `${hours < 10 ? "0" + hours : hours}:${
     minutes < 10 ? "0" + minutes : minutes
