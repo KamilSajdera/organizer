@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./events-summary.module.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -53,6 +54,15 @@ export default function EventsSummary({ events }) {
           </p>
         </div>
       ))}
+      {filteredEvents.length <= 0 && (
+        <div className={styles.banner}>
+          <h2>Create your first event!</h2>
+          <p>Go to calendar view and customize your event.</p>
+          <button>
+            <Link href="/calendar">Go to calendar</Link>
+          </button>
+        </div>
+      )}
     </section>
   );
 }
