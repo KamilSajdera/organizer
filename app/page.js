@@ -4,9 +4,11 @@ import ExpensesCostChart from "@/components/Dashboard/expenses-cost-chart";
 
 import { verifySession } from "@/lib/session";
 import { MongoClient, ObjectId } from "mongodb";
+import { getEvents } from "@/lib/events";
 
 export default async function Home() {
   const { userId } = await verifySession();
+  const userEvents = await getEvents(userId);
 
   const client = await MongoClient.connect(
     process.env.NEXT_PUBLIC_MONGODB_USERS_DATA
@@ -22,7 +24,7 @@ export default async function Home() {
   return (
     <>
       <Header name={userData.username} last_logged={userData.previous_logged} />
-      <EventsSummary />
+      <EventsSummary events={userEvents} />
       <ExpensesCostChart />
     </>
   );
