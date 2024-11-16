@@ -2,11 +2,10 @@
 
 import { useState } from "react";
 import { AgCharts } from "ag-charts-react";
-
 import styles from "./expenses-cost-charts.module.scss";
 
-export default function ExpensesCostChart() {
-  const months = [
+export default function ExpensesCostChart({ expenses }) {
+  const monthsName = [
     "Jan",
     "Feb",
     "Mar",
@@ -16,31 +15,33 @@ export default function ExpensesCostChart() {
     "Jul",
     "Aug",
     "Sep",
-    "Okt",
+    "Oct",
     "Nov",
     "Dec",
   ];
 
-  const actualDate = new Date();
-  const actualMonthIndex = actualDate.getMonth();
+  const currentMonth = new Date().getMonth();
 
-  let displayMonthIndexes = [];
+  let monthlyCosts = new Array(12).fill(0);
 
-  for (let i = 0; i <= 12; i++) {
-    if (actualMonthIndex - i < 0) {
-      displayMonthIndexes.push(actualMonthIndex - i + 13);
-    } else displayMonthIndexes.push(actualMonthIndex - i);
+  expenses.forEach((expense) => {
+    const monthIndex = new Date(expense.date).getMonth();
+    monthlyCosts[monthIndex] += expense.amount;
+  });
+
+  let lastCostsAmount = [];
+  let lastMonthsName = [];
+  for (let i = 5; i >= 0; i--) {
+    const monthIndex = (currentMonth - i + 12) % 12;
+    lastMonthsName.push(monthsName[monthIndex]);
+    lastCostsAmount.push(monthlyCosts[monthIndex]);
   }
 
   const [chartOptions, setChartOptions] = useState({
-    data: [
-      { month: months[displayMonthIndexes[5]], userExpense: 33 },
-      { month: months[displayMonthIndexes[4]], userExpense: 0 },
-      { month: months[displayMonthIndexes[3]], userExpense: 50 },
-      { month: months[displayMonthIndexes[2]], userExpense: 740 },
-      { month: months[displayMonthIndexes[1]], userExpense: 120 },
-      { month: months[displayMonthIndexes[0]], userExpense: 300 },
-    ],
+    data: lastMonthsName.map((month, index) => ({
+      month,
+      userExpense: lastCostsAmount[index],
+    })),
     series: [
       {
         type: "bar",
