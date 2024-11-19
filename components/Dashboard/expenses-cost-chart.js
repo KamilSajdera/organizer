@@ -44,12 +44,19 @@ export default function ExpensesCostChart({ expenses }) {
     })),
     series: [
       {
-        type: "bar",
+        type: "line",
         xKey: "month",
         yKey: "userExpense",
-        fill: "#9772bb",
         label: {
-          formatter: ({ value }) => `$${value}`,
+          formatter: ({ value }) => `${value}$`,
+          color: "#aaa"
+        },
+        marker: {
+          fill: "#9772bb",
+          size: 13,
+          stroke: "#141319",
+          strokeWidth: 3,
+          shape: "diamond",
         },
       },
     ],
@@ -70,10 +77,9 @@ export default function ExpensesCostChart({ expenses }) {
           style: [
             {
               stroke: "#424046",
-              lineDash: [10, 5],
             },
             {
-              stroke: "#6a686f",
+              stroke: "#565656",
               lineDash: [5, 5],
             },
           ],
