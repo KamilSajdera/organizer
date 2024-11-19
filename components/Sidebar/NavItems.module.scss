@@ -5,7 +5,7 @@
   flex-wrap: nowrap;
   flex-direction: column;
   align-items: center;
-  background: #201e24;
+  background: #100f13;
   border-radius: 20px;
   margin: 30px auto 0 auto;
   padding: 15px 0;
@@ -19,6 +19,11 @@
     text-decoration: none;
     border-radius: 50%;
     aspect-ratio: 1/1;
+
+    &.active {
+      background: #2c2932;
+      color: #eee;
+    }
 
     svg {
       width: 20px;
@@ -34,17 +39,14 @@
   }
 }
 
-.mainNav-item.active {
-  background: #232128;
-  color: #eee;
-}
-
 @media screen and (min-width: 767px) {
   .mainNav-item {
     flex-direction: column;
     width: 90%;
     padding: 10px;
-    border-radius: 20px;
+    border-radius: 5px;
+    border-top-left-radius: 25px;
+    border-bottom-right-radius: 25px;
     aspect-ratio: auto;
     position: relative;
     h5 {
@@ -57,12 +59,12 @@
     animation-duration: 300ms;
     animation-fill-mode: both;
 
-    svg, h5 {
+    svg,
+    h5 {
       animation-name: showText;
       animation-duration: 400ms;
       animation-fill-mode: both;
     }
-
   }
 }
 
@@ -72,7 +74,7 @@
 
     &-item {
       flex-direction: row;
-      padding: 15px 10px;
+      padding: 13px 10px;
 
       h5 {
         padding-top: 0;
@@ -86,19 +88,19 @@
 
 @keyframes showItems {
   0% {
-    opacity: 0
+    opacity: 0;
   }
   100% {
     opacity: 1;
   }
 }
 
-
 @keyframes showText {
   from {
     transform: translateY(20px);
     opacity: 0;
-  } to {
+  }
+  to {
     transform: translateY(0);
     opacity: 1;
   }
