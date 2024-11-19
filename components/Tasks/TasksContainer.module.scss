@@ -55,10 +55,6 @@
 @media screen and (min-width: 767px) {
   .task-category {
     width: 47%;
-
-    &:nth-child(2) {
-      margin-top: 0;
-    }
   }
 }
 
@@ -87,7 +83,8 @@
 @keyframes inProgressAnimation {
   from {
     transform: rotate(0);
-  } to {
+  }
+  to {
     transform: rotate(360deg);
   }
 }
@@ -98,7 +95,7 @@
   }
   30% {
     transform: scale(1.2) rotate(15deg);
-  } 
+  }
   50% {
     transform: scale(1) rotate(0deg);
   }
