@@ -1,0 +1,37 @@
+.mobile-navbar {
+  width: 100%;
+  background: #201e24;
+  border-radius: 5px;
+  margin-top: -5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 3px;
+
+  @media screen and (min-width: 767px) {
+    display: none;
+  }
+
+  &-item {
+    width: 31%;
+    text-align: center;
+    font-size: 0.82em;
+    padding: 3px 5px;
+    color: #bababa;
+
+    @media screen and (min-width: 375px) {
+      font-size: 0.9em;
+    }
+
+    &:nth-child(2) {
+      width: 38%;
+    }
+
+    &.active {
+      background: #2b2932;
+      border-radius: 5px;
+      color: #fff;
+      font-weight: 500;
+    }
+  }
+}

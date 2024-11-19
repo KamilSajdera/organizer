@@ -1,12 +1,10 @@
 import { cookies } from "next/headers";
 
 import styles from "./TasksContainer.module.scss";
-import { faCheck, faBars, faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 import { verifySession } from "@/lib/session";
 import { getFilteredTasks, getUserTasks } from "@/lib/tasks";
-
-import TaskCategory from "./TaskCategory";
+import TasksView from "./TasksView";
 
 export default async function TasksContainer({ query }) {
   const { userId } = await verifySession();
@@ -27,15 +25,11 @@ export default async function TasksContainer({ query }) {
     <article className={styles.tasksContainer}>
       {userTasks.length === 0 && <p>Could not find any tasks...</p>}
       {userTasks.length > 0 && (
-        <>
-          <TaskCategory name="ToDo" icon={faBars} tasks={toDoTasks} />
-          <TaskCategory
-            name="In Progress"
-            icon={faSpinner}
-            tasks={inProgressTasks}
-          />
-          <TaskCategory name="Done" icon={faCheck} tasks={doneTasks} />
-        </>
+        <TasksView
+          toDoTasks={toDoTasks}
+          inProgressTasks={inProgressTasks}
+          doneTasks={doneTasks}
+        />
       )}
     </article>
   );
