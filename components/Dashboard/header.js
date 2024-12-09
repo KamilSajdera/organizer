@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFlag } from "@fortawesome/free-regular-svg-icons";
 
 export default function Header({ name, last_logged }) {
-  const formattedDate = last_logged.toLocaleDateString("en-US");
-  const formattedTime = last_logged.toLocaleTimeString("pl-PL", {
+  const formattedDate = last_logged?.toLocaleDateString("en-US") ;
+  const formattedTime = last_logged?.toLocaleTimeString("pl-PL", {
     hour12: false,
   });
 
