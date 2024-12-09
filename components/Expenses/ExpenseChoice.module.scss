@@ -38,7 +38,7 @@
     p {
       padding-top: 15px;
       font-weight: 500;
-      color: #b382b3;
+      color: #c46bb2;
       font-family: $secondary-font;
       filter: drop-shadow(2px 4px 6px black);
       font-size: 1.1em;
@@ -48,7 +48,7 @@
   svg {
     font-size: 2.5em;
     width: 100%;
-    color: #b178b1;
+    color: #c46bb2;
   }
 
   &__show-goals {
@@ -59,7 +59,7 @@
     padding: 5px 20px;
     border-radius: 2px;
     font-size: 1em;
-    background: #54576a;
+    background: #3c2652;
     color: #fff;
     font-weight: 600;
     filter: drop-shadow(2px 4px 6px black);
@@ -67,7 +67,7 @@
     transition: all 100ms ease;
 
     &:hover {
-      background: #65687b;
+      background: #462e5f;
       filter: drop-shadow(2px 4px 6px rgb(40, 40, 40));
     }
   }

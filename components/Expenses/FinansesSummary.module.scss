@@ -3,7 +3,7 @@
 .summary-finanses-wrapper {
   margin-top: 40px;
   width: 100%;
-  border: 1px solid #4a4654;
+  border: 1px solid #23212b;
   padding: 10px 15px;
 
   @media screen and (min-width: 1023px) {
@@ -13,7 +13,7 @@
   h4 {
     font-weight: 700;
     width: 100%;
-    border-bottom: 1px solid #4a4654;
+    border-bottom: 1px solid #23212b;
     padding-bottom: 10px;
     font-size: 1.07em;
   }
@@ -33,7 +33,7 @@
 .summary-finanses_item {
   text-align: center;
   padding-bottom: 10px;
-  border-bottom: 1px solid #4a4654;
+  border-bottom: 1px solid #23212b;
   margin-top: 20px;
   min-width: 65%;
 
@@ -64,7 +64,7 @@
   @media screen and (min-width: 767px) {
     min-width: 25%;
     border-bottom: none;
-    border-right: 1px solid #4a4654;
+    border-right: 1px solid #23212b;
   }
 }
 .total-interval-menu {
@@ -85,7 +85,7 @@
     font-size: 0.9em;
     cursor: pointer;
     transition: background 200ms ease;
-    border: 2px solid #605569;
+    border: 1px solid #605569;
 
     &:hover {
       background: linear-gradient(45deg, #74667b, #3c3747);

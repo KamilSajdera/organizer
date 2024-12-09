@@ -3,7 +3,7 @@
 .details-wrapper {
   margin-top: 40px;
   width: 100%;
-  border: 1px solid #4a4654;
+  border: 1px solid #23212b;
   padding: 10px 15px;
 
   @media screen and (min-width: 1023px) {
@@ -22,7 +22,6 @@
   width: 100%;
   text-align: center;
   padding: 15px 10px;
-  border-top: 1px solid #4a4654;
   font-family: $secondary-font;
   animation-name: fadeInItems;
   animation-duration: 150ms;
@@ -30,7 +29,7 @@
   opacity: 0;
 
   &:nth-child(2n) {
-    background: #2f2d35;
+    background: #0f0e14;
   }
 
   &:nth-child(2) {
@@ -54,7 +53,7 @@
 
   h5 {
     font-size: 1em;
-    color: #cb9ec2;
+    color: #c46bb2;
     text-align: center;
   }
 
