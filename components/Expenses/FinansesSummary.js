@@ -11,7 +11,7 @@ export default function FinansesSummary({ expenses, goals }) {
     const totalExpenses = calculateCosts(expenses, "expenses");
     setExpensesCost(totalExpenses);
 
-    const totalGoals = calculateCosts(goals, "goals");
+    const totalGoals = calculateCosts(expenses, "goal");
     setGoalsCost(totalGoals);
   }, [expenses, goals]);
 
@@ -42,7 +42,7 @@ export default function FinansesSummary({ expenses, goals }) {
     const totalExpenses = calculateCosts(filteredExpensesArray, "expenses");
     setExpensesCost(totalExpenses);
 
-    const totalGoals = calculateCosts(filteredGoalsArray, "goals");
+    const totalGoals = calculateCosts(filteredExpensesArray, "goal");
     setGoalsCost(totalGoals);
 
     const menuItems = document.querySelectorAll(
@@ -59,8 +59,11 @@ export default function FinansesSummary({ expenses, goals }) {
         .filter((item) => item.type !== "goal")
         .reduce((acc, item) => acc + item.amount, 0);
     }
-    if (type === "goals")
-      return array.reduce((acc, item) => acc + item.collected, 0);
+    if (type === "goal") {
+      return array
+        .filter((item) => item.type !== "expense")
+        .reduce((acc, item) => acc + item.amount, 0);
+    }
   }
 
   return (
