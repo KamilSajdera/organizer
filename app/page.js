@@ -2,10 +2,12 @@ import { verifySession } from "@/lib/session";
 import { MongoClient, ObjectId } from "mongodb";
 import { getEvents } from "@/lib/events";
 import { getUserExpenses, getUserGoals } from "@/lib/expenses";
+import { getUserTasks } from "@/lib/tasks";
 
 import Header from "@/components/Dashboard/header";
 import EventsSummary from "@/components/Dashboard/events-summary";
 import ExpensesCostChart from "@/components/Dashboard/expenses-cost-chart";
+import TasksChart from "@/components/Dashboard/tasks-chart-sidebar";
 
 import styles from "./page.module.scss";
 
@@ -13,6 +15,7 @@ export default async function Home() {
   const { userId } = await verifySession();
   const userEvents = await getEvents(userId);
   const userExpenses = await getUserExpenses(userId);
+  const userTasks = await getUserTasks(userId);
 
   let userGlobalExpenses = [];
 
@@ -47,7 +50,8 @@ export default async function Home() {
           <ExpensesCostChart expenses={userGlobalExpenses} />
         </div>
         <div className={styles["dashboard-sidebar"]}>
-          
+          <h3>Tasks</h3>
+          <TasksChart tasks={userTasks} />
         </div>
       </div>
     </>
