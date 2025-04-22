@@ -10,6 +10,7 @@ import ExpensesCostChart from "@/components/Dashboard/expenses-cost-chart";
 import TasksChart from "@/components/Dashboard/tasks-chart-sidebar";
 
 import styles from "./page.module.scss";
+import ActiveTasks from "@/components/Dashboard/active-tasks-sidebar";
 
 export default async function Home() {
   const { userId } = await verifySession();
@@ -52,6 +53,7 @@ export default async function Home() {
         <div className={styles["dashboard-sidebar"]}>
           <h3>Tasks</h3>
           <TasksChart tasks={userTasks} />
+          <ActiveTasks tasks={userTasks} />
         </div>
       </div>
     </>
