@@ -13,6 +13,35 @@ export default function EventsSummary({ events }) {
     .filter((event) => new Date(event.start) >= new Date())
     .slice(0, 3);
 
+  function formatEventTime(start, end) {
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+  
+    const sameDay =
+      startDate.toLocaleDateString("pl-PL", { day: "2-digit", month: "2-digit" }) ===
+      endDate.toLocaleDateString("pl-PL", { day: "2-digit", month: "2-digit" });
+  
+    const startTime = startDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    const isEventAllDay = !start.includes("T");
+  
+    if (!end && !isEventAllDay) return `${startTime}`;
+
+    if(isEventAllDay) return `All day`
+  
+    if (sameDay) {
+      const endTime = endDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      return `${startTime} - ${endTime}`;
+    }
+  
+    const endDateStr = endDate.toLocaleDateString("pl-PL", {
+      day: "2-digit",
+      month: "2-digit",
+    });
+    const endTime = endDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  
+    return `${startTime} - ${endDateStr} ${endTime}`;
+  }
+
   return (
     <section className={styles.events}>
       {filteredEvents.map((event) => (
@@ -23,34 +52,7 @@ export default function EventsSummary({ events }) {
           </p>
           <p className={styles["event-item_hours"]}>
             <FontAwesomeIcon icon={faClock} />
-            {new Date(event.start).toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-            {
-              // if event.end exist, check if the event will end in the same day,
-              //if yes show only time, if not show the day and time
-              event.end &&
-                (new Date(event.end).toLocaleDateString("pl-PL", {
-                  day: "2-digit",
-                  month: "2-digit",
-                }) ===
-                new Date(event.start).toLocaleDateString("pl-PL", {
-                  day: "2-digit",
-                  month: "2-digit",
-                })
-                  ? ` - ${new Date(event.end).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}`
-                  : ` - ${new Date(event.end).toLocaleDateString("pl-PL", {
-                      day: "2-digit",
-                      month: "2-digit",
-                    })} ${new Date(event.end).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}`)
-            }
+            {formatEventTime(event.start, event.end)}
           </p>
         </div>
       ))}
