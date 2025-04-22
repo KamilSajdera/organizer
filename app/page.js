@@ -1,11 +1,13 @@
-import Header from "@/components/Dashboard/header";
-import EventsSummary from "@/components/Dashboard/events-summary";
-import ExpensesCostChart from "@/components/Dashboard/expenses-cost-chart";
-
 import { verifySession } from "@/lib/session";
 import { MongoClient, ObjectId } from "mongodb";
 import { getEvents } from "@/lib/events";
 import { getUserExpenses, getUserGoals } from "@/lib/expenses";
+
+import Header from "@/components/Dashboard/header";
+import EventsSummary from "@/components/Dashboard/events-summary";
+import ExpensesCostChart from "@/components/Dashboard/expenses-cost-chart";
+
+import styles from "./page.module.scss";
 
 export default async function Home() {
   const { userId } = await verifySession();
@@ -35,9 +37,19 @@ export default async function Home() {
 
   return (
     <>
-      <Header name={userData?.username} last_logged={userData?.previous_logged} />
-      <EventsSummary events={userEvents} />
-      <ExpensesCostChart expenses={userGlobalExpenses} />
+      <div className={styles["dashboard-container"]}>
+        <div className={styles["dashboard-main"]}>
+          <Header
+            name={userData?.username}
+            last_logged={userData?.previous_logged}
+          />
+          <EventsSummary events={userEvents} />
+          <ExpensesCostChart expenses={userGlobalExpenses} />
+        </div>
+        <div className={styles["dashboard-sidebar"]}>
+          
+        </div>
+      </div>
     </>
   );
 }
