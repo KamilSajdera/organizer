@@ -8,9 +8,9 @@ import styles from "./tasks-chart-sidebar.module.scss";
 export default function TasksChart({ tasks }) {
 
   const categoryLabelColors = {
-    ToDo: "#fa4747", 
-    "In progress": "#96c6ff", 
-    Done: "#6ee885",
+    ToDo: "#dd4b69", 
+    "In progress": "#82a6c2", 
+    Done: "#8fc8b6",
   };
 
   const categoriesCount = tasks.reduce((acc, task) => {
@@ -46,13 +46,13 @@ export default function TasksChart({ tasks }) {
         itemStyler: (params) => {
           const { datum } = params;
           const colorMap = {
-            ToDo: "#fa4747",
-            "In progress": "#5090dc",
-            Done: "#43de60",
+            ToDo: "#dd4b69",
+            "In progress": "#82a6c2",
+            Done: "#8fc8b6",
           };
 
           return {
-            fill: colorMap[datum.category] || "#96c6ff",
+            fill: colorMap[datum.category] || "#82a6c2",
           };
         },
       },
