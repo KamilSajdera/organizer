@@ -5,7 +5,7 @@
   width: 100%;
   margin-top: 25px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-wrap: wrap;
 
   @media screen and (min-width: 900px) {
@@ -32,6 +32,7 @@
   @media screen and (min-width: 767px) {
     width: 32%;
     margin: 0;
+    margin-bottom: 10px;
   }
 
   h4 {
