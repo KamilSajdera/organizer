@@ -1,8 +1,9 @@
-import Link from "next/link";
 import styles from "./events-summary.module.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
+
+import DashboardBanner from "@/ui/dashboard-banner";
 
 export default function EventsSummary({ events }) {
   events.sort(
@@ -16,29 +17,41 @@ export default function EventsSummary({ events }) {
   function formatEventTime(start, end) {
     const startDate = new Date(start);
     const endDate = new Date(end);
-  
+
     const sameDay =
-      startDate.toLocaleDateString("pl-PL", { day: "2-digit", month: "2-digit" }) ===
+      startDate.toLocaleDateString("pl-PL", {
+        day: "2-digit",
+        month: "2-digit",
+      }) ===
       endDate.toLocaleDateString("pl-PL", { day: "2-digit", month: "2-digit" });
-  
-    const startTime = startDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+    const startTime = startDate.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
     const isEventAllDay = !start.includes("T");
-  
+
     if (!end && !isEventAllDay) return `${startTime}`;
 
-    if(isEventAllDay) return `All day`
-  
+    if (isEventAllDay) return `All day`;
+
     if (sameDay) {
-      const endTime = endDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      const endTime = endDate.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
       return `${startTime} - ${endTime}`;
     }
-  
+
     const endDateStr = endDate.toLocaleDateString("pl-PL", {
       day: "2-digit",
       month: "2-digit",
     });
-    const endTime = endDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  
+    const endTime = endDate.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
     return `${startTime} - ${endDateStr} ${endTime}`;
   }
 
@@ -57,13 +70,12 @@ export default function EventsSummary({ events }) {
         </div>
       ))}
       {filteredEvents.length < 2 && (
-        <div className={styles.banner}>
-          <h2>Create your event!</h2>
-          <p>Go to calendar view and customize your event.</p>
-          <button>
-            <Link href="/calendar">Go to calendar</Link>
-          </button>
-        </div>
+        <DashboardBanner
+          title="Create your event!"
+          description="Go to calendar view and customize your event."
+          href="/calendar"
+          button="Go to calendar"
+        />
       )}
     </section>
   );
