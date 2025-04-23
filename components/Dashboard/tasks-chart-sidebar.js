@@ -4,12 +4,12 @@ import { useState } from "react";
 import { AgCharts } from "ag-charts-react";
 
 import styles from "./tasks-chart-sidebar.module.scss";
+import DashboardBanner from "@/ui/dashboard-banner";
 
 export default function TasksChart({ tasks }) {
-
   const categoryLabelColors = {
-    ToDo: "#dd4b69", 
-    "In progress": "#82a6c2", 
+    ToDo: "#dd4b69",
+    "In progress": "#82a6c2",
     Done: "#8fc8b6",
   };
 
@@ -22,7 +22,7 @@ export default function TasksChart({ tasks }) {
     ([category, count]) => ({
       category,
       count,
-      color: categoryLabelColors[category] || "#96c6ff", 
+      color: categoryLabelColors[category] || "#96c6ff",
     })
   );
 
@@ -40,7 +40,9 @@ export default function TasksChart({ tasks }) {
         },
         tooltip: {
           renderer: ({ datum }) => ({
-            content: `${datum.category}: ${Math.round(datum.count/tasks.length*100)}%`,
+            content: `${datum.category}: ${Math.round(
+              (datum.count / tasks.length) * 100
+            )}%`,
           }),
         },
         itemStyler: (params) => {
@@ -73,7 +75,7 @@ export default function TasksChart({ tasks }) {
 
   return (
     <div className={styles["task-chart-category"]}>
-      <AgCharts options={chartOptions} />
+      {tasks.length > 0 && <AgCharts options={chartOptions} />}
       <div className={styles["task-chart-labels"]}>
         {chartData.map((item, index) => (
           <span key={index} style={{ color: item.color, fontWeight: 500 }}>
@@ -83,6 +85,14 @@ export default function TasksChart({ tasks }) {
           </span>
         ))}
       </div>
+      {tasks.length <= 0 && (
+        <DashboardBanner
+          title="No data"
+          description="Create your fully personalized task."
+          href="/tasks"
+          button="Add task"
+        />
+      )}
     </div>
   );
 }
