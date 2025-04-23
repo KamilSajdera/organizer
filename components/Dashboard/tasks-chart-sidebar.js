@@ -80,7 +80,10 @@ export default function TasksChart({ tasks }) {
         {chartData.map((item, index) => (
           <span key={index} style={{ color: item.color, fontWeight: 500 }}>
             {" "}
-            {item.category}: {item.count}
+            {item.category
+              .replace("ToDo", "To do")
+              .replace("InProgress", "In progress")}
+            : {item.count}
             {index < chartData.length - 1 && " |"}
           </span>
         ))}
